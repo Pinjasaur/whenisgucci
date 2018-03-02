@@ -1,0 +1,18 @@
+{
+  "name": "whenisgucci",
+  "version": "0.1.0",
+  "description": "WhenIsGucci primary app.",
+  "main": "app.js",
+  "repository": "https://github.com/Pinjasaur/whenisgucci.git",
+  "author": "CS3141 Bytes Please Team",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2"
+  }
+}
