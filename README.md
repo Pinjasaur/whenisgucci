@@ -6,6 +6,8 @@ For CS3141 (Team Software Project) Spring 2018.
 
 ## Setup
 
+### Local Development
+
 Install:
 
 - [Node.js][nodejs] 8.x (check version with `node -v`)
