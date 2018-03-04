@@ -1,5 +1,6 @@
 // NPM modules
 const express      = require("express");
+const nunjucks     = require("nunjucks");
 const bodyParser   = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -11,6 +12,13 @@ const index = require("./routes/index");
 
 // Variables
 const app = express();
+
+nunjucks.configure("views", {
+  autoescape: true,
+  express: app
+});
+
+app.set("view engine", "njk");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,7 +33,7 @@ app.use(index);
 app.use((req, res, next) => {
   res
     .status(404)
-    .sendFile(path.join(__dirname, "views", "404.html"));
+    .render("404");
 });
 
 // Serve on :8080
