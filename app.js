@@ -23,11 +23,13 @@ db.on("open",  console.log.bind(console, "MongoDB connected."));
 
 // Variables
 const app = express();
+const isProduction = (process.env.NODE_ENV === "production") ? true : false;
 
 // Configure Express to use Nunjucks for templating
 nunjucks.configure("views", {
   autoescape: true,
-  express: app
+  express: app,
+  noCache: !isProduction
 });
 
 // Nunjucks uses .njk extensions
