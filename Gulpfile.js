@@ -41,7 +41,7 @@ const gulp    = require("gulp"),
 // Build the Sass
 gulp.task("build:sass", () => {
   return gulp
-  .src("src/sass/*.scss")
+  .src("assets/sass/*.scss")
   .pipe(plugins.plumber())
   .pipe(plugins.if(!production, plugins.sourcemaps.init()))
   .pipe(plugins.sass.sync(config.sass))
@@ -55,7 +55,7 @@ gulp.task("build:sass", () => {
 // Build the JS
 gulp.task("build:js", () => {
   return gulp
-  .src("src/js/*.js")
+  .src("assets/js/*.js")
   .pipe(plugins.if(production, plugins.uglify()))
   .pipe(gulp.dest("public/js"));
 });
@@ -68,7 +68,7 @@ gulp.task("watch:js", ["build:js"], () => {
 // Build images
 gulp.task("build:img", () => {
   return gulp
-  .src("src/img/**/*.+(jpg|jpeg|gif|png|svg)")
+  .src("assets/img/**/*.+(jpg|jpeg|gif|png|svg)")
   .pipe(plugins.imagemin(config.imagemin))
   .pipe(gulp.dest("public/img"));
 });
@@ -103,11 +103,11 @@ gulp.task("nodemon", done => {
 
 // Serve content and watch for changes
 gulp.task("serve", ["server"], () => {
-  gulp.watch("src/sass/**/*.scss", ["build:sass"]);
-  gulp.watch("src/js/**",          ["watch:js"]);
-  gulp.watch("src/img/**",         ["watch:img"]);
-  gulp.watch("views/**",           server.reload);
-  gulp.watch("{,routes/}*.js",     server.reload);
+  gulp.watch("assets/sass/**/*.scss", ["build:sass"]);
+  gulp.watch("assets/js/**",          ["watch:js"]);
+  gulp.watch("assets/img/**",         ["watch:img"]);
+  gulp.watch("views/**",              server.reload);
+  gulp.watch("{,routes/}*.js",        server.reload);
 });
 
 // Delete built files/directories
