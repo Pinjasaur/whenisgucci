@@ -1,0 +1,10 @@
+.holo-input{
+  text-align: center;
+  font-size: 4em;
+  background: transparent;
+  border: none;
+  outline: none;
+  &:hover, &:focus{
+    box-shadow: 0 1px 0 #000;
+  }
+}

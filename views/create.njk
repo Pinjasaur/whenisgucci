@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>whenisgucci</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
-    <section class="hero is-success is-fullheight">
+    <section class="is-success">
       <!-- Title section -->
       <section class="section">
         <div class="container is-fluid">
@@ -17,11 +19,11 @@
             When Is Gucci
           </h1>
           <p class="subtitle">
-            Get your schedule on
+            Kill more babies
           </p>
         </div>
       </section>
-      <nav class="navbar">
+      <nav class="navbar is-light">
         <div class="container">
           <div class="navbar-brand">
             <span class="navbar-burger burger" data-target="navbarMenuHeroA">
@@ -38,9 +40,22 @@
               <a class="navbar-item">
                 To
               </a>
-              <a class="navbar-item">
-                View
-              </a>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  View
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item">
+                    30 min
+                  </a>
+                  <a class="navbar-item">
+                    60 min
+                  </a>
+                  <a class="navbar-item">
+                    1 day
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="navbar-end">
               <a class="navbar-item">
@@ -53,6 +68,17 @@
       <div class="hero-body">
         <!-- Main calendar section -->
         <section class="section">
+          <div class="columns">
+            <div class="column"></div>
+            <div class="column">
+              <label class="label">Enter:</label>
+              <div class="control">
+                <input class="holo-input" type="text" placeholder="Event Name"></input>
+              </div>
+              <p class="help">This is the title of your event</p>
+              </div>
+              <div class="column"></div>
+            </div>
         </section>
       </div>
     </section>
