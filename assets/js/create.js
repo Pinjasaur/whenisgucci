@@ -33,7 +33,6 @@ document.getElementById("to-date").onclick = function func(){
   document.getElementById("to-datepicker").classList.toggle('fadeInLeft');
 }
 
-
 // **** NOTE ****
 // straight up stub code, bein a nub, but trying to get input
 // from the input to update the calendar; where I left off last
@@ -127,7 +126,7 @@ $(function() { // document ready
       right: 'agendaWeek,agendaDay'
     },
     selectable: true,
-    defaultDate: '2018-04-06',
+    defaultDate: '2018-03-18',
     defaultView: 'agendaWeek',
     minTime: "07:00:00",
     maxTime: "21:00:00",
@@ -136,13 +135,13 @@ $(function() { // document ready
     contentHeight:Function,
     eventLimit: true,
     select: function (start, end, jsEvent, view) {
-      $("#calendar").fullCalendar('addEventSource', [{
+      $('#calendar').fullCalendar('addEventSource', [{
         start: start,
         end: end,
         rendering: 'background',
         block: true,
       }, ]);
-      $("#calendar").fullCalendar("unselect");
+      $('#calendar').fullCalendar("unselect");
     },
     selectOverlap: function(event) {
     calendar.fullCalendar('unselect');
