@@ -113,4 +113,41 @@ $(document ).ready(function() { // document ready
     });
 });
 
+document.getElementById("to-date").onclick = function func(){
+  document.getElementById("to-datepicker").classList.toggle('nav-datepicker');
+  document.getElementById("to-datepicker").classList.toggle('fadeInLeft');
+}
 
+$(function() { // document ready
+  var calendar = $('#calendar');
+   calendar.fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'agendaWeek,agendaDay'
+    },
+    selectable: true,
+    defaultDate: '2018-04-06',
+    defaultView: 'agendaWeek',
+    minTime: "07:00:00",
+    maxTime: "21:00:00",
+    allDaySlot: false,
+    editable: true,
+    contentHeight:Function,
+    eventLimit: true,
+    select: function (start, end, jsEvent, view) {
+      $("#calendar").fullCalendar('addEventSource', [{
+        start: start,
+        end: end,
+        rendering: 'background',
+        block: true,
+      }, ]);
+      $("#calendar").fullCalendar("unselect");
+    },
+    selectOverlap: function(event) {
+    calendar.fullCalendar('unselect');
+    return ! event.block;
+    }
+  });
+
+});
