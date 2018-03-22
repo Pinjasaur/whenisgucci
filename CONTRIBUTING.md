@@ -2,7 +2,7 @@
 
 ## General
 
-- As detailed in the README, make sure your have [EditorConfig][editorconfig] installed for text editor/IDE.
+- As detailed in the [README](/README.md), make sure your have [EditorConfig][editorconfig] installed for text editor/IDE.
 
 ## Branching Strategy
 
@@ -13,17 +13,24 @@
 
 1. Make sure your copy of `dev` is up to date.
 2. Branch off of `dev` into your new feature branch:
-  - `git checkout -b feat/<my-feature-name>`
+    - `git checkout -b feat/<my-feature-name>`
 3. Make commits to your new branch. Follow the [Git Guidelines](#git-guidelines).
-4. Make a PR to merge back into `dev` when ready.
-5. Once merged into `dev` and verified to be stable, `dev` will be merged with `master`.
+4. When ready, rebase with `dev`:
+    1. `git fetch origin`
+    2. `git rebase origin/dev` (fix merge conflicts if necessary)
+        1. Fix the conflicts
+        2. `git add -A`
+        3. `git rebase --continue`
+    3. `git push origin <branch> -f` (`-f` required since history was re-written)
+5. Make a pull request to into `dev`.
+6. Once merged into `dev` and verified to be stable, `dev` will be merged with `master`.
 
 ## Git Guidelines
 
 - Keep commit titles <= 50 characters (verbose and to-the-point).
 - Use imperative mood ("implement" instead of "implementing").
-- Omit periods in your title.
-- If necessary, reference an issue number (e.g. #1).
+- Omit periods in your commit title.
+- If necessary, reference an issue/PR number (e.g. #1).
 - If necessary, include extra information in the commit body.
 
 [editorconfig]: http://editorconfig.org/#download
