@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>whenisgucci</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <section class="is-success">
+      <!-- Title section -->
+      <section class="section">
+        <div class="container is-fluid">
+          <h1 class="title">
+            When Is Gucci
+          </h1>
+          <p class="subtitle">
+            Get your schedule on
+          </p>
+        </div>
+      </section>
+      <nav class="navbar is-light">
+        <div class="container">
+          <div class="navbar-brand">
+            <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navbarMenuHeroA" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item" id="from-date">
+                From
+              </a>
+              <input type="date" class="animated nav-datepicker" id="from-datepicker">
+              <a class="navbar-item" id="to-date">
+                To
+              </a>
+              <input type="date" class="animated nav-datepicker" id="to-datepicker">
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  View
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item">
+                    30 min
+                  </a>
+                  <a class="navbar-item">
+                    60 min
+                  </a>
+                  <a class="navbar-item">
+                    1 day
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="navbar-end">
+              <a class="navbar-item">
+                Create & Send
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="hero-body">
+        <!-- Main calendar section -->
+        <section class="section">
+          <div class="columns">
+            <div class="column"></div>
+            <div class="column">
+              <label class="label">Enter:</label>
+              <div class="control">
+                <input class="holo-input" type="text" placeholder="Event Name"></input>
+              </div>
+              <p class="help">This is the title of your event</p>
+              </div>
+              <div class="column"></div>
+            </div>
+        <div id="calendar"></div>
+        </section>
+      </div>
+    </section>
+    <script src="/js/create.js"></script>
+  </body>
+</html>
