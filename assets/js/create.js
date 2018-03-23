@@ -37,6 +37,7 @@ document.getElementById("to-date").onclick = function func(){
 // **** NOTE ****
 // straight up stub code, bein a nub, but trying to get input
 // from the input to update the calendar; where I left off last
+
 // function setUpCalendar(startInput, endInput){
 //   var calendar = $('#calendar');
 //   calendar.fullCalendar({
