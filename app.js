@@ -19,11 +19,6 @@ autoInc.initialize(db);
 db.on("error", () => console.error("MongoDB connection error:"));
 db.on("open", () => console.log("MongoDB connected."));
 
-// Routes
-const index = require("./routes/index");
-const test  = require("./routes/test");
-const create = require("./routes/create");
-
 // Variables
 const app = express();
 const isProduction = (process.env.NODE_ENV === "production") ? true : false;
@@ -44,10 +39,13 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// Routes
-app.use(index);
-app.use(test);
-app.use(create);
+// Routes (Pages)
+app.use(require("./routes/index"));
+app.use(require("./routes/test"));
+app.use(require("./routes/create"));
+
+// Routes (API Endpoints)
+app.use(require("./routes/api/event/create"));
 
 // Handles 404s
 app.use((req, res, next) => {
