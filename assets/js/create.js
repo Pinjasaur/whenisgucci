@@ -33,6 +33,19 @@ document.getElementById("to-date").onclick = function func(){
   document.getElementById("to-datepicker").classList.toggle('fadeInLeft');
 }
 
+$('#create-send-button').click( function func(){
+  $('#create-send-modal').addClass('is-active');
+  console.log("fuck");
+});
+
+$('#close-modal').click(function func(){
+  $('#create-send-modal').removeClass('is-active');
+});
+
+$('#cancel-modal').click(function func(){
+  $('#create-send-modal').removeClass('is-active');
+});
+
 $(document ).ready(function() { // document ready
   var calendar = $('#calendar');
     calendar.fullCalendar({

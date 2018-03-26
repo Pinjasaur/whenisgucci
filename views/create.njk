@@ -52,7 +52,7 @@
                 To
               </a>
               <input type="date" class="animated nav-datepicker" id="to-datepicker">
-              <div class="navbar-item has-dropdown is-hoverable">
+     <!--          <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                   View
                 </a>
@@ -67,16 +67,40 @@
                     1 day
                   </a>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="navbar-end">
-              <a class="navbar-item">
+              <a class="navbar-item" id="create-send-button">
                 Create & Send
               </a>
             </div>
           </div>
         </div>
       </nav>
+      <div class="modal" id="create-send-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Create & Send</p>
+            <button class="delete" id="close-modal" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="content">
+              <h1>Event Summary</h1>
+              <h1>Enter Your Email</h1>
+              <p>We'll need your email to create an event, make sure you can edit events, gather repsonses from your invitees, and validate event ownership</p>
+              <input id="creator-email" type="email"></input>
+              <h1>Enter Your Receiver's Email</h1>
+              <p>These will be all the lovely people that you want to see what times work for! Keep in mind your guests will still have to respond before you can call your event good!</p>
+              <input id="invited-to-email" type="email" multiple="true"></input>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button" id="cancel-modal">Cancel</button>
+          </footer>
+        </div>
+      </div>
       <div class="hero-body">
         <!-- Main calendar section -->
         <section class="section">
