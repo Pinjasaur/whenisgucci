@@ -52,12 +52,12 @@ $(document ).ready(function() { // document ready
   var calendar = $('#calendar');
     calendar.fullCalendar({
       header: {
-        left: 'prev,next today',
+        left: '',
         center: 'title',
         right: 'agendaWeek,agendaDay'
       },
       selectable: true,
-      defaultDate: '2018-03-18',
+      defaultDate: moment(),
       defaultView: 'agendaWeek',
       minTime: "07:00:00",
       maxTime: "21:00:00",
@@ -79,11 +79,11 @@ $(document ).ready(function() { // document ready
       return ! event.block;
       },
       eventRender: function(event, element) {
-                  element.append( "<span class='unselect-event'></span>" );
-                  element.find(".unselect-event").click(function() {
-                     $('#calendar').fullCalendar('removeEvents',event._id);
-                  });
-              }
+        element.append( "<span class='unselect-event'></span>" );
+        element.find(".unselect-event").click(function() {
+           $('#calendar').fullCalendar('removeEvents',event._id);
+        });
+      }
     });
 });
 
