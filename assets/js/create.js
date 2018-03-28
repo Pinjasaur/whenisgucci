@@ -1,3 +1,4 @@
+// to create the hamburger when viewport is some size
 document.addEventListener('DOMContentLoaded', function () {
 
   // Get all "navbar-burger" elements
@@ -35,7 +36,6 @@ document.getElementById("to-date").onclick = function func(){
 
 $('#create-send-button').click( function func(){
   $('#create-send-modal').addClass('is-active');
-  console.log("fuck");
 });
 
 $('#close-modal').click(function func(){
