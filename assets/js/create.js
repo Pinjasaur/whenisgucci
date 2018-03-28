@@ -46,6 +46,8 @@ $('#cancel-modal').click(function func(){
   $('#create-send-modal').removeClass('is-active');
 });
 
+
+
 $(document ).ready(function() { // document ready
   var calendar = $('#calendar');
     calendar.fullCalendar({
@@ -75,7 +77,13 @@ $(document ).ready(function() { // document ready
       selectOverlap: function(event) {
       calendar.fullCalendar('unselect');
       return ! event.block;
-      }
+      },
+      eventRender: function(event, element) {
+                  element.append( "<span class='unselect-event'></span>" );
+                  element.find(".unselect-event").click(function() {
+                     $('#calendar').fullCalendar('removeEvents',event._id);
+                  });
+              }
     });
 });
 
