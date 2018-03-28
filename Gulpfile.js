@@ -91,12 +91,18 @@ gulp.task("nodemon", done => {
   let started = false;
 
   return plugins.nodemon({
-    script: "app.js"
+    script: "app.js",
+    ignore: [
+      "node_modules/",
+      "assets/",
+      "public/"
+    ]
   }).on("start", () => {
     // Avoid nodemon being started multiple times
     if (!started) {
-      done();
       started = true;
+      // 1s should enough time for Express to be gucci
+      setTimeout(done, 1000);
     }
   });
 });
