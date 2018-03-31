@@ -55,7 +55,7 @@ gulp.task("build:sass", () => {
 // Build the JS
 gulp.task("build:js", () => {
   return gulp
-  .src("assets/js/*.js")
+  .src("assets/js/**/*.js")
   .pipe(plugins.if(production, plugins.uglify()))
   .pipe(gulp.dest("public/js"));
 });
