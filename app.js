@@ -23,6 +23,7 @@ db.on("open", () => console.log("MongoDB connected."));
 const index = require("./routes/index");
 const test  = require("./routes/test");
 const create = require("./routes/create");
+const results = require("./routes/event/results");
 
 // Variables
 const app = express();
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(index);
 app.use(test);
 app.use(create);
+app.use(results);
 
 // Handles 404s
 app.use((req, res, next) => {
