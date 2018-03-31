@@ -13,7 +13,7 @@ const eventSchema = new Schema({
   },
   endDate: {
     type: Date,
-    default: (Date.startDate + 7*24*60*60*1000)
+    required: [true, 'End date is required.']
   },
   granularity: {
     type: Number,
