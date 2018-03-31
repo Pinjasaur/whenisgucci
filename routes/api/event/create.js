@@ -4,20 +4,27 @@ const router  = express.Router();
 const Event   = require("../../../models/event");
 const Creator = require("../../../models/creator");
 
-router.post("/api/event/create", async (req, res, next) => {
+const asyncMiddleware = require("../../../middlewares/async");
+
+const { TestError } = require("../../../utils/errors");
+
+router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
+
+  const resp = {
+    status: true,
+    messages: [],
+    result: {}
+  };
 
   const email = req.body.createdBy;
 
+  let creator = null;
   // Check for Creator
-  let creatorID = null;
-  const creator = await Creator.findOne({ email: email });
+  creator = await Creator.findOne({ email: email }).exec();
 
-  // If exists, get ID.
-  if (creator) {
-    creatorID = creator.id;
-  // Otherwise, create.
-  } else {
-    await new Creator({
+  // If no creator, make a new one
+  if (!creator) {
+    creator = await new Creator({
       email: email
     }).save();
   }
@@ -25,7 +32,7 @@ router.post("/api/event/create", async (req, res, next) => {
   // Create the Event
   const event = await new Event({
     title: req.body.title,
-    createdBy: creatorID,
+    createdBy: creator.id,
     granularity: req.body.granularity || 30
   }).save();
 
@@ -33,7 +40,9 @@ router.post("/api/event/create", async (req, res, next) => {
   creator.events.push(event.id);
   await creator.save();
 
-  res.send(200);
-});
+  res
+    .status(201)
+    .send(resp);
+}));
 
 module.exports = router;

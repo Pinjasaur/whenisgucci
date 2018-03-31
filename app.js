@@ -54,5 +54,16 @@ app.use((req, res, next) => {
     .render("404");
 });
 
+// Handles Errors
+app.use((err, req, res, next) => {
+  res
+    .status(err.status || 500)
+    .send({
+      status: false,
+      messages: [ `${err.name}: ${err.message}` ],
+      result: {}
+    });
+});
+
 // Serve on :8080
 app.listen(8080);
