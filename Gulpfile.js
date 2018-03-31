@@ -102,7 +102,7 @@ gulp.task("nodemon", done => {
     if (!started) {
       started = true;
       // 1s should enough time for Express to be gucci
-      setTimeout(done, 1000);
+      setTimeout(done, 2000);
     }
   });
 });
