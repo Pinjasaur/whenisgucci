@@ -8,6 +8,7 @@ const asyncMiddleware = require("../../../middlewares/async");
 
 const { TestError } = require("../../../utils/errors");
 
+// Create (POST) an event
 router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
 
   const resp = {
