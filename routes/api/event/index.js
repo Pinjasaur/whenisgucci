@@ -8,14 +8,16 @@ const hashids = new Hashids(process.env.HASHIDS_EVENT_SALT, process.env.HASHIDS_
 const Event = require("../../../models/event");
 const Response = require("../../../models/response");
 
-const { TestError } = require("../../../utils/errors");
+const { RequestError } = require("../../../utils/errors");
 
-// Create (POST) an event
+// Get (GET) an event + responses
 router.get("/api/event/:id", asyncMiddleware(async (req, res, next) => {
 
   const id = hashids.decode(req.params.id)[0];
 
-  console.log(id);
+  // Verify ID was decoded
+  if (!id)
+    throw new RequestError("Event ID invalid");
 
   const resp = {
     status: true,
@@ -23,9 +25,31 @@ router.get("/api/event/:id", asyncMiddleware(async (req, res, next) => {
     result: {}
   };
 
-  const event = await Event.findOne({ _id: id }).exec();
+  let event = await Event.findOne({ _id: id }).exec();
 
-  const responses = await Event.find({ eventID: id }).exec();
+  // Verify there was an Event found
+  if (!event)
+    throw new RequestError("No event found", 404);
+
+  // Grab only the necessary properties
+  event = {
+    title: event.title,
+    startDate: event.startDate,
+    endDate: event.endDate,
+    granularity: event.granularity,
+    timesSelected: event.timesSelected
+  };
+
+  let responses = await Event.find({ eventID: id }).exec();
+
+  // Grab only the necessary properties
+  responses = responses.map(r => {
+    return {
+      name: r.name,
+      email: r.email,
+      timesSelected: r.timesSelected
+    }
+  });
 
   resp.result = { event, responses };
 
