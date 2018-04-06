@@ -17,7 +17,7 @@ const eventSchema = new Schema({
   },
   granularity: {
     type: Number,
-    default: 30,
+    default: 30
   },
   createdBy: {
     type: Number,
