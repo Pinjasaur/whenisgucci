@@ -58,55 +58,17 @@ $(document ).ready(function() { // document ready
       });
     }
 
-  document.getElementById("from-date").onclick = function func(){
-    document.getElementById("from-datepicker").classList.toggle('nav-datepicker');
-    document.getElementById("from-datepicker").classList.toggle('fadeInLeft');
-  }
-
-  document.getElementById("to-date").onclick = function func(){
-    document.getElementById("to-datepicker").classList.toggle('nav-datepicker');
-    document.getElementById("to-datepicker").classList.toggle('fadeInLeft');
-  }
-
-  $('#create-send-button').click( function func(){
-    $('#create-send-modal').addClass('is-active');
+  $('#event-link-button').click( function func(){
+    $('#event-link-modal').addClass('is-active');
   });
 
   $('#close-modal').click(function func(){
-    $('#create-send-modal').removeClass('is-active');
+    $('#event-link-modal').removeClass('is-active');
   });
 
   $('#cancel-modal').click(function func(){
-    $('#create-send-modal').removeClass('is-active');
+    $('#event-link-modal').removeClass('is-active');
   });
-
-  // $('#from-datepicker').on('change', function func() {
-
-  //   var currentDate = moment($('#from-datepicker').val());
-  //   console.log("This is your current date from 'from': ", currentDate);
-
-  //   // $('#calendar').fullCalendar('changeView', 'agendaWeek', {
-  //   //   start: currentDate,
-  //   //   end: currentDate.clone().add(7, 'days')
-  //   // });
-
-  //   $('#calendar').fullCalendar('destroy');
-  //   calendarConfig.visibleRange ={
-  //         start: currentDate,
-  //         end: currentDate.clone().add(7, 'days') // exclusive end, so 3
-  //       };
-
-
-  //   calendar.fullCalendar(calendarConfig);
-  //   $('#calendar').fullCalendar('render');
-  //   console.log($('#calendar').fullCalendar('getCalendar'));
-  //   console.log(calendarConfig);
-  // });
-
-  // $('#to-datepicker').on('change', function func() {
-  //   $('#calendar').fullCalendar('destroy');
-  //   $('#calendar').fullCalendar('render');
-  // });
 
   var calendar = $('#calendar');
   calendar.fullCalendar(calendarConfig);
