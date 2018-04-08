@@ -13,12 +13,12 @@ const responseSchema = new Schema({
   },
   email: {
     type: String,
+    lowercase: true,
     required: [true, 'Responder email required.']
   },
-  // Does a name need to be required? Default to email?
   name: {
     type: String,
-    default: this.email
+    required: [true, 'Responder name required.']
   }
 });
 

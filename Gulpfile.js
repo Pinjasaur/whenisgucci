@@ -95,7 +95,8 @@ gulp.task("nodemon", done => {
     ignore: [
       "node_modules/",
       "assets/",
-      "public/"
+      "public/",
+      "utils/"
     ]
   }).on("start", () => {
     // Avoid nodemon being started multiple times

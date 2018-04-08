@@ -5,19 +5,22 @@ const autoInc  = require("mongoose-auto-increment");
 const creatorSchema = new Schema({
   email: {
     type: String,
+    lowercase: true,
     required: [true, 'Creator\'s  email required.']
   },
   events: {
     type: [ Number ],
     required: [true, 'Creator must have events.']
   },
+  authenticated: {
+    type: Boolean,
+    default: false
+  },
   token: {
-    type: String,
-    required: [true, 'Creator has no token.']
+    type: String
   },
   expires: {
-    type: Date,
-    required: [true, 'Token expiration date required.']
+    type: Date
   }
 });
 

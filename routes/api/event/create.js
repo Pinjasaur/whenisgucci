@@ -8,6 +8,7 @@ const asyncMiddleware = require("../../../middlewares/async");
 
 const { TestError } = require("../../../utils/errors");
 
+// Create (POST) an event
 router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
 
   const resp = {
@@ -33,7 +34,9 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
   const event = await new Event({
     title: req.body.title,
     createdBy: creator.id,
-    granularity: req.body.granularity || 30
+    granularity: req.body.granularity || 30,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate
   }).save();
 
   // Update the Creator with the Event ID

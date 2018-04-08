@@ -41,11 +41,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes (Pages)
 app.use(require("./routes/index"));
-app.use(require("./routes/test"));
+// app.use(require("./routes/test"));
 app.use(require("./routes/create"));
 
 // Routes (API Endpoints)
 app.use(require("./routes/api/event/create"));
+app.use(require("./routes/api/event/index"));
 
 // Handles 404s
 app.use((req, res, next) => {
