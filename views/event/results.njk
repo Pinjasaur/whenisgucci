@@ -67,16 +67,19 @@
           <div class="columns">
             <div class="column"></div>
             <div class="column">
-              <div class="control">
-                <input class="holo-input" type="text" placeholder="Event Name"></input>
-              </div>
-              <p class="help">This is the title of the event</p>
+                <h1 class="event-title">{{event.title}}</h1>
               </div>
               <div class="column"></div>
             </div>
         <div id="calendar"></div>
         </section>
       </div>
+    <script>
+      __GLOBALS__ = {
+        event: {{event|dump|safe}},
+        responses: {{responses|dump|safe}}
+      };
+    </script>
     <script src="/js/event/results.js"></script>
   </body>
 </html>

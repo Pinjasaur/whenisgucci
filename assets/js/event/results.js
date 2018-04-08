@@ -1,20 +1,31 @@
 $(document ).ready(function() { // document ready
+  var event = __GLOBALS__.event;
+  var responses = __GLOBALS__.responses;
+
+  console.log(event);
+  console.log(responses);
+
+  console.log(moment(event.startDate));
+
   var calendarConfig = {
     header: {
       left: '',
       center: 'title',
-      right: 'agendaWeek,agendaDay'
+      right: ''
     },
-    selectable: true,
-    defaultView: 'agendaWeek',
+    defaultView: 'agenda',
     minTime: "07:00:00",
     maxTime: "21:00:00",
     allDaySlot: false,
     editable: true,
     contentHeight:Function,
     eventLimit: true,
-    visibleRange: moment(),
+    visibleRange: {
+     start: moment(event.startDate),
+     end: moment(event.endDate).add(1, 'day')
+    },
   };
+
 
   // to create the hamburger when viewport is some size
     // Get all "navbar-burger" elements
