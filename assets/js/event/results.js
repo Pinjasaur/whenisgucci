@@ -1,39 +1,20 @@
 $(document ).ready(function() { // document ready
   var calendarConfig = {
-      header: {
-        left: '',
-        center: 'title',
-        right: 'agendaWeek,agendaDay'
-      },
-      selectable: true,
-      defaultView: 'agendaWeek',
-      minTime: "07:00:00",
-      maxTime: "21:00:00",
-      allDaySlot: false,
-      editable: true,
-      contentHeight:Function,
-      eventLimit: true,
-      visibleRange: moment(),
-      select: function (start, end, jsEvent, view) {
-        $('#calendar').fullCalendar('addEventSource', [{
-          start: start,
-          end: end,
-          rendering: 'background',
-          block: true,
-        }, ]);
-        $('#calendar').fullCalendar("unselect");
-      },
-      selectOverlap: function(event) {
-      calendar.fullCalendar('unselect');
-      return ! event.block;
-      },
-      eventRender: function(event, element) {
-        element.append( "<span class='unselect-event'></span>" );
-        element.find(".unselect-event").click(function() {
-           $('#calendar').fullCalendar('removeEvents',event._id);
-        });
-      }
-    };
+    header: {
+      left: '',
+      center: 'title',
+      right: 'agendaWeek,agendaDay'
+    },
+    selectable: true,
+    defaultView: 'agendaWeek',
+    minTime: "07:00:00",
+    maxTime: "21:00:00",
+    allDaySlot: false,
+    editable: true,
+    contentHeight:Function,
+    eventLimit: true,
+    visibleRange: moment(),
+  };
 
   // to create the hamburger when viewport is some size
     // Get all "navbar-burger" elements
