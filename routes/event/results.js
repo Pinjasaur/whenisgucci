@@ -16,7 +16,7 @@ router.get("/event/:id/results", asyncMiddleware(async (req, res, next) => {
   const id = hashids.decode(req.params.id)[0];
 
   // Verify ID was decoded
-  if (!id)
+  if (id === undefined)
     throw new RequestError("Event ID invalid");
 
 
