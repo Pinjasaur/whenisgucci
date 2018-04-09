@@ -1,19 +1,26 @@
 $(document ).ready(function() { // document ready
+  $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
+  $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
+
+
   var calendarConfig = {
       header: {
-        left: '',
+        left: 'prev, next',
         center: 'title',
-        right: 'agendaWeek,agendaDay'
+        right: 'agendaDay'
       },
       selectable: true,
-      defaultView: 'agendaWeek',
+      defaultView: 'agenda',
       minTime: "07:00:00",
       maxTime: "21:00:00",
       allDaySlot: false,
       editable: true,
       contentHeight:Function,
       eventLimit: true,
-      visibleRange: moment(),
+      visibleRange: {
+        start: moment(),
+        end: moment().add(7, 'days')
+      },
       select: function (start, end, jsEvent, view) {
         $('#calendar').fullCalendar('addEventSource', [{
           start: start,
@@ -80,34 +87,47 @@ $(document ).ready(function() { // document ready
     $('#create-send-modal').removeClass('is-active');
   });
 
-  // $('#from-datepicker').on('change', function func() {
+$('#from-datepicker').on('change', function func() {
 
-  //   var currentDate = moment($('#from-datepicker').val());
-  //   console.log("This is your current date from 'from': ", currentDate);
+    var currentDate = moment($('#from-datepicker').val());
 
-  //   // $('#calendar').fullCalendar('changeView', 'agendaWeek', {
-  //   //   start: currentDate,
-  //   //   end: currentDate.clone().add(7, 'days')
-  //   // });
-
-  //   $('#calendar').fullCalendar('destroy');
-  //   calendarConfig.visibleRange ={
-  //         start: currentDate,
-  //         end: currentDate.clone().add(7, 'days') // exclusive end, so 3
-  //       };
+    $('#calendar').fullCalendar('destroy');
+    calendarConfig.visibleRange ={
+          start: currentDate,
+          end: currentDate.clone().add(7, 'days') // exclusive end, so 3
+        };
 
 
-  //   calendar.fullCalendar(calendarConfig);
-  //   $('#calendar').fullCalendar('render');
-  //   console.log($('#calendar').fullCalendar('getCalendar'));
-  //   console.log(calendarConfig);
-  // });
+    calendar.fullCalendar(calendarConfig);
+    $('#calendar').fullCalendar('render');
+    console.log(calendarConfig);
+  });
 
-  // $('#to-datepicker').on('change', function func() {
-  //   $('#calendar').fullCalendar('destroy');
-  //   $('#calendar').fullCalendar('render');
-  // });
+  $('#to-datepicker').on('change', function func() {
+    var startDate = moment($('#from-datepicker').val());
+
+    if (startDate == undefined){
+      startDate = moment();
+    }
+    console.log("This is your current date from 'from': ", startDate);
+
+    var endDate = moment($('#to-datepicker').val());
+
+
+    $('#calendar').fullCalendar('destroy');
+    calendarConfig.visibleRange ={
+          start: startDate,
+          end: endDate.add(1, 'day')
+        };
+
+
+    calendar.fullCalendar(calendarConfig);
+    $('#calendar').fullCalendar('render');
+    console.log(calendarConfig);
+  });
 
   var calendar = $('#calendar');
   calendar.fullCalendar(calendarConfig);
+  $('#from-datepicker').trigger('change');
+
 });
