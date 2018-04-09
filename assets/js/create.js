@@ -5,7 +5,7 @@ $(document ).ready(function() { // document ready
 
   var calendarConfig = {
       header: {
-        left: 'prev, next',
+        left: '',
         center: 'title',
         right: 'agendaDay'
       },
