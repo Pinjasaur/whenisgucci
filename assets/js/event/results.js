@@ -1,11 +1,15 @@
+
+function populateChart(inEvent, inResponses){
+  console.log(inEvent);
+  console.log(inResponses);
+
+}
+
 $(document ).ready(function() { // document ready
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
 
-  console.log(event);
-  console.log(responses);
-
-  console.log(moment(event.startDate));
+  populateChart(event, responses);
 
   var calendarConfig = {
     header: {
@@ -21,8 +25,8 @@ $(document ).ready(function() { // document ready
     contentHeight:Function,
     eventLimit: true,
     visibleRange: {
-     start: moment(event.startDate),
-     end: moment(event.endDate).add(1, 'day')
+     start: moment(event.startDate).format("YYYY-MM-DD"),
+     end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
     },
   };
 
