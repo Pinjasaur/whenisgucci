@@ -171,7 +171,14 @@ function createEvent(event){
 
   repEmails = $("#invited-to-email").val().split(',');
 
-  data = {startDate: view.start._d, endDate: view.end._d, events: validEvents, title:title, createdBy:creatorEmail,invitedTo:repEmails};
+  data = {
+    startDate: view.start._d,
+    endDate: view.end._d,
+    events: validEvents,
+    title: title,
+    createdBy: creatorEmail,
+    invitedTo: repEmails
+  };
 
   $.ajax({
     url:"/api/event/create",
