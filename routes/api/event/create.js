@@ -1,5 +1,11 @@
 const express = require("express");
 const router  = express.Router();
+const Hashids = require("hashids");
+const hashids = new Hashids(
+  process.env.HASHIDS_EVENT_SALT,
+  process.env.HASHIDS_EVENT_LENGTH,
+  process.env.HASHIDS_EVENT_ALPHABET
+);
 
 const Event   = require("../../../models/event");
 const Creator = require("../../../models/creator");
@@ -42,6 +48,13 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
   // Update the Creator with the Event ID
   creator.events.push(event.id);
   await creator.save();
+
+  // Respond with the event hashed ID
+  resp.result = {
+    event: {
+      id: hashids.encode(event.id)
+    }
+  };
 
   res
     .status(201)
