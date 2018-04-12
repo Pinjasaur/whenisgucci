@@ -28,7 +28,7 @@ const eventSchema = new Schema({
     required: [true, 'Invitees required.']
   },
   timesSelected: {
-    type: [ Date ],
+    type: [ { startDate: Date, endDate: Date } ],
     required: [true, 'Dates required.']
   }
 });

@@ -42,7 +42,9 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
     createdBy: creator.id,
     granularity: req.body.granularity || 30,
     startDate: req.body.startDate,
-    endDate: req.body.endDate
+    endDate: req.body.endDate,
+    invitedTo: (req.body.invitedTo || []).map(i => i.trim()),
+    timesSelected: req.body.events
   }).save();
 
   // Update the Creator with the Event ID
