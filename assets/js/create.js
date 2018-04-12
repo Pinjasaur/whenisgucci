@@ -18,8 +18,8 @@ $(document ).ready(function() { // document ready
       contentHeight:Function,
       eventLimit: true,
       visibleRange: {
-        start: moment(),
-        end: moment().add(7, 'days')
+        start: moment().format("YYYY-MM-DD"),
+        end: moment().add(7, 'days').format("YYYY-MM-DD")
       },
       select: function (start, end, jsEvent, view) {
         $('#calendar').fullCalendar('addEventSource', [{
@@ -128,6 +128,4 @@ $('#from-datepicker').on('change', function func() {
 
   var calendar = $('#calendar');
   calendar.fullCalendar(calendarConfig);
-  $('#from-datepicker').trigger('change');
-
 });
