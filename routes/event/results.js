@@ -3,8 +3,11 @@ const router = express.Router();
 const asyncMiddleware = require("../../middlewares/async");
 
 const Hashids = require("hashids");
-const hashids = new Hashids(process.env.HASHIDS_EVENT_SALT, process.env.HASHIDS_EVENT_LENGTH);
-
+const hashids = new Hashids(
+  process.env.HASHIDS_EVENT_SALT,
+  process.env.HASHIDS_EVENT_LENGTH,
+  process.env.HASHIDS_EVENT_ALPHABET
+);
 const Event = require("../../models/event");
 const Response = require("../../models/response");
 

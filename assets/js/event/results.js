@@ -1,15 +1,17 @@
 
-function populateChart(inEvent, inResponses){
+function populateChart(inEvent, inResponses, inCalendar){
   console.log(inEvent);
   console.log(inResponses);
 
+  inCalendar.fullCalendar({
+    events: inEvent.timesSelected
+  });
 }
 
 $(document ).ready(function() { // document ready
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
 
-  populateChart(event, responses);
 
   var calendarConfig = {
     header: {
@@ -68,4 +70,5 @@ $(document ).ready(function() { // document ready
 
   var calendar = $('#calendar');
   calendar.fullCalendar(calendarConfig);
+  populateChart(event, responses, calendar);
 });
