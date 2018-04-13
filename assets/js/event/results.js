@@ -3,15 +3,33 @@ function populateChart(inEvent, inResponses, inCalendar){
   console.log(inEvent);
   console.log(inResponses);
 
+  console.log("Times selected - Pop Chart: " , inEvent.timesSelected);
   inCalendar.fullCalendar({
+    header: {
+      left: '',
+      center: 'title',
+      right: ''
+    },
+    defaultView: 'agenda',
+    minTime: "07:00:00",
+    maxTime: "21:00:00",
+    allDaySlot: false,
+    editable: true,
+    eventLimit: true,
+    visibleRange: {
+     start: moment(inEvent.startDate).format("YYYY-MM-DD"),
+     end: moment(inEvent.endDate).add(1, 'day').format("YYYY-MM-DD")
+    },
     events: inEvent.timesSelected
   });
+
 }
 
 $(document ).ready(function() { // document ready
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
 
+  console.log("event - timesSelected: ", event.timesSelected);
 
   var calendarConfig = {
     header: {
@@ -24,12 +42,12 @@ $(document ).ready(function() { // document ready
     maxTime: "21:00:00",
     allDaySlot: false,
     editable: true,
-    contentHeight:Function,
     eventLimit: true,
     visibleRange: {
      start: moment(event.startDate).format("YYYY-MM-DD"),
      end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
     },
+    events: event.timesSelected
   };
 
 
@@ -69,6 +87,6 @@ $(document ).ready(function() { // document ready
   });
 
   var calendar = $('#calendar');
+  // populateChart(event, responses, calendar);
   calendar.fullCalendar(calendarConfig);
-  populateChart(event, responses, calendar);
 });

@@ -35,7 +35,12 @@ router.get("/event/:id/results", asyncMiddleware(async (req, res, next) => {
     startDate: event.startDate,
     endDate: event.endDate,
     granularity: event.granularity,
-    timesSelected: event.timesSelected
+    timesSelected: event.timesSelected.map(t => {
+      return {
+        start: t.startDate,
+        end: t.endDate
+      }
+    })
   };
 
   let responses = await Event.find({ eventID: id }).exec();
