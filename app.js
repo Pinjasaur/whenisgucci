@@ -41,6 +41,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes (Pages)
 app.use(require("./routes/index"));
+app.use(require("./routes/event/results"))
 // app.use(require("./routes/test"));
 app.use(require("./routes/create"));
 
