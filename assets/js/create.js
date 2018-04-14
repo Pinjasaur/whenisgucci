@@ -153,7 +153,7 @@ function createEvent(event){
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
-        validEvents[j] = {startDate:events[i].start._d,endDate:events[i].end._d};
+        validEvents[j] = {startDate:events[i].start.format(),endDate:events[i].end.format()};
         j++;
       }// end if
     }// end if
@@ -172,13 +172,16 @@ function createEvent(event){
   repEmails = $("#invited-to-email").val().split(',');
 
   var data = {
-    startDate: view.start._d,
-    endDate: view.end._d,
+    startDate: view.start.format(),
+    endDate: view.end.format(),
     events: validEvents,
     title: title,
     createdBy: creatorEmail,
     invitedTo: repEmails
   };
+
+  console.log(data);
+  return false;
 
   $.ajax({
     url:"/api/event/create",

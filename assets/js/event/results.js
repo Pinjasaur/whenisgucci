@@ -47,19 +47,19 @@ function overLapTimes(inEvent, responses, inCalendar){
   // console.log("OT - Responses: ", responses);
 
   // console.log("OT - Num of times: ", numTimes);
-  // console.log("OT - Response times: ", responseTimes)
+  console.log("OT - Response times: ", responseTimes)
 
   var workingTimes = [];
 
   var masterTimes = inEvent.timesSelected;
   var numMasterTimes = masterTimes.length;
 
-  // console.log("OT - Master Times selected: ", masterTimes);
+  console.log("OT - Master Times selected: ", masterTimes);
 
   for (var j = 0; j < numTimes; j++) {
     for (var k = 0; k < numMasterTimes; k++) {
       if( timeCompare(responseTimes[j], masterTimes[k]) ){
-        workingTimes.push(responseTimes[j]);
+        workingTimes.push(getClampedTime(masterTimes[k], responseTimes[j]));
       }
     }
   }
@@ -109,24 +109,35 @@ function timeCompare(masterTime, responseTime){
     return false;
   }
 
-  var clampedStart = clamp(rStart, mStart, mEnd);
-  var clampedEnd = clamp(rEnd, mStart, mEnd);
-
   return true;
 }
 
-function getClampedTime(responseTime){
+function getClampedTime(masterTime, responseTime){
+  // Master time; valueOf converts to millisecond
+  var mStart = moment(masterTime.start).valueOf();
+  var mEnd = moment(masterTime.end).valueOf();
+
   // Response time; valueOf converts to millisecond
   var rStart = moment(responseTime.start).valueOf();
   var rEnd = moment(responseTime.end).valueOf();
 
+  console.log("mStart: ", mStart);
+  console.log("mEnd: ", mEnd);
 
   var clampedStart = clamp(rStart, mStart, mEnd);
   var clampedEnd = clamp(rEnd, mStart, mEnd);
 
+  console.log("clampedStart: ", clampedStart);
+  console.log("clampedEnd: ", clampedEnd);
+
+  console.log({
+    start: moment(clampedStart).format(),
+    end: moment(clampedEnd).format()
+  });
+
   return {
-    start: moment(clampedStart),
-    end: moment(clampedEnd)
+    start: moment(clampedStart).format(),
+    end: moment(clampedEnd).format()
   }
 }
 
