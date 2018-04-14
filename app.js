@@ -6,7 +6,6 @@ const nunjucks     = require("nunjucks");
 const bodyParser   = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose     = require("mongoose");
-const autoInc      = require("mongoose-auto-increment");
 
 // Stdlib modules
 const path = require("path");
@@ -15,7 +14,6 @@ const path = require("path");
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
-autoInc.initialize(db);
 db.on("error", () => console.error("MongoDB connection error:"));
 db.on("open", () => console.log("MongoDB connected."));
 
