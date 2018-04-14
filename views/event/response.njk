@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>whenisgucci</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+      <!-- Title section -->
+      <section class="section">
+        <div class="container is-fluid">
+          <h1 class="title">
+            When Is Gucci
+          </h1>
+          <p class="subtitle">
+            Get your schedule on
+          </p>
+        </div>
+      </section>
+      <nav class="navbar is-light">
+        <div class="container">
+          <div class="navbar-brand">
+            <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navbarMenuHeroA" class="navbar-menu">
+            <div class="navbar-start"></div>
+            <div class="navbar-end">
+              <a class="navbar-item" id="event-link-button">
+                Copy Event Link
+              </a>
+            </div>
+        </div>
+      </nav>
+      <div class="modal" id="event-link-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Copy the event URL</p>
+            <button class="delete" id="close-modal" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="content">
+              <h3>Here is your event URL! Send it to all the peoples!</h3>
+              <input id="event-code" readonly="" value="gucci4.me/1234"></input>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <input type="button" class="button" id="cancel-modal" value="Close">
+          </footer>
+        </div>
+      </div>
+      <div class="hero-body">
+        <!-- Main calendar section -->
+        <section class="section">
+          <div class="columns">
+            <div class="column"></div>
+            <div class="column">
+                <h1 class="event-title">{{event.title}}</h1>
+              </div>
+              <div class="column"></div>
+            </div>
+        <div id="calendar"></div>
+        </section>
+      </div>
+    <script>
+      var __GLOBALS__ = {
+        event: {{event|dump|safe}},
+        responses: {{responses|dump|safe}}
+      };
+    </script>
+    <script src="/js/event/results.js"></script>
+  </body>
+</html>
