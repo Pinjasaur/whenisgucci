@@ -13,7 +13,7 @@ const Event = require("../../models/event");
 const { RequestError } = require("../../utils/errors");
 
 // Get (GET) an event + responses
-router.get("/event/:id/response", asyncMiddleware(async (req, res, next) => {
+router.get("/event/:id/respond", asyncMiddleware(async (req, res, next) => {
 
   const id = hashids.decode(req.params.id)[0];
 
@@ -42,7 +42,7 @@ router.get("/event/:id/response", asyncMiddleware(async (req, res, next) => {
     })
   };
 
-  res.render("event/response", {event});
+  res.render("event/respond", {event});
 
 }));
 
