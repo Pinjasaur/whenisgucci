@@ -2,6 +2,12 @@ $(function() { // document ready
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
 
+  navBurgerify();
+  modalVisibility();
+
+  var workingTimes = overLapTimes(event, responses, calendar);
+
+  var calendar = $('#calendar');
   var calendarConfig = {
     header: {
       left: '',
@@ -17,21 +23,14 @@ $(function() { // document ready
      start: moment(event.startDate).add(1, 'day').format("YYYY-MM-DD"),
      end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
     },
-    events: event.timesSelected
+    events: workingTimes
   };
-
-  navBurgerify();
-  modalVisibility();
-
-  var calendar = $('#calendar');
-
-  overLapTimes(event, responses, calendar);
 
   calendar.fullCalendar(calendarConfig);
 });
 
 function overLapTimes(inEvent, responses, inCalendar){
-  console.log("OT - Events: ", inEvent);
+  // console.log("OT - Events: ", inEvent);
 
   var numResponse = responses.length;
   var responseTimes = [];
@@ -44,18 +43,18 @@ function overLapTimes(inEvent, responses, inCalendar){
 
   var numTimes = responseTimes.length;
 
-  console.log("OT - Num of responses: ", numResponse);
-  console.log("OT - Responses: ", responses);
+  // console.log("OT - Num of responses: ", numResponse);
+  // console.log("OT - Responses: ", responses);
 
-  console.log("OT - Num of times: ", numTimes);
-  console.log("OT - Response times: ", responseTimes)
+  // console.log("OT - Num of times: ", numTimes);
+  // console.log("OT - Response times: ", responseTimes)
 
   var workingTimes = [];
 
   var masterTimes = inEvent.timesSelected;
   var numMasterTimes = masterTimes.length;
 
-  console.log("OT - Master Times selected: ", masterTimes);
+  // console.log("OT - Master Times selected: ", masterTimes);
 
   for (var j = 0; j < numTimes; j++) {
     for (var k = 0; k < numMasterTimes; k++) {
@@ -66,11 +65,13 @@ function overLapTimes(inEvent, responses, inCalendar){
   }
 
   if(!workingTimes.length){
-    console.log("OT - There weren't any times that worked, calling findAltTime");
+    // console.log("OT - There weren't any times that worked, calling findAltTime");
     findAltTime(responses);
   }
 
-  console.log("OT - Working times: ", workingTimes);
+  // console.log("OT - Working times: ", workingTimes);
+
+  return workingTimes;
 
 }
 
