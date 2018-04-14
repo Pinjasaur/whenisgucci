@@ -20,7 +20,7 @@ $(function() { // document ready
      start: moment(event.startDate).add(1, 'day').format("YYYY-MM-DD"),
      end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
     },
-    events: event.timesSelected,
+    // events: event.timesSelected,
     select: function (start, end, jsEvent, view) {
       $('#calendar').fullCalendar('addEventSource', [{
         start: start,
@@ -88,6 +88,8 @@ function createResponse(){
     email: respondEmail,
     name: respondName
   };
+
+  console.log("This is in the ajax: ", data);
 
   $.ajax({
     url:"/api/event/respond",
