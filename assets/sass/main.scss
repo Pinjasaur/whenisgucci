@@ -12,3 +12,12 @@
   margin: 0px;
 
 }
+
+.textarea:not([rows]) {
+    max-height: 600px;
+    min-height: 75px;
+}
+
+.modal h1{
+  border-bottom: 1px solid black;
+}

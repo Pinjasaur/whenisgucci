@@ -88,17 +88,114 @@
           <section class="modal-card-body">
             <div class="content">
               <h1>Event Summary</h1>
-              <h1>Enter Your Email</h1>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <h4>Event Title:</h4>
+                  </div>
+                  <div class="column is-narrow" >
+                    <h5 class="title"></h5>
+                  </div>
+                  <div class="column"></div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <h4>View Start Date:</h4>
+                  </div>
+                  <div class="column is-narrow startDate"></div>
+                  <div class="column is-narrow">
+                    <h4>View End Date:</h4>
+                  </div>
+                  <div class="column is-narrow endDate"></div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow" style="height: 40px;">
+                    <h4>Times Selected:</h4>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow"><ol class="freeTimeStart"></ol></div>
+                </div>
+              <h1 style="margin-top:0px;">Enter Your Email</h1>
               <p>We'll need your email to create an event, make sure you can edit events, gather repsonses from your invitees, and validate event ownership</p>
-              <input id="creator-email" type="email" required="true"></input>
+              <input class="input" id="creator-email" type="email" required="true"></input>
               <h1>Enter Your Receiver's Email</h1>
               <p>These will be all the lovely people that you want to see what times work for! Keep in mind your guests will still have to respond before you can call your event good!</p>
-              <input id="invited-to-email" type="email" multiple="true"></input>
-            </div>
+              <input class="input" id="invited-to-email" type="email" multiple="true"></input>
           </section>
           <footer class="modal-card-foot">
             <input type="submit" class="button is-success" value="Save changes">
             <input type="button" class="button" id="cancel-modal" value="Cancel">
+          </footer>
+        </div>
+        </form>
+      </div>
+      <div class="modal" id="save-success-modal">
+        <form id="modal-form">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Your Event Has Been Created!</p>
+            <button type="button" class="button is-link" id="newEvent">New Event</button>
+          </header>
+          <section class="modal-card-body">
+            <div class="content">
+              <div class="columns">
+                <div class="column">
+                  <h4>View Event Results: </h4>
+                  <a id="eventLink"></a>
+                </div>
+                <div class="column">
+                  <h4>Link to share:</h4>
+                  <a id="sendLink"></a>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-narrow">
+                  <h4>Your Email: </h4>
+                  <p id="creator"></p>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-narrow">
+                  <h4>People The Event Was Sent To: </h4>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column">
+                  <textarea class="textarea sentTo" type="text" readonly></textarea>
+                </div>
+              </div>
+              <h1 style="margin-top:0px;">Event Created Summary</h1>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <h4>Event Title:</h4>
+                  </div>
+                  <div class="column is-narrow" >
+                    <h5 class="title"></h5>
+                  </div>
+                  <div class="column"></div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <h4>View Start Date:</h4>
+                  </div>
+                  <div class="column is-narrow startDate"></div>
+                  <div class="column is-narrow">
+                    <h4>View End Date:</h4>
+                  </div>
+                  <div class="column is-narrow endDate"></div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow" style="height:40px;">
+                    <h4>Times Selected</h4>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow"><ol class="freeTimeStart"></ol></div>
+                </div>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
           </footer>
         </div>
         </form>

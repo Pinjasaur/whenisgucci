@@ -1,3 +1,10 @@
+var events = [];
+var title="";
+var fromDate = "";
+var toDate = "";
+var freeStart = "";
+var eventNum = "";
+
 $(document ).ready(function() { // document ready
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
@@ -76,6 +83,58 @@ $(document ).ready(function() { // document ready
     }
 
     $('#create-send-button').click( function func(){
+      events = $('#calendar').fullCalendar('clientEvents')
+      title = $('#event-title').val();
+      fromDate = $("#from-datepicker").val();
+      toDate = $("#to-datepicker").val();
+      freeStart = "";
+      eventNum = "";
+
+      $(".title").html(title);
+
+      fromDate = new Date(fromDate);
+      mon = ("0"+(fromDate.getMonth()+1)).slice(-2);
+      day = ("0" + fromDate.getDate()).slice(-2);
+      year = fromDate.getFullYear();
+      hours = ("0" + fromDate.getHours()).slice(-2);
+      min = ("0" + fromDate.getMinutes()).slice(-2);
+      fromDate = mon +"/"+ day +"/"+ year;
+      $(".startDate").html(fromDate);
+
+      toDate = new Date(toDate);
+      mon = ("0"+(toDate.getMonth()+1)).slice(-2);
+      day = ("0" + toDate.getDate()).slice(-2);
+      year = toDate.getFullYear();
+      hours = ("0" + toDate.getHours()).slice(-2);
+      min = ("0" + toDate.getMinutes()).slice(-2);
+      toDate = mon +"/"+ day +"/"+ year;
+      $(".endDate").html(toDate);
+
+      for(i = (events.length - 1); i >= 0; i--){
+        date1 = events[i].start._d;
+        console.log(date1);
+        mon = ("0"+(date1.getMonth()+1)).slice(-2);
+        day = ("0" + date1.getDate()).slice(-2);
+        year = date1.getFullYear();
+        hours = ("0" + (date1.getHours() + 4)).slice(-2);
+        min = ("0" + date1.getMinutes()).slice(-2);
+        date2 = events[i].end._d;
+        console.log(date2);
+        mon2 = ("0"+(date2.getMonth()+1)).slice(-2);
+        day2 = ("0" + date2.getDate()).slice(-2);
+        year2 = date2.getFullYear();
+        hours2 = ("0" + (date2.getHours() + 4)).slice(-2);
+        min2 = ("0" + date2.getMinutes()).slice(-2);
+
+        freeStart =  "<li>" + mon +"/"+ day +"/"+ year + " "
+                     + hours + ":" + min + " to "
+                     + mon2 +"/"+ day2 +"/"+ year2 + " "
+                     + hours2 + ":" + min2 + "</li>" + freeStart ;
+
+      }
+      $(".freeTimeStart").html(freeStart);
+
+
       $('#create-send-modal').addClass('is-active');
     });
 
@@ -138,7 +197,6 @@ function createEvent(event){
   event.preventDefault();
 
   var validEvents = [];
-  var events = $('#calendar').fullCalendar('clientEvents');
   var view = $('#calendar').fullCalendar('getView');
   var j = 0;
   var title;
@@ -190,6 +248,16 @@ function createEvent(event){
     data: JSON.stringify(data),
     success: function(res){
       console.log(res);
+      var toEmails = $("#invited-to-email").val()
+      var sendLink = "gucci4.me/" + res.result.event.id;
+      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/result";
+      document.getElementById("eventLink").setAttribute("href","https://www." + eventLink);
+      document.getElementById("sendLink").setAttribute("href","https://www." + sendLink);
+      $("#creator").html(creatorEmail);
+      $(".sentTo").html(toEmails);
+      $("#sendLink").html(sendLink);
+      $("#eventLink").html(eventLink);
+      $('#save-success-modal').addClass('is-active');
     },
     error: function(err){
       console.log(err.message);
@@ -197,3 +265,8 @@ function createEvent(event){
 
   })
 }
+
+$('#newEvent').click( function func(){
+  window.location = window.location.href;
+  window.location.reload(true);
+})
