@@ -2,8 +2,6 @@ $(function() { // document ready
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
 
-  console.log(responses);
-
   var calendarConfig = {
     header: {
       left: '',
@@ -32,54 +30,69 @@ $(function() { // document ready
   calendar.fullCalendar(calendarConfig);
 });
 
-function overLapTimes(inEvent, timeResponse, inCalendar){
+function overLapTimes(inEvent, responses, inCalendar){
   console.log("OT - Events: ", inEvent);
 
-  var numResponse = timeResponse.length;
+  var numResponse = responses.length;
+  var responseTimes = [];
+
+  responses.forEach( function(response) {
+    response.timesSelected.forEach( function(time){
+      responseTimes.push(time);
+    });
+  });
+
+  var numTimes = responseTimes.length;
 
   console.log("OT - Num of responses: ", numResponse);
-  console.log("OT - Responses: ", timeResponse);
+  console.log("OT - Responses: ", responses);
+
+  console.log("OT - Num of times: ", numTimes);
+  console.log("OT - Response times: ", responseTimes)
 
   var workingTimes = [];
 
-  var timesSelected = inEvent.timesSelected;
+  var masterTimes = inEvent.timesSelected;
+  var numMasterTimes = masterTimes.length;
 
-  var numTimes = timesSelected.length;
+  console.log("OT - Master Times selected: ", masterTimes);
 
-  for (var i = 0; i < numResponse; i++) {
-    for (var j = 0; j < numTimes; j++) {
-
-      if( timeResponse[i] === timesSelected[j] ){
-        workingTimes.push(timeResponse[i]);
+  for (var j = 0; j < numTimes; j++) {
+    for (var k = 0; k < numMasterTimes; k++) {
+      if( timeCompare(responseTimes[j], masterTimes[k]) ){
+        workingTimes.push(responseTimes[j]);
       }
-
     }
   }
 
   if(!workingTimes.length){
     console.log("OT - There weren't any times that worked, calling findAltTime");
-    findAltTime(timeResponse);
+    findAltTime(responses);
   }
 
   console.log("OT - Working times: ", workingTimes);
 
 }
 
-function findAltTime(timeResponse){
-  var numResponse = timeResponse.length;
+function findAltTime(responses){
+  var numResponse = responses.length;
   var overlap = 0;
   var altTimes = [];
 
   for (var i = 0; i < numResponse; i++) {
     for (var j = i; j < numResponse; j++) {
 
-      if( timeResponse[i] === timeResponse[j] ){
-        altTimes.push(timeResponse[i]);
+      if( responses[i] === responses[j] ){
+        altTimes.push(responses[i]);
       }
 
     }
   }
 
+}
+
+function timeCompare(time1, time2){
+  return (time1.start === time2.start) && (time1.end === time2.end);
 }
 
 function modalVisibility(){

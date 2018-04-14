@@ -50,7 +50,12 @@ router.get("/event/:id/results", asyncMiddleware(async (req, res, next) => {
     return {
       name: r.name,
       email: r.email,
-      timesSelected: r.timesSelected
+      timesSelected: r.timesSelected.map(t => {
+        return {
+          start: t.startDate,
+          end: t.endDate
+        }
+      })
     }
   });
 
