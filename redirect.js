@@ -56,7 +56,7 @@ app.get("/:id", asyncMiddleware(async (req, res, next) => {
     return res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=3");
 
   // Redirect to the Event
-  return res.redirect(`https://whenisgucci.com/event/${id}?utm_source=gucci4me`);
+  return res.redirect(`https://whenisgucci.com/event/${req.params.id}/respond?utm_source=gucci4me`);
 }));
 
 // Catch everything else
