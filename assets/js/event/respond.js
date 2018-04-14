@@ -49,7 +49,60 @@ $(function() { // document ready
 
 
   calendar.fullCalendar(calendarConfig);
+
+   $('#respond-form').on("submit", createResponse);
 });
+
+function createResponse(){
+  event.preventDefault();
+
+  var responseEvents = [];
+  var events = $('#calendar').fullCalendar('clientEvents');
+  var view = $('#calendar').fullCalendar('getView');
+  var respondEmail;
+  var respondName;
+
+  if (events.length === 0) {
+    alert("No Response Found");
+    return false;
+  }
+
+  for (i = 0; i < events.length; i++) {
+    if(events[i].start._d > view.start._d){
+      if(events[i].end._d <= view.end._d){
+        responseEvents.push({startDate:events[i].start._d,endDate:events[i].end._d});
+      }// end if
+    }// end if
+  }// end for
+
+  respondEmail = $("#respond-email").val();
+  if(!respondEmail.trim()){
+    alert("Please Enter Your Email");
+  }
+
+  respondName = $("#respond-name").val();
+
+  var data = {
+    id: __GLOBALS__.event.id,
+    events: responseEvents,
+    email: respondEmail,
+    name: respondName
+  };
+
+  $.ajax({
+    url:"/api/event/respond",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    success: function(res){
+      console.log(res);
+    },
+    error: function(err){
+      console.log(err.message);
+    }
+
+  })
+}
 
 
 function modalVisibility(){
