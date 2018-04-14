@@ -8,7 +8,7 @@ const responseSchema = new Schema({
     required: [true, 'EventID required for this response.']
   },
   timesSelected: {
-    type: [ Date ],
+    type: [ { startDate: Date, endDate: Date } ],
     required: [true, 'Selected times required.']
   },
   email: {
