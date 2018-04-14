@@ -43,7 +43,7 @@ router.get("/event/:id/results", asyncMiddleware(async (req, res, next) => {
     })
   };
 
-  let responses = await Event.find({ eventID: id }).exec();
+  let responses = await Response.find({ eventID: id }).exec();
 
   // Grab only the necessary properties
   responses = responses.map(r => {

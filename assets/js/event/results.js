@@ -2,7 +2,7 @@ $(function() { // document ready
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
 
-  console.log("event - timesSelected: ", event.timesSelected);
+  console.log(responses);
 
   var calendarConfig = {
     header: {
