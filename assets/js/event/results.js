@@ -69,7 +69,7 @@ function overLapTimes(inEvent, responses, inCalendar){
     findAltTime(responses);
   }
 
-  // console.log("OT - Working times: ", workingTimes);
+  console.log("OT - Working times: ", workingTimes);
 
   return workingTimes;
 
@@ -92,8 +92,42 @@ function findAltTime(responses){
 
 }
 
-function timeCompare(time1, time2){
-  return (time1.start === time2.start) && (time1.end === time2.end);
+function clamp(value, min, max) {
+  return Math.min(Math.max(min, value), max);
+}
+
+function timeCompare(masterTime, responseTime){
+  // Master time; valueOf converts to millisecond
+  var mStart = moment(masterTime.start).valueOf();
+  var mEnd = moment(masterTime.end).valueOf();
+
+  // Response time; valueOf converts to millisecond
+  var rStart = moment(responseTime.start).valueOf();
+  var rEnd = moment(responseTime.end).valueOf();
+
+  if (rEnd < mStart || rStart > mEnd){
+    return false;
+  }
+
+  var clampedStart = clamp(rStart, mStart, mEnd);
+  var clampedEnd = clamp(rEnd, mStart, mEnd);
+
+  return true;
+}
+
+function getClampedTime(responseTime){
+  // Response time; valueOf converts to millisecond
+  var rStart = moment(responseTime.start).valueOf();
+  var rEnd = moment(responseTime.end).valueOf();
+
+
+  var clampedStart = clamp(rStart, mStart, mEnd);
+  var clampedEnd = clamp(rEnd, mStart, mEnd);
+
+  return {
+    start: moment(clampedStart),
+    end: moment(clampedEnd)
+  }
 }
 
 function modalVisibility(){
