@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
-const autoInc  = require("mongoose-auto-increment");
+const autoInc  = require("mongoose-plugin-autoinc");
 
 const responseSchema = new Schema({
   eventID: {
