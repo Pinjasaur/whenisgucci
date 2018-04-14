@@ -37,29 +37,37 @@
           <div id="navbarMenuHeroA" class="navbar-menu">
             <div class="navbar-start"></div>
             <div class="navbar-end">
-              <a class="navbar-item" id="event-link-button">
-                Copy Event Link
+              <a class="navbar-item" id="response-button">
+                Send Response
               </a>
             </div>
         </div>
       </nav>
-      <div class="modal" id="event-link-modal">
+      <div class="modal" id="response-modal">
+        <form id="respond-form">
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Copy the event URL</p>
+            <p class="modal-card-title">Send Response</p>
             <button class="delete" id="close-modal" aria-label="close"></button>
           </header>
           <section class="modal-card-body">
             <div class="content">
-              <h3>Here is your event URL! Send it to all the peoples!</h3>
-              <input id="event-code" readonly="" value="gucci4.me/1234"></input>
+              <h1>Time Summary</h1>
+              <h1>Enter Your Email</h1>
+              <p>We'll need your email to know who responded!</p>
+              <input id="respond-email" type="email" required="true">
+              <h1>Enter Your Name</h1>
+              <p>We will also need your name so the organizer may know who you are as well!</p>
+              <input id="respond-name" type="text" >
             </div>
           </section>
           <footer class="modal-card-foot">
+            <input type="submit" class="button is-success" value="Send Response">
             <input type="button" class="button" id="cancel-modal" value="Close">
           </footer>
         </div>
+        </form>
       </div>
       <div class="hero-body">
         <!-- Main calendar section -->

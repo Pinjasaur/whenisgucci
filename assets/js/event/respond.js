@@ -10,6 +10,7 @@ $(function() { // document ready
       center: 'title',
       right: ''
     },
+    selectable: true,
     defaultView: 'agenda',
     minTime: "07:00:00",
     maxTime: "21:00:00",
@@ -38,7 +39,7 @@ $(function() { // document ready
       element.find(".unselect-event").click(function() {
        $('#calendar').fullCalendar('removeEvents',event._id);
      });
-    }
+    },
   };
 
   navBurgerify();
@@ -52,16 +53,16 @@ $(function() { // document ready
 
 
 function modalVisibility(){
-  $('#event-link-button').click( function func(){
-    $('#event-link-modal').addClass('is-active');
+  $('#response-button').click( function func(){
+    $('#response-modal').addClass('is-active');
   });
 
   $('#close-modal').click(function func(){
-    $('#event-link-modal').removeClass('is-active');
+    $('#response-modal').removeClass('is-active');
   });
 
   $('#cancel-modal').click(function func(){
-    $('#event-link-modal').removeClass('is-active');
+    $('#response-modal').removeClass('is-active');
   });
 }
 
