@@ -42,10 +42,14 @@ function overLapTimes(inEvent, timeResponse, inCalendar){
 
   var workingTimes = [];
 
-  for (var i = 0; i < numResponse; i++) {
-    for (var j = i; j < numResponse; j++) {
+  var timesSelected = inEvent.timesSelected;
 
-      if( timeResponse[i] === timeResponse[j] ){
+  var numTimes = timesSelected.length;
+
+  for (var i = 0; i < numResponse; i++) {
+    for (var j = 0; j < numTimes; j++) {
+
+      if( timeResponse[i] === timesSelected[j] ){
         workingTimes.push(timeResponse[i]);
       }
 
@@ -62,6 +66,19 @@ function overLapTimes(inEvent, timeResponse, inCalendar){
 }
 
 function findAltTime(timeResponse){
+  var numResponse = timeResponse.length;
+  var overlap = 0;
+  var altTimes = [];
+
+  for (var i = 0; i < numResponse; i++) {
+    for (var j = i; j < numResponse; j++) {
+
+      if( timeResponse[i] === timeResponse[j] ){
+        altTimes.push(timeResponse[i]);
+      }
+
+    }
+  }
 
 }
 
