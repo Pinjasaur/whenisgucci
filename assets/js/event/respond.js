@@ -50,7 +50,7 @@ $(function() { // document ready
 
   calendar.fullCalendar(calendarConfig);
 
-   $('#respond-form').on("submit", createResponse);
+  $('#respond-form').on("submit", createResponse);
 });
 
 function createResponse(){
@@ -118,8 +118,7 @@ function modalVisibility(){
 
   $('#cancel-modal').click(function func(){
     $('#response-modal').removeClass('is-active');
-  });
-}
+});
 
 function navBurgerify(){
   // to create the hamburger when viewport is some size
