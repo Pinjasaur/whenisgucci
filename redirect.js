@@ -6,7 +6,7 @@ const nunjucks     = require("nunjucks");
 const bodyParser   = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose     = require("mongoose");
-const autoInc      = require("mongoose-auto-increment");
+const autoInc      = require("mongoose-plugin-autoinc");
 const Hashids      = require("hashids");
 const hashids      = new Hashids(
   process.env.HASHIDS_EVENT_SALT,
