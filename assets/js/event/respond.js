@@ -89,8 +89,6 @@ function createResponse(){
     name: respondName
   };
 
-  console.log("This is in the ajax: ", data);
-
   $.ajax({
     url:"/api/event/respond",
     method: "POST",

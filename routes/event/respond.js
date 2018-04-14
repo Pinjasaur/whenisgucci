@@ -39,7 +39,8 @@ router.get("/event/:id/respond", asyncMiddleware(async (req, res, next) => {
         start: t.startDate,
         end: t.endDate
       }
-    })
+    }),
+    id: req.params.id
   };
 
   res.render("event/respond", {event});
