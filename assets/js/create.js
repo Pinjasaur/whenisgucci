@@ -239,7 +239,6 @@ function createEvent(event){
   };
 
   console.log(data);
-  return false;
 
   $.ajax({
     url:"/api/event/create",
