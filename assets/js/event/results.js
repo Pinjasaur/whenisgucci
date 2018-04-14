@@ -121,14 +121,8 @@ function getClampedTime(masterTime, responseTime){
   var rStart = moment(responseTime.start).valueOf();
   var rEnd = moment(responseTime.end).valueOf();
 
-  console.log("mStart: ", mStart);
-  console.log("mEnd: ", mEnd);
-
   var clampedStart = clamp(rStart, mStart, mEnd);
   var clampedEnd = clamp(rEnd, mStart, mEnd);
-
-  console.log("clampedStart: ", clampedStart);
-  console.log("clampedEnd: ", clampedEnd);
 
   console.log({
     start: moment(clampedStart).format(),

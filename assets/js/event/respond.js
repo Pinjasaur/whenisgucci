@@ -70,7 +70,7 @@ function createResponse(){
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
-        responseEvents.push({startDate:events[i].start._d,endDate:events[i].end._d});
+        responseEvents.push({startDate:events[i].start.format(),endDate:events[i].end.format()});
       }// end if
     }// end if
   }// end for
