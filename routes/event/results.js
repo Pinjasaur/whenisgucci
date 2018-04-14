@@ -43,14 +43,19 @@ router.get("/event/:id/results", asyncMiddleware(async (req, res, next) => {
     })
   };
 
-  let responses = await Event.find({ eventID: id }).exec();
+  let responses = await Response.find({ eventID: id }).exec();
 
   // Grab only the necessary properties
   responses = responses.map(r => {
     return {
       name: r.name,
       email: r.email,
-      timesSelected: r.timesSelected
+      timesSelected: r.timesSelected.map(t => {
+        return {
+          start: t.startDate,
+          end: t.endDate
+        }
+      })
     }
   });
 
