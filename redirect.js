@@ -39,37 +39,37 @@ app.get("/:id", asyncMiddleware(async (req, res, next) => {
 
   // Validate ID
   if (/[^23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ]/g.test(req.params.id))
-    return res.redirect("https://whenisgucci.com/?invalid-code=1")
+    return res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=1")
 
   // Decode ID
   const id = hashids.decode(req.params.id)[0];
 
   // Redirect if decode unsuccessful
   if (id === undefined)
-    return res.redirect("https://whenisgucci.com/?invalid-code=2");
+    return res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=2");
 
   // Find Event with ID
   const event = await Event.findOne({ _id: id }).exec();
 
   // Redirect if Event not found
   if (!event)
-    return res.redirect("https://whenisgucci.com/?invalid-code=3");
+    return res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=3");
 
   // Redirect to the Event
-  return res.redirect(`https://whenisgucci.com/event/${hashids.encode(event.id)}`);
+  return res.redirect(`https://whenisgucci.com/event/${id}?utm_source=gucci4me`);
 }));
 
 // Catch everything else
 app.all("*", (req, res, next) => {
 
-  return res.redirect("https://whenisgucci.com/?invalid-code=4")
+  return res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=4")
 });
 
 // Catch errors and redirect
 app.use((err, req, res, next) => {
 
   console.log(err);
-  res.redirect("https://whenisgucci.com/?invalid=code=5");
+  res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=5");
 });
 
 // Serve on :8081
