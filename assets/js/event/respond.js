@@ -49,6 +49,7 @@ $(function() { // document ready
 
 
   calendar.fullCalendar(calendarConfig);
+<<<<<<< HEAD
 
    $('#respond-form').on("submit", createResponse);
 });
@@ -118,6 +119,22 @@ function modalVisibility(){
 
   $('#cancel-modal').click(function func(){
     $('#response-modal').removeClass('is-active');
+=======
+});
+
+
+function modalVisibility(){
+  $('#event-link-button').click( function func(){
+    $('#event-link-modal').addClass('is-active');
+  });
+
+  $('#close-modal').click(function func(){
+    $('#event-link-modal').removeClass('is-active');
+  });
+
+  $('#cancel-modal').click(function func(){
+    $('#event-link-modal').removeClass('is-active');
+>>>>>>> Fixed respond code a little, began working on respond functionality
   });
 }
 
