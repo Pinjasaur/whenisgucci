@@ -83,25 +83,44 @@ $(document ).ready(function() { // document ready
       var toDate = $("#to-datepicker").val();
       var freeStart = "";
       var eventNum = "";
+
       $("#title").html(title);
+
+      fromDate = new Date(fromDate);
+      mon = ("0"+(fromDate.getMonth()+1)).slice(-2);
+      day = ("0" + fromDate.getDate()).slice(-2);
+      year = fromDate.getFullYear();
+      hours = ("0" + fromDate.getHours()).slice(-2);
+      min = ("0" + fromDate.getMinutes()).slice(-2);
+      fromDate = mon +"/"+ day +"/"+ year;
       $("#start").html(fromDate);
+
+      toDate = new Date(toDate);
+      mon = ("0"+(toDate.getMonth()+1)).slice(-2);
+      day = ("0" + toDate.getDate()).slice(-2);
+      year = toDate.getFullYear();
+      hours = ("0" + toDate.getHours()).slice(-2);
+      min = ("0" + toDate.getMinutes()).slice(-2);
+      toDate = mon +"/"+ day +"/"+ year;
       $("#end").html(toDate);
 
       for(i = (events.length - 1); i >= 0; i--){
         date1 = events[i].start._d;
+        console.log(date1);
         mon = ("0"+(date1.getMonth()+1)).slice(-2);
         day = ("0" + date1.getDate()).slice(-2);
         year = date1.getFullYear();
-        hours = ("0" + date1.getHours()).slice(-2);
+        hours = ("0" + (date1.getHours() + 4)).slice(-2);
         min = ("0" + date1.getMinutes()).slice(-2);
         date2 = events[i].end._d;
-        mon2 = ("0"+(date1.getMonth()+1)).slice(-2);
-        day2 = ("0" + date1.getDate()).slice(-2);
-        year2 = date1.getFullYear();
-        hours2 = ("0" + date1.getHours()).slice(-2);
-        min2 = ("0" + date1.getMinutes()).slice(-2);
+        console.log(date2);
+        mon2 = ("0"+(date2.getMonth()+1)).slice(-2);
+        day2 = ("0" + date2.getDate()).slice(-2);
+        year2 = date2.getFullYear();
+        hours2 = ("0" + (date2.getHours() + 4)).slice(-2);
+        min2 = ("0" + date2.getMinutes()).slice(-2);
 
-        eventNum = "event" + " " + (i+1) + " " + "<br />" + eventNum;
+        eventNum = "event " + " " + (i+1) + ": " + "<br />" + eventNum;
         freeStart =  mon +"/"+ day +"/"+ year + " "
                      + hours + ":" + min + " to "
                      + mon2 +"/"+ day2 +"/"+ year2 + " "
