@@ -1,3 +1,4 @@
+var events;
 $(document ).ready(function() { // document ready
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
@@ -76,6 +77,22 @@ $(document ).ready(function() { // document ready
     }
 
     $('#create-send-button').click( function func(){
+      events = $('#calendar').fullCalendar('clientEvents')
+      var title = $('#event-title').val();
+      var fromDate = $("#from-datepicker").val();
+      var toDate = $("#to-datepicker").val();
+      var freeStart;
+      $("#title").html(title);
+      $("#start").html(fromDate);
+      $("#end").html(toDate);
+
+      for(i=0; i < events.length; i++){
+        free = free + events[i].start._d;
+
+      }
+      $("#freeTime").html(free);
+
+
       $('#create-send-modal').addClass('is-active');
     });
 
@@ -138,7 +155,6 @@ function createEvent(event){
   event.preventDefault();
 
   var validEvents = [];
-  var events = $('#calendar').fullCalendar('clientEvents');
   var view = $('#calendar').fullCalendar('getView');
   var j = 0;
   var title;
@@ -187,6 +203,9 @@ function createEvent(event){
     data: JSON.stringify(data),
     success: function(res){
       console.log(res);
+      //res.result.event.id;
+      $('#save-success-modal').addClass('is-active');
+
     },
     error: function(err){
       console.log(err.message);

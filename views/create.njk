@@ -88,17 +88,59 @@
           <section class="modal-card-body">
             <div class="content">
               <h1>Event Summary</h1>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <h4>Title:</h4>
+                  </div>
+                  <div class="column is-narrow" >
+                    <h5 id="title"></h5>
+                  </div>
+                  <div class="column"></div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <h4>Start:</h4>
+                  </div>
+                  <div class="column is-narrow" id="start"></div>
+                  <div class="column is-narrow">
+                    <h4>End:</h4>
+                  </div>
+                  <div class="column is-narrow" id="end"></div>
+                </div>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <h4>Times You Are Free:</h4>
+                  </div>
+                  <div class="column is-narrow" id="freeTime"></div>
+                </div>
               <h1>Enter Your Email</h1>
               <p>We'll need your email to create an event, make sure you can edit events, gather repsonses from your invitees, and validate event ownership</p>
               <input id="creator-email" type="email" required="true"></input>
               <h1>Enter Your Receiver's Email</h1>
               <p>These will be all the lovely people that you want to see what times work for! Keep in mind your guests will still have to respond before you can call your event good!</p>
               <input id="invited-to-email" type="email" multiple="true"></input>
-            </div>
           </section>
           <footer class="modal-card-foot">
             <input type="submit" class="button is-success" value="Save changes">
             <input type="button" class="button" id="cancel-modal" value="Cancel">
+          </footer>
+        </div>
+        </form>
+      </div>
+      <div class="modal" id="save-success-modal">
+        <form id="modal-form">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Your Event Has Been Created!</p>
+          </header>
+          <section class="modal-card-body">
+            <div class="content">
+              <h1>Event Summary</h1>
+              <h1>Enter Your Receiver's Email</h1>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
           </footer>
         </div>
         </form>
