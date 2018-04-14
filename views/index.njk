@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>whenisgucci</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   </head>
   <body>
@@ -20,20 +26,21 @@
           </p>
           <div class="field">
             <div class="control has-text-centered">
-              <a href="#0" class="button">Create Event</a>
+              <a href="/create" class="button">Create Event</a>
             </div>
           </div>
 
           <div class="field has-addons" style="justify-content: center">
-            <div class="control">
-              <a href="#0" class="button">Enter Code</a>
+            <div class="control codeButton">
+              <a href="#0"  class="button">Enter Code</a>
             </div>
-            <div class="control">
-              <input class="input" type="text">
+            <div class="control codeInput">
+              <input class="input" style = "padding: 0px" type="text">
             </div>
           </div>
         </div>
       </div>
     </section>
+    <script src="/js/index.js"></script>
   </body>
 </html>

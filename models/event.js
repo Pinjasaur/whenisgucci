@@ -1,15 +1,36 @@
 const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
-const autoInc  = require("mongoose-auto-increment");
+const autoInc  = require("mongoose-plugin-autoinc");
 
 const eventSchema = new Schema({
-  title: String,
-  startDate: Date,
-  endDate: Date,
-  granularity: Number,
-  createdBy: Number,
-  invitedTo: [ String ],
-  timesSelected: [ Date ]
+  title: {
+    type: String,
+    required: [true, 'Event title is required.']
+  },
+  startDate: {
+    type: Date,
+    required: [true, 'Start date is required.']
+  },
+  endDate: {
+    type: Date,
+    required: [true, 'End date is required.']
+  },
+  granularity: {
+    type: Number,
+    default: 30
+  },
+  createdBy: {
+    type: Number,
+    required: [true, 'Creator ID required.']
+  },
+  invitedTo: {
+    type: [ String ],
+    required: [true, 'Invitees required.']
+  },
+  timesSelected: {
+    type: [ { startDate: Date, endDate: Date } ],
+    required: [true, 'Dates required.']
+  }
 });
 
 eventSchema.plugin(autoInc.plugin, "Event");

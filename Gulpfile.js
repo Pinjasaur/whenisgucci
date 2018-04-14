@@ -55,7 +55,7 @@ gulp.task("build:sass", () => {
 // Build the JS
 gulp.task("build:js", () => {
   return gulp
-  .src("assets/js/*.js")
+  .src("assets/js/**/*.js")
   .pipe(plugins.if(production, plugins.uglify()))
   .pipe(gulp.dest("public/js"));
 });
@@ -91,12 +91,19 @@ gulp.task("nodemon", done => {
   let started = false;
 
   return plugins.nodemon({
-    script: "app.js"
+    script: "app.js",
+    ignore: [
+      "node_modules/",
+      "assets/",
+      "public/",
+      "utils/"
+    ]
   }).on("start", () => {
     // Avoid nodemon being started multiple times
     if (!started) {
-      done();
       started = true;
+      // 1s should enough time for Express to be gucci
+      setTimeout(done, 2000);
     }
   });
 });

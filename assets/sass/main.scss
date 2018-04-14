@@ -1,3 +1,23 @@
-body {
-  background-color: blue;
+@import 'partials/create';
+@import 'partials/results';
+@import 'vendor/fullcalendar';
+
+.fc-scroller {
+  overflow-x: visible !important;
+}
+
+.codeInput{
+  box-sizing: border-box;
+  width: 0px;
+  margin: 0px;
+
+}
+
+.textarea:not([rows]) {
+    max-height: 600px;
+    min-height: 75px;
+}
+
+.modal h1{
+  border-bottom: 1px solid black;
 }
