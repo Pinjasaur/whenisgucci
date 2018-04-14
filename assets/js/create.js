@@ -81,16 +81,36 @@ $(document ).ready(function() { // document ready
       var title = $('#event-title').val();
       var fromDate = $("#from-datepicker").val();
       var toDate = $("#to-datepicker").val();
-      var freeStart;
+      var freeStart = "";
+      var eventNum = "";
       $("#title").html(title);
       $("#start").html(fromDate);
       $("#end").html(toDate);
 
-      for(i=0; i < events.length; i++){
-        free = free + events[i].start._d;
+      for(i = (events.length - 1); i >= 0; i--){
+        date1 = events[i].start._d;
+        mon = ("0"+(date1.getMonth()+1)).slice(-2);
+        day = ("0" + date1.getDate()).slice(-2);
+        year = date1.getFullYear();
+        hours = ("0" + date1.getHours()).slice(-2);
+        min = ("0" + date1.getMinutes()).slice(-2);
+        date2 = events[i].end._d;
+        mon2 = ("0"+(date1.getMonth()+1)).slice(-2);
+        day2 = ("0" + date1.getDate()).slice(-2);
+        year2 = date1.getFullYear();
+        hours2 = ("0" + date1.getHours()).slice(-2);
+        min2 = ("0" + date1.getMinutes()).slice(-2);
+
+        eventNum = "event" + " " + (i+1) + " " + "<br />" + eventNum;
+        freeStart =  mon +"/"+ day +"/"+ year + " "
+                     + hours + ":" + min + " to "
+                     + mon2 +"/"+ day2 +"/"+ year2 + " "
+                     + hours2 + ":" + min2 + "<br />" + freeStart ;
 
       }
-      $("#freeTime").html(free);
+      console.log(eventNum);
+      $("#eventsCreator").html(eventNum);
+      $("#freeTimeStart").html(freeStart);
 
 
       $('#create-send-modal').addClass('is-active');
