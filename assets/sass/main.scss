@@ -10,11 +10,16 @@ html {
   overflow-x: visible !important;
 }
 
-.codeInput{
+.codeInput {
   box-sizing: border-box;
   width: 0px;
   margin: 0px;
+  padding: 0px !important;
 
+}
+
+.codeInput input{
+  padding: 0px;
 }
 
 .textarea:not([rows]) {
