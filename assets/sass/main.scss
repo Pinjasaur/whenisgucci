@@ -2,6 +2,10 @@
 @import 'partials/results';
 @import 'vendor/fullcalendar';
 
+html {
+  overflow-y: auto;
+}
+
 .fc-scroller {
   overflow-x: visible !important;
 }
@@ -18,22 +22,22 @@
     min-height: 75px;
 }
 
-.modal h1{
+.modal h1 {
   border-bottom: 1px solid black;
 }
-.columnSave{
+.columnSave {
   padding-bottom: 0px;
 }
-.modal h4{
+.modal h4 {
   margin-bottom:10px;
 }
-#eventLink{
+#eventLink {
   width: 85% !important;
   padding: 7px;
   display:inline-block;
   margin-bottom: 20px;
 }
-#sendLink{
+#sendLink {
   width:75% !important;
   padding: 7px;
   display:inline-block;
@@ -91,7 +95,7 @@
   50% { opacity: 1; }
 }
 
-#eventCode{
+#eventCode {
   width:80% !important;
   padding: 7px;
   text-align: center;
@@ -100,6 +104,6 @@
   display:inline-block;
 }
 
-#creator{
+#creator {
   padding:7px;
 }
