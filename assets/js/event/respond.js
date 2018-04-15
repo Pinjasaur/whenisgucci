@@ -1,8 +1,24 @@
 $(function() { // document ready
   var event = __GLOBALS__.event;
-  var responses = __GLOBALS__.responses;
 
   console.log(event);
+
+  var masterEvents = [];
+  var id = 0;
+
+  event.timesSelected.forEach( function(time){
+    var ev = {
+      start: time.start,
+      end: time.end,
+      rendering: 'background',
+      isMasterEvent: true
+    }
+    masterEvents.push(ev);
+    id++;
+  });
+
+    console.log(masterEvents);
+
 
   var calendarConfig = {
     header: {
@@ -21,7 +37,7 @@ $(function() { // document ready
      start: moment(event.startDate).add(1, 'day').format("YYYY-MM-DD"),
      end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
     },
-    // events: event.timesSelected,
+    events: masterEvents,
     select: function (start, end, jsEvent, view) {
       $('#calendar').fullCalendar('addEventSource', [{
         start: start,
@@ -71,7 +87,12 @@ function createResponse(){
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
-        responseEvents.push({startDate:events[i].start.toISOString(),endDate:events[i].end.toISOString()});
+        responseEvents.push(
+          {
+            startDate: events[i].start.toISOString(),
+            endDate: events[i].end.toISOString(),
+            isMasterEvent: events[i].isMasterEvent
+          });
       }// end if
     }// end if
   }// end for
@@ -82,6 +103,14 @@ function createResponse(){
   }
 
   respondName = $("#respond-name").val();
+
+  console.log('pre prune: ', responseEvents);
+
+  responseEvents = responseEvents.filter( function(element){
+    return !element.isMasterEvent;
+  });
+
+  console.log(responseEvents);
 
   var data = {
     id: __GLOBALS__.event.id,
