@@ -253,6 +253,7 @@ function createEvent(event){
       var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/results";
       document.getElementById("eventLink").setAttribute("href","https://www." + eventLink);
       document.getElementById("sendLink").setAttribute("href","https://www." + sendLink);
+      $("#eventCode").html(res.result.event.id);
       $("#creator").html(creatorEmail);
       $(".sentTo").html(toEmails);
       $("#sendLink").html(sendLink);
@@ -273,5 +274,9 @@ $('#newEvent').click( function func(){
 
 function popUpFunc() {
     var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+function popUpFunc2() {
+    var popup = document.getElementById("myPopup2");
     popup.classList.toggle("show");
 }

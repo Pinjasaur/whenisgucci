@@ -156,7 +156,15 @@
                 </div>
               </div>
               <div class="columns">
-                <div class="column is-narrow">
+                <div class="column">
+                  <h4>Event Code: </h4>
+                  <h6 id="eventCode"></h6>
+                  <button type="button" class="btn button popup" data-clipboard-target="#eventCode" onclick="popUpFunc2()">
+                    <span class="popuptext" id="myPopup2">Copied!</span>
+                    <i class="fas fa-copy" alt="Copy to clipboard"></i>
+                  </button>
+                </div>
+                <div class="column">
                   <h4>Your Email: </h4>
                   <p id="creator"></p>
                 </div>

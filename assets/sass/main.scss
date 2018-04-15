@@ -31,6 +31,7 @@
   width: 85% !important;
   padding: 7px;
   display:inline-block;
+  margin-bottom: 20px;
 }
 #sendLink{
   width:75% !important;
@@ -88,4 +89,17 @@
 
 @keyframes fadeIn {
   50% { opacity: 1; }
+}
+
+#eventCode{
+  width:80% !important;
+  padding: 7px;
+  text-align: center;
+  letter-spacing: 0.0625em;
+  font-size: 25px;
+  display:inline-block;
+}
+
+#creator{
+  padding:7px;
 }
