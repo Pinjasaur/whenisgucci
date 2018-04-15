@@ -66,7 +66,8 @@ function overLapTimes(inEvent, responses, inCalendar){
 
   if(!workingTimes.length){
     // console.log("OT - There weren't any times that worked, calling findAltTime");
-    findAltTime(responses);
+    // findAltTime(responses);
+    alert("No working times were found");
   }
 
   console.log("OT - Working times: ", workingTimes);
@@ -105,7 +106,13 @@ function timeCompare(masterTime, responseTime){
   var rStart = moment(responseTime.start).valueOf();
   var rEnd = moment(responseTime.end).valueOf();
 
+  // Making sure that it is possible for overlap
   if (rEnd < mStart || rStart > mEnd){
+    return false;
+  }
+
+  // Making sure that edges aren't the same
+  if (rStart === mEnd || rEnd === mStart){
     return false;
   }
 
