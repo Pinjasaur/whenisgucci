@@ -6,6 +6,7 @@ var freeStart = "";
 var eventNum = "";
 
 $(document ).ready(function() { // document ready
+  new ClipboardJS('.btn'); // needed for ClipboardJS
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
 
@@ -16,6 +17,7 @@ $(document ).ready(function() { // document ready
       center: 'title',
       right: 'agendaDay'
     },
+    timezone: 'local',
     selectable: true,
     defaultView: 'agenda',
     minTime: "07:00:00",
@@ -211,7 +213,7 @@ function createEvent(event){
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
-        validEvents[j] = {startDate:events[i].start.format(),endDate:events[i].end.format()};
+        validEvents[j] = {startDate:events[i].start.toISOString(),endDate:events[i].end.toISOString()};
         j++;
       }// end if
     }// end if
@@ -230,15 +232,13 @@ function createEvent(event){
   repEmails = $("#invited-to-email").val().split(',');
 
   var data = {
-    startDate: view.start.format(),
-    endDate: view.end.format(),
+    startDate: view.start.toISOString(),
+    endDate: view.end.toISOString(),
     events: validEvents,
     title: title,
     createdBy: creatorEmail,
     invitedTo: repEmails
   };
-
-  console.log(data);
 
   $.ajax({
     url:"/api/event/create",
@@ -249,9 +249,10 @@ function createEvent(event){
       console.log(res);
       var toEmails = $("#invited-to-email").val()
       var sendLink = "gucci4.me/" + res.result.event.id;
-      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/result";
+      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/results";
       document.getElementById("eventLink").setAttribute("href","https://www." + eventLink);
       document.getElementById("sendLink").setAttribute("href","https://www." + sendLink);
+      $("#eventCode").html(res.result.event.id);
       $("#creator").html(creatorEmail);
       $(".sentTo").html(toEmails);
       $("#sendLink").html(sendLink);
@@ -269,3 +270,12 @@ $('#newEvent').click( function func(){
   window.location = window.location.href;
   window.location.reload(true);
 })
+
+function popUpFunc() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+function popUpFunc2() {
+    var popup = document.getElementById("myPopup2");
+    popup.classList.toggle("show");
+}

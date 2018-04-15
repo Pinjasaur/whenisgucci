@@ -1,8 +1,24 @@
 $(function() { // document ready
   var event = __GLOBALS__.event;
-  var responses = __GLOBALS__.responses;
 
   console.log(event);
+
+  var masterEvents = [];
+  var id = 0;
+
+  event.timesSelected.forEach( function(time){
+    var ev = {
+      start: time.start,
+      end: time.end,
+      rendering: 'background',
+      isMasterEvent: true
+    }
+    masterEvents.push(ev);
+    id++;
+  });
+
+    console.log(masterEvents);
+
 
   var calendarConfig = {
     header: {
@@ -10,6 +26,7 @@ $(function() { // document ready
       center: 'title',
       right: ''
     },
+    timezone: 'local',
     selectable: true,
     defaultView: 'agenda',
     minTime: "07:00:00",
@@ -20,7 +37,7 @@ $(function() { // document ready
      start: moment(event.startDate).add(1, 'day').format("YYYY-MM-DD"),
      end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
     },
-    // events: event.timesSelected,
+    events: masterEvents,
     select: function (start, end, jsEvent, view) {
       $('#calendar').fullCalendar('addEventSource', [{
         start: start,
@@ -70,7 +87,12 @@ function createResponse(){
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
-        responseEvents.push({startDate:events[i].start.format(),endDate:events[i].end.format()});
+        responseEvents.push(
+          {
+            startDate: events[i].start.toISOString(),
+            endDate: events[i].end.toISOString(),
+            isMasterEvent: events[i].isMasterEvent
+          });
       }// end if
     }// end if
   }// end for
@@ -81,6 +103,14 @@ function createResponse(){
   }
 
   respondName = $("#respond-name").val();
+
+  console.log('pre prune: ', responseEvents);
+
+  responseEvents = responseEvents.filter( function(element){
+    return !element.isMasterEvent;
+  });
+
+  console.log(responseEvents);
 
   var data = {
     id: __GLOBALS__.event.id,
@@ -98,6 +128,8 @@ function createResponse(){
     data: JSON.stringify(data),
     success: function(res){
       console.log(res);
+      $('#response-modal').removeClass('is-active');
+      $('#response-success-modal').addClass('is-active');
     },
     error: function(err){
       console.log(err.message);
@@ -118,7 +150,16 @@ function modalVisibility(){
 
   $('#cancel-modal').click(function func(){
     $('#response-modal').removeClass('is-active');
-});
+  });
+
+  $('#close-success-modal').click(function func(){
+    $('#response-success-modal').removeClass('is-active');
+  });
+
+  $('#cancel-success-modal').click(function func(){
+    $('#response-success-modal').removeClass('is-active');
+  });
+}
 
 function navBurgerify(){
   // to create the hamburger when viewport is some size

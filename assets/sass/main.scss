@@ -2,15 +2,24 @@
 @import 'partials/results';
 @import 'vendor/fullcalendar';
 
+html {
+  overflow-y: auto;
+}
+
 .fc-scroller {
   overflow-x: visible !important;
 }
 
-.codeInput{
+.codeInput {
   box-sizing: border-box;
   width: 0px;
   margin: 0px;
+  padding: 0px !important;
 
+}
+
+.codeInput input{
+  padding: 0px;
 }
 
 .textarea:not([rows]) {
@@ -18,6 +27,88 @@
     min-height: 75px;
 }
 
-.modal h1{
+.modal h1 {
   border-bottom: 1px solid black;
+}
+.columnSave {
+  padding-bottom: 0px;
+}
+.modal h4 {
+  margin-bottom:10px;
+}
+#eventLink {
+  width: 85% !important;
+  padding: 7px;
+  display:inline-block;
+  margin-bottom: 20px;
+}
+#sendLink {
+  width:75% !important;
+  padding: 7px;
+  display:inline-block;
+}
+
+/* Popup container */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 65%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 2s linear forwards;
+    animation: fadeIn 2s linear forwards;
+    opacity: 0;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  50% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  50% { opacity: 1; }
+}
+
+#eventCode {
+  width:80% !important;
+  padding: 7px;
+  text-align: center;
+  letter-spacing: 0.0625em;
+  font-size: 25px;
+  display:inline-block;
+}
+
+#creator {
+  padding:7px;
 }

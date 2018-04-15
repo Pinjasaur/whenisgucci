@@ -47,6 +47,7 @@ app.use(require("./routes/create"));
 // Routes (API Endpoints)
 app.use(require("./routes/api/event/create"));
 app.use(require("./routes/api/event/respond"));
+app.use(require("./routes/api/event/verify-code"));
 app.use(require("./routes/api/event/index"));
 
 // Handles 404s
