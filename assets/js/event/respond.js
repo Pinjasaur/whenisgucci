@@ -10,6 +10,7 @@ $(function() { // document ready
       center: 'title',
       right: ''
     },
+    timezone: 'local',
     selectable: true,
     defaultView: 'agenda',
     minTime: "07:00:00",
@@ -70,7 +71,7 @@ function createResponse(){
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
-        responseEvents.push({startDate:events[i].start.format(),endDate:events[i].end.format()});
+        responseEvents.push({startDate:events[i].start.toISOString(),endDate:events[i].end.toISOString()});
       }// end if
     }// end if
   }// end for
