@@ -128,6 +128,8 @@ function createResponse(){
     data: JSON.stringify(data),
     success: function(res){
       console.log(res);
+      $('#response-modal').removeClass('is-active');
+      $('#response-success-modal').addClass('is-active');
     },
     error: function(err){
       console.log(err.message);
@@ -148,6 +150,14 @@ function modalVisibility(){
 
   $('#cancel-modal').click(function func(){
     $('#response-modal').removeClass('is-active');
+  });
+
+  $('#close-success-modal').click(function func(){
+    $('#response-success-modal').removeClass('is-active');
+  });
+
+  $('#cancel-success-modal').click(function func(){
+    $('#response-success-modal').removeClass('is-active');
   });
 }
 
