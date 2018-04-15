@@ -6,6 +6,7 @@ var freeStart = "";
 var eventNum = "";
 
 $(document ).ready(function() { // document ready
+  new ClipboardJS('.btn'); // needed for ClipboardJS
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
 
@@ -249,9 +250,10 @@ function createEvent(event){
       console.log(res);
       var toEmails = $("#invited-to-email").val()
       var sendLink = "gucci4.me/" + res.result.event.id;
-      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/result";
+      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/results";
       document.getElementById("eventLink").setAttribute("href","https://www." + eventLink);
       document.getElementById("sendLink").setAttribute("href","https://www." + sendLink);
+      $("#eventCode").html(res.result.event.id);
       $("#creator").html(creatorEmail);
       $(".sentTo").html(toEmails);
       $("#sendLink").html(sendLink);
@@ -269,3 +271,12 @@ $('#newEvent').click( function func(){
   window.location = window.location.href;
   window.location.reload(true);
 })
+
+function popUpFunc() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+function popUpFunc2() {
+    var popup = document.getElementById("myPopup2");
+    popup.classList.toggle("show");
+}

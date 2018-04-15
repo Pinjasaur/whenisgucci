@@ -19,6 +19,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
+
   </head>
   <body>
     <section class="is-success">
@@ -140,17 +142,29 @@
           <section class="modal-card-body">
             <div class="content">
               <div class="columns">
-                <div class="column">
-                  <h4>View Event Results: </h4>
+                <div class="column is-narrow columnSave" style="padding-right:0px;">
+                  <h4 style="margin-bottom:0px">View Event Results: </h4>
                   <a id="eventLink"></a>
                 </div>
-                <div class="column">
-                  <h4>Link to share:</h4>
+                <div class="column columnSave">
+                  <h4 style="margin-bottom:0px">Link to share:</h4>
                   <a id="sendLink"></a>
+                  <button type="button" class="btn button popup" data-clipboard-target="#sendLink" onclick="popUpFunc()">
+                    <span class="popuptext" id="myPopup">Copied!</span>
+                    <i class="fas fa-copy" alt="Copy to clipboard"></i>
+                  </button>
                 </div>
               </div>
               <div class="columns">
-                <div class="column is-narrow">
+                <div class="column">
+                  <h4>Event Code: </h4>
+                  <h6 id="eventCode"></h6>
+                  <button type="button" class="btn button popup" data-clipboard-target="#eventCode" onclick="popUpFunc2()">
+                    <span class="popuptext" id="myPopup2">Copied!</span>
+                    <i class="fas fa-copy" alt="Copy to clipboard"></i>
+                  </button>
+                </div>
+                <div class="column">
                   <h4>Your Email: </h4>
                   <p id="creator"></p>
                 </div>
