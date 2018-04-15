@@ -105,7 +105,13 @@ function timeCompare(masterTime, responseTime){
   var rStart = moment(responseTime.start).valueOf();
   var rEnd = moment(responseTime.end).valueOf();
 
+  // Making sure that it is possible for overlap
   if (rEnd < mStart || rStart > mEnd){
+    return false;
+  }
+
+  // Making sure that edges aren't the same
+  if (rStart === mEnd || rEnd === mStart){
     return false;
   }
 
