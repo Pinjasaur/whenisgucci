@@ -4,7 +4,6 @@ $( ".codeButton" ).click(function() {
   if(codeInputStatus === true){
     $(".codeInput").animate({width: '0px' , padding: '0px'}, 1000)
     $("#inputCode").animate({padding: '0px'},1000);
-  //  $("#codeInput").animate({visibility: 'hidden'}, 2000)
     codeInputStatus = false;
   }// end if
   else{
@@ -32,17 +31,14 @@ function submitEventCode(code){
         if(res.status){
           url = "https://whenisgucci.com/event/" + code.value + "/respond?utm_source=eventcode";
           location.href = url;
-      }else{
-        alert("Invalid Code");
-      }
+        }
       },
       error: function(err){
         document.getElementById("inputCode").setAttribute("class", "input is-danger");
         $('#invalid-code-modal').addClass('is-active');
-        console.log(err.message);
       }
 
-    })
+    }) // end of ajax request
 
-  }
-}
+  }// end if
+}// end of submitEventCode
