@@ -15,10 +15,34 @@ $( ".codeButton" ).click(function() {
 
 }); // end click function
 
+$('#close-modal').click(function func(){
+  $('#invalid-code-modal').removeClass('is-active');
+});
 
 function submitEventCode(code){
   if(event.which === 13) {
-      url = "https://whenisgucci.com/event/" + code.value + "/respond";
-      location.href = url;
+    data = {id:code.value};
+
+    $.ajax({
+      url:"/api/event/verify-code",
+      method: "GET",
+      contentType: "application/json",
+      data: data,
+      success: function(res){
+        if(res.status){
+          url = "https://whenisgucci.com/event/" + code.value + "/respond?utm_source=eventcode";
+          location.href = url;
+      }else{
+        alert("Invalid Code");
+      }
+      },
+      error: function(err){
+        document.getElementById("inputCode").setAttribute("class", "input is-danger");
+        $('#invalid-code-modal').addClass('is-active');
+        console.log(err.message);
+      }
+
+    })
+
   }
 }
