@@ -66,7 +66,8 @@ function overLapTimes(inEvent, responses, inCalendar){
 
   if(!workingTimes.length){
     // console.log("OT - There weren't any times that worked, calling findAltTime");
-    findAltTime(responses);
+    // findAltTime(responses);
+    alert("No working times were found");
   }
 
   console.log("OT - Working times: ", workingTimes);
