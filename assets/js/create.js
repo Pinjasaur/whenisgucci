@@ -17,6 +17,7 @@ $(document ).ready(function() { // document ready
       center: 'title',
       right: 'agendaDay'
     },
+    timezone: 'local',
     selectable: true,
     defaultView: 'agenda',
     minTime: "07:00:00",
@@ -212,7 +213,7 @@ function createEvent(event){
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
-        validEvents[j] = {startDate:events[i].start.format(),endDate:events[i].end.format()};
+        validEvents[j] = {startDate:events[i].start.toISOString(),endDate:events[i].end.toISOString()};
         j++;
       }// end if
     }// end if
@@ -231,8 +232,8 @@ function createEvent(event){
   repEmails = $("#invited-to-email").val().split(',');
 
   var data = {
-    startDate: view.start.format(),
-    endDate: view.end.format(),
+    startDate: view.start.toISOString(),
+    endDate: view.end.toISOString(),
     events: validEvents,
     title: title,
     createdBy: creatorEmail,
