@@ -250,7 +250,7 @@ function createEvent(event){
       console.log(res);
       var toEmails = $("#invited-to-email").val()
       var sendLink = "gucci4.me/" + res.result.event.id;
-      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/result";
+      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/results";
       document.getElementById("eventLink").setAttribute("href","https://www." + eventLink);
       document.getElementById("sendLink").setAttribute("href","https://www." + sendLink);
       $("#creator").html(creatorEmail);
