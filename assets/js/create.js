@@ -6,6 +6,7 @@ var freeStart = "";
 var eventNum = "";
 
 $(document ).ready(function() { // document ready
+  new ClipboardJS('.btn'); // needed for ClipboardJS
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
 
@@ -269,3 +270,8 @@ $('#newEvent').click( function func(){
   window.location = window.location.href;
   window.location.reload(true);
 })
+
+function popUpFunc() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
