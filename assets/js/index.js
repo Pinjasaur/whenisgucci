@@ -17,8 +17,8 @@ $( ".codeButton" ).click(function() {
 
 
 function submitEventCode(code){
-  if(event.keyCode === 13) {
+  if(event.which === 13) {
       url = "https://whenisgucci.com/event/" + code.value + "/respond";
-      $(location).attr('href', url)
+      location.href = url;
   }
 }
