@@ -118,7 +118,8 @@ function modalVisibility(){
 
   $('#cancel-modal').click(function func(){
     $('#response-modal').removeClass('is-active');
-});
+  });
+}
 
 function navBurgerify(){
   // to create the hamburger when viewport is some size
