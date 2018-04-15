@@ -56,10 +56,10 @@
               <h1>Time Summary</h1>
               <h1>Enter Your Email</h1>
               <p>We'll need your email to know who responded!</p>
-              <input id="respond-email" type="email" required="true">
+              <input id="respond-email" type="email" required="true" maxlength="50">
               <h1>Enter Your Name</h1>
               <p>We will also need your name so the organizer may know who you are as well!</p>
-              <input id="respond-name" type="text" >
+              <input id="respond-name" type="text" maxlength="30">
             </div>
           </section>
           <footer class="modal-card-foot">
@@ -68,6 +68,23 @@
           </footer>
         </div>
         </form>
+      </div>
+      <div class="modal" id="response-success-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Your response has been successfully sent</p>
+            <button class="delete" id="close-success-modal" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="content">
+              <p>You will receive a confirmation email to the supplied email address to let you know your response has been successfully sent! Please coordinate with your event organizer with anymore questions.</p>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <input type="button" class="button" id="cancel-success-modal" value="Close">
+          </footer>
+        </div>
       </div>
       <div class="hero-body">
         <!-- Main calendar section -->
