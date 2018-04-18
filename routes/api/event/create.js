@@ -11,11 +11,6 @@ const hashids2 = new Hashids(
   process.env.HASHIDS_CREATOR_LENGTH
 );
 const hat     = require("hat");
-const nunjucks = require("nunjucks");
-const juice   = require("juice");
-
-const fs      = require("fs");
-
 const Event   = require("../../../models/event");
 const Creator = require("../../../models/creator");
 
@@ -23,7 +18,9 @@ const asyncMiddleware = require("../../../middlewares/async");
 
 const { TestError } = require("../../../utils/errors");
 
-const mailer = require("../../../utils/mailer");
+const { sendVerification,
+        sendCreated,
+        sendInvites } = require("../../../utils/mailer");
 
 // Create (POST) an event
 router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
@@ -83,59 +80,17 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
   if (!creator.authenticated) {
 
     // Send verification email if required
-    mailer.send({
-      to: creator.email,
-      from: "noreply@whenisgucci.com",
-      subject: "WhenIsGucci: Email Verification Required",
-      html: nunjucks.renderString(
-        juice(
-          fs.readFileSync("views/email/verify-email.njk").toString()
-        ),
-        {
-          authToken: creator.token,
-          authHash: hashids2.encode(creator.id)
-        }
-      )
-    });
+    sendVerification(creator);
 
   // If they have, send transactional emails confirming event
   } else {
 
     // Send confirmation email to creator
-    mailer.send({
-      to: creator.email,
-      from: "noreply@whenisgucci.com",
-      subject: "WhenIsGucci: Event Created",
-      html: nunjucks.renderString(
-        juice(
-          fs.readFileSync("views/email/event-created.njk").toString()
-        ),
-        {
-          eventTitle: event.title,
-          eventCode: hashids.encode(event.id)
-        }
-      )
-    });
+    sendCreated(creator, event);
 
     // Send invite emails to any invitees
-    if (invitees.length > 0) {
-
-      mailer.sendMultiple({
-        to: invitees,
-        from: "noreply@whenisgucci.com",
-        subject: "WhenIsGucci: Event Invitation",
-        html: nunjucks.renderString(
-          juice(
-            fs.readFileSync("views/email/event-invited.njk").toString()
-          ),
-          {
-            eventCode: hashids.encode(event.id)
-          }
-        )
-      });
-
-    }
-
+    if (invitees.length > 0)
+      sendInvites(event);
   }
 }));
 

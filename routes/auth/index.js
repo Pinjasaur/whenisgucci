@@ -18,10 +18,9 @@ const Creator = require("../../models/creator");
 
 const { RequestError } = require("../../utils/errors");
 
-const mailer = require("../../utils/mailer");
-const nunjucks = require("nunjucks");
-const juice = require("juice");
-const fs = require("fs");
+const { sendVerification,
+        sendCreated,
+        sendInvites } = require("../../utils/mailer");
 
 // Get (GET) an event + responses
 router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
@@ -64,39 +63,11 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
     const event = await Event.findOne({ _id: e }).exec();
 
     // Send confirmation email to creator
-    mailer.send({
-      to: creator.email,
-      from: "noreply@whenisgucci.com",
-      subject: "WhenIsGucci: Event Created",
-      html: nunjucks.renderString(
-        juice(
-          fs.readFileSync("views/email/event-created.njk").toString()
-        ),
-        {
-          eventTitle: event.title,
-          eventCode: hashids.encode(event.id)
-        }
-      )
-    });
+    sendCreated(creator, event);
 
     // Send invite emails to any invitees
-    if (event.invitedTo.length > 0) {
-
-      mailer.sendMultiple({
-        to: event.invitedTo,
-        from: "noreply@whenisgucci.com",
-        subject: "WhenIsGucci: Event Invitation",
-        html: nunjucks.renderString(
-          juice(
-            fs.readFileSync("views/email/event-invited.njk").toString()
-          ),
-          {
-            eventCode: hashids.encode(event.id)
-          }
-        )
-      });
-
-    }
+    if (event.invitedTo.length > 0)
+      sendInvites(event);
   });
 
   return res
