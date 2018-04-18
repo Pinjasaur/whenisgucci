@@ -18,6 +18,8 @@ const Creator = require("../../models/creator");
 
 const { RequestError } = require("../../utils/errors");
 
+const mailer = require("../../utils/mailer");
+
 // Get (GET) an event + responses
 router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
 
@@ -54,9 +56,9 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
   creator.authenticated = true;
   await creator.save();
 
-  creator.events.forEach(e => {
+  creator.events.forEach(async (e) => {
 
-    const event = await Event.findOne({ _id: e });
+    const event = await Event.findOne({ _id: e }).exec();
 
     // Send confirmation email to creator
     mailer.send({
