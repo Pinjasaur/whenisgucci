@@ -5,7 +5,7 @@ var freeStart = "";
 $(document ).ready(function() { // document ready
   new ClipboardJS('.btn'); // needed for ClipboardJS
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
-  $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
+  $('#to-datepicker').val(moment().add(6, 'days').format("YYYY-MM-DD"));
 
 
   var calendarConfig = {
@@ -132,31 +132,8 @@ $(document ).ready(function() { // document ready
     });
 
     $('#from-datepicker').on('change', function func() {
-
-      var currentDate = moment($('#from-datepicker').val());
-
-      $('#calendar').fullCalendar('destroy');
-      calendarConfig.visibleRange ={
-        start: currentDate,
-          end: currentDate.clone().add(7, 'days') // exclusive end, so 3
-        };
-
-
-        calendar.fullCalendar(calendarConfig);
-        $('#calendar').fullCalendar('render');
-        console.log(calendarConfig);
-      });
-
-    $('#to-datepicker').on('change', function func() {
       var startDate = moment($('#from-datepicker').val());
-
-      if (startDate == undefined){
-        startDate = moment();
-      }
-      console.log("This is your current date from 'from': ", startDate);
-
       var endDate = moment($('#to-datepicker').val());
-
 
       $('#calendar').fullCalendar('destroy');
       calendarConfig.visibleRange ={
@@ -164,10 +141,23 @@ $(document ).ready(function() { // document ready
         end: endDate.add(1, 'day')
       };
 
+      calendar.fullCalendar(calendarConfig);
+      $('#calendar').fullCalendar('render');
+      });
+
+    $('#to-datepicker').on('change', function func() {
+      var startDate = moment($('#from-datepicker').val());
+      var endDate = moment($('#to-datepicker').val());
+
+      $('#calendar').fullCalendar('destroy');
+      calendarConfig.visibleRange ={
+        start: startDate,
+        end: endDate.add(1, 'day')
+      };
 
       calendar.fullCalendar(calendarConfig);
       $('#calendar').fullCalendar('render');
-      console.log(calendarConfig);
+      console.log(endDate);
     });
 
     var calendar = $('#calendar');
@@ -176,32 +166,30 @@ $(document ).ready(function() { // document ready
     $('#modal-form').on("submit", createEvent);
   });
 
-
 function createEvent(event){
 
   event.preventDefault();
 
-  var validEvents = [];
   var startView = moment($('#from-datepicker').val());
   var endView = moment($('#to-datepicker').val());
+  var validEvents = $('#calendar').fullCalendar('clientEvents', function(event){
+    return event.start.isSameOrAfter(startView) && event.end.isSameOrBefore(endView);
+  });
   var title;
   var repEmails = [];
   var creatorEmail;
-
-  console.log("startView: ", startView);
-  console.log("endView: ", endView);
 
   if (events.length === 0) {
     alert("No Events Found");
     return false;
   }
 
-  events.forEach( function(event){
-    validEvents.push(
-      {
+  // making sure that the properties are consistent and appropriate!
+  validEvents = validEvents.map( function(event){
+    return {
         startDate: event.start.toISOString(),
         endDate: event.end.toISOString()
-      });
+      };
   });
 
   title = $('#event-title').val();

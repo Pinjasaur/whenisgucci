@@ -5,6 +5,7 @@ const autoInc  = require("mongoose-plugin-autoinc");
 const creatorSchema = new Schema({
   email: {
     type: String,
+    unique: true,
     lowercase: true,
     required: [true, 'Creator\'s  email required.']
   },
