@@ -232,6 +232,7 @@ function createEvent(event){
       $(".sentTo").html(toEmails);
       $("#sendLink").html(sendLink);
       $("#eventLink").html(eventLink);
+      $('#create-send-modal').removeClass('is-active');
       $('#save-success-modal').addClass('is-active');
     },
     error: function(err){
