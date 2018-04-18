@@ -19,6 +19,9 @@ const Creator = require("../../models/creator");
 const { RequestError } = require("../../utils/errors");
 
 const mailer = require("../../utils/mailer");
+const nunjucks = require("nunjucks");
+const juice = require("juice");
+const fs = require("fs");
 
 // Get (GET) an event + responses
 router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
@@ -97,7 +100,7 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
   });
 
   return res
-    .redirect(`event/${hashids.encode(creator.events[0])}/results?utm_source=emailauth&auth=1`);
+    .redirect(`/event/${hashids.encode(creator.events[0])}/results?utm_source=emailauth&auth=1`);
 }));
 
 module.exports = router;
