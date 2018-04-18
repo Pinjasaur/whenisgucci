@@ -1,7 +1,5 @@
 var events = [];
 var title="";
-var fromDate = "";
-var toDate = "";
 var freeStart = "";
 
 $(document ).ready(function() { // document ready
@@ -184,27 +182,27 @@ function createEvent(event){
   event.preventDefault();
 
   var validEvents = [];
-  var view = $('#calendar').fullCalendar('getView');
-  var j = 0;
+  var startView = moment($('#from-datepicker').val());
+  var endView = moment($('#to-datepicker').val());
   var title;
   var repEmails = [];
   var creatorEmail;
+
+  console.log("startView: ", startView);
+  console.log("endView: ", endView);
 
   if (events.length === 0) {
     alert("No Events Found");
     return false;
   }
 
-
-  for (i = 0; i < events.length; i++) {
-    if(events[i].start._d > view.start._d){
-      if(events[i].end._d <= view.end._d){
-        validEvents[j] = {startDate:events[i].start.toISOString(),endDate:events[i].end.toISOString()};
-        j++;
-      }// end if
-    }// end if
-  }// end for
-
+  events.forEach( function(event){
+    validEvents.push(
+      {
+        startDate: event.start.toISOString(),
+        endDate: event.end.toISOString()
+      });
+  });
 
   title = $('#event-title').val();
   if(!title.trim()){
@@ -219,13 +217,15 @@ function createEvent(event){
   repEmails = $("#invited-to-email").val().split(',');
 
   var data = {
-    startDate: view.start.toISOString(),
-    endDate: view.end.toISOString(),
+    startDate: startView.toISOString(),
+    endDate: endView.toISOString(),
     events: validEvents,
     title: title,
     createdBy: creatorEmail,
     invitedTo: repEmails
   };
+
+  console.log(data);
 
   $.ajax({
     url:"/api/event/create",
