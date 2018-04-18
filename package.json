@@ -11,11 +11,14 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "hashids": "^1.1.4",
+    "hat": "^0.0.3",
+    "juice": "^4.2.3",
     "mongoose": "^5.0.8",
     "mongoose-plugin-autoinc": "^1.1.9",
     "nunjucks": "^3.1.2"

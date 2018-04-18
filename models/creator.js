@@ -17,7 +17,8 @@ const creatorSchema = new Schema({
     default: false
   },
   token: {
-    type: String
+    type: String,
+    required: [true, 'Creator must have a token.']
   },
   expires: {
     type: Date

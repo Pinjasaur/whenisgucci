@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WhenIsGucci: Event Created</title>
+</head>
+<body>
+
+  <style>
+  * {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .wrap {
+    max-width: 600px;
+    padding: 16px;
+    border: 3px solid #000;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  </style>
+
+  <div class="wrap">
+    <h1>WhenIsGucci</h1>
+
+    <p>Hi,</p>
+
+    <p>You've created an new event called: <strong><em>{{ eventTitle }}</em></strong></p>
+
+    <p>Your custom, unique event code is: <strong><em>{{ eventCode }}</em></strong> </p>
+
+    <p>To view your event results, use the following URL: <a href="https://whenisgucci.com/event/{{ eventCode }}/results">https://whenisgucci.com/event/{{ eventCode }}/results</a></p>
+
+    <p>You can send the following short URL to invitees: <a href="https://gucci4.me/{{ eventCode }}">https://gucci4.me/{{ eventCode }}</a></p>
+
+    <p>Thanks,<br><em>WhenIsGucci</em></p>
+  </div>
+
+</body>
+</html>
