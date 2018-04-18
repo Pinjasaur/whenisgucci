@@ -44,6 +44,9 @@ app.use(require("./routes/event/respond"));
 // app.use(require("./routes/test"));
 app.use(require("./routes/create"));
 
+// Routes (Auth)
+app.use(require("./routes/auth/index"));
+
 // Routes (API Endpoints)
 app.use(require("./routes/api/event/create"));
 app.use(require("./routes/api/event/respond"));
