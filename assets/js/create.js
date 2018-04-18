@@ -3,7 +3,6 @@ var title="";
 var fromDate = "";
 var toDate = "";
 var freeStart = "";
-var eventNum = "";
 
 $(document ).ready(function() { // document ready
   new ClipboardJS('.btn'); // needed for ClipboardJS
@@ -85,32 +84,18 @@ $(document ).ready(function() { // document ready
     }
 
     $('#create-send-button').click( function func(){
-      events = $('#calendar').fullCalendar('clientEvents')
+      events = $('#calendar').fullCalendar('clientEvents');
       title = $('#event-title').val();
-      fromDate = $("#from-datepicker").val();
-      toDate = $("#to-datepicker").val();
+      var calendarView = $('#calendar').fullCalendar('getView');
+      var startView = calendarView.start;
+      var endView = calendarView.end;
       freeStart = "";
-      eventNum = "";
 
-      $(".title").html(title);
+      $(".title").text(title);
 
-      fromDate = new Date(fromDate);
-      mon = ("0"+(fromDate.getMonth()+1)).slice(-2);
-      day = ("0" + fromDate.getDate()).slice(-2);
-      year = fromDate.getFullYear();
-      hours = ("0" + fromDate.getHours()).slice(-2);
-      min = ("0" + fromDate.getMinutes()).slice(-2);
-      fromDate = mon +"/"+ day +"/"+ year;
-      $(".startDate").html(fromDate);
+      $(".startDate").text(startView.format("MM/DD/YYYY"));
 
-      toDate = new Date(toDate);
-      mon = ("0"+(toDate.getMonth()+1)).slice(-2);
-      day = ("0" + toDate.getDate()).slice(-2);
-      year = toDate.getFullYear();
-      hours = ("0" + toDate.getHours()).slice(-2);
-      min = ("0" + toDate.getMinutes()).slice(-2);
-      toDate = mon +"/"+ day +"/"+ year;
-      $(".endDate").html(toDate);
+      $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
 
       for(i = (events.length - 1); i >= 0; i--){
         date1 = events[i].start._d;
@@ -210,6 +195,7 @@ function createEvent(event){
     return false;
   }
 
+
   for (i = 0; i < events.length; i++) {
     if(events[i].start._d > view.start._d){
       if(events[i].end._d <= view.end._d){
@@ -218,6 +204,7 @@ function createEvent(event){
       }// end if
     }// end if
   }// end for
+
 
   title = $('#event-title').val();
   if(!title.trim()){
