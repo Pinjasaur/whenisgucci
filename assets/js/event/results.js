@@ -20,8 +20,8 @@ $(function() { // document ready
     allDaySlot: false,
     eventLimit: true,
     visibleRange: {
-     start: moment(event.startDate).add(1, 'day').format("YYYY-MM-DD"),
-     end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
+     start: moment(event.startDate).format("YYYY-MM-DD"),
+     end: moment(event.endDate).format("YYYY-MM-DD")
     },
     events: workingTimes
   };

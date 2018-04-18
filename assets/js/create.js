@@ -1,14 +1,11 @@
 var events = [];
 var title="";
-var fromDate = "";
-var toDate = "";
 var freeStart = "";
-var eventNum = "";
 
 $(document ).ready(function() { // document ready
   new ClipboardJS('.btn'); // needed for ClipboardJS
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
-  $('#to-datepicker').val(moment().add(7, 'days').format("YYYY-MM-DD"));
+  $('#to-datepicker').val(moment().add(6, 'days').format("YYYY-MM-DD"));
 
 
   var calendarConfig = {
@@ -85,32 +82,18 @@ $(document ).ready(function() { // document ready
     }
 
     $('#create-send-button').click( function func(){
-      events = $('#calendar').fullCalendar('clientEvents')
+      events = $('#calendar').fullCalendar('clientEvents');
       title = $('#event-title').val();
-      fromDate = $("#from-datepicker").val();
-      toDate = $("#to-datepicker").val();
+      var calendarView = $('#calendar').fullCalendar('getView');
+      var startView = calendarView.start;
+      var endView = calendarView.end;
       freeStart = "";
-      eventNum = "";
 
-      $(".title").html(title);
+      $(".title").text(title);
 
-      fromDate = new Date(fromDate);
-      mon = ("0"+(fromDate.getMonth()+1)).slice(-2);
-      day = ("0" + fromDate.getDate()).slice(-2);
-      year = fromDate.getFullYear();
-      hours = ("0" + fromDate.getHours()).slice(-2);
-      min = ("0" + fromDate.getMinutes()).slice(-2);
-      fromDate = mon +"/"+ day +"/"+ year;
-      $(".startDate").html(fromDate);
+      $(".startDate").text(startView.format("MM/DD/YYYY"));
 
-      toDate = new Date(toDate);
-      mon = ("0"+(toDate.getMonth()+1)).slice(-2);
-      day = ("0" + toDate.getDate()).slice(-2);
-      year = toDate.getFullYear();
-      hours = ("0" + toDate.getHours()).slice(-2);
-      min = ("0" + toDate.getMinutes()).slice(-2);
-      toDate = mon +"/"+ day +"/"+ year;
-      $(".endDate").html(toDate);
+      $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
 
       for(i = (events.length - 1); i >= 0; i--){
         date1 = events[i].start._d;
@@ -149,31 +132,8 @@ $(document ).ready(function() { // document ready
     });
 
     $('#from-datepicker').on('change', function func() {
-
-      var currentDate = moment($('#from-datepicker').val());
-
-      $('#calendar').fullCalendar('destroy');
-      calendarConfig.visibleRange ={
-        start: currentDate,
-          end: currentDate.clone().add(7, 'days') // exclusive end, so 3
-        };
-
-
-        calendar.fullCalendar(calendarConfig);
-        $('#calendar').fullCalendar('render');
-        console.log(calendarConfig);
-      });
-
-    $('#to-datepicker').on('change', function func() {
       var startDate = moment($('#from-datepicker').val());
-
-      if (startDate == undefined){
-        startDate = moment();
-      }
-      console.log("This is your current date from 'from': ", startDate);
-
       var endDate = moment($('#to-datepicker').val());
-
 
       $('#calendar').fullCalendar('destroy');
       calendarConfig.visibleRange ={
@@ -181,10 +141,23 @@ $(document ).ready(function() { // document ready
         end: endDate.add(1, 'day')
       };
 
+      calendar.fullCalendar(calendarConfig);
+      $('#calendar').fullCalendar('render');
+      });
+
+    $('#to-datepicker').on('change', function func() {
+      var startDate = moment($('#from-datepicker').val());
+      var endDate = moment($('#to-datepicker').val());
+
+      $('#calendar').fullCalendar('destroy');
+      calendarConfig.visibleRange ={
+        start: startDate,
+        end: endDate.add(1, 'day')
+      };
 
       calendar.fullCalendar(calendarConfig);
       $('#calendar').fullCalendar('render');
-      console.log(calendarConfig);
+      console.log(endDate);
     });
 
     var calendar = $('#calendar');
@@ -193,14 +166,15 @@ $(document ).ready(function() { // document ready
     $('#modal-form').on("submit", createEvent);
   });
 
-
 function createEvent(event){
 
   event.preventDefault();
 
-  var validEvents = [];
-  var view = $('#calendar').fullCalendar('getView');
-  var j = 0;
+  var startView = moment($('#from-datepicker').val());
+  var endView = moment($('#to-datepicker').val());
+  var validEvents = $('#calendar').fullCalendar('clientEvents', function(event){
+    return event.start.isSameOrAfter(startView) && event.end.isSameOrBefore(endView);
+  });
   var title;
   var repEmails = [];
   var creatorEmail;
@@ -210,14 +184,13 @@ function createEvent(event){
     return false;
   }
 
-  for (i = 0; i < events.length; i++) {
-    if(events[i].start._d > view.start._d){
-      if(events[i].end._d <= view.end._d){
-        validEvents[j] = {startDate:events[i].start.toISOString(),endDate:events[i].end.toISOString()};
-        j++;
-      }// end if
-    }// end if
-  }// end for
+  // making sure that the properties are consistent and appropriate!
+  validEvents = validEvents.map( function(event){
+    return {
+        startDate: event.start.toISOString(),
+        endDate: event.end.toISOString()
+      };
+  });
 
   title = $('#event-title').val();
   if(!title.trim()){
@@ -232,13 +205,15 @@ function createEvent(event){
   repEmails = $("#invited-to-email").val().split(',');
 
   var data = {
-    startDate: view.start.toISOString(),
-    endDate: view.end.toISOString(),
+    startDate: startView.toISOString(),
+    endDate: endView.toISOString(),
     events: validEvents,
     title: title,
     createdBy: creatorEmail,
     invitedTo: repEmails
   };
+
+  console.log(data);
 
   $.ajax({
     url:"/api/event/create",
