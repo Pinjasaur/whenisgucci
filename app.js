@@ -1,14 +1,27 @@
-require("dotenv").config();
-
 // NPM modules
 const express      = require("express");
 const nunjucks     = require("nunjucks");
 const bodyParser   = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose     = require("mongoose");
+const dotenv       = require("dotenv");
 
 // Stdlib modules
 const path = require("path");
+const fs   = require("fs");
+
+// Load in .env
+dotenv.config();
+
+const isProduction = (process.env.NODE_ENV === "production") ? true : false;
+
+// Override env for production
+if (isProduction) {
+  const env = dotenv.parse(fs.readFileSync(".env-prod"));
+  for (var key in env) {
+    process.env[key] = env[key];
+  }
+}
 
 // Setup MongoDB connection
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
@@ -19,7 +32,6 @@ db.on("open", () => console.log("MongoDB connected."));
 
 // Variables
 const app = express();
-const isProduction = (process.env.NODE_ENV === "production") ? true : false;
 
 // Configure Express to use Nunjucks for templating
 nunjucks.configure("views", {
@@ -30,6 +42,10 @@ nunjucks.configure("views", {
 
 // Nunjucks uses .njk extensions
 app.set("view engine", "njk");
+
+// Disable X-Powered-By header in production
+if (isProduction)
+  app.disable("x-powered-by");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
