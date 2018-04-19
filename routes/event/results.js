@@ -1,16 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const asyncMiddleware = require("../../middlewares/async");
-
 const Hashids = require("hashids");
 const hashids = new Hashids(
   process.env.HASHIDS_EVENT_SALT,
   process.env.HASHIDS_EVENT_LENGTH,
   process.env.HASHIDS_EVENT_ALPHABET
 );
+
 const Event = require("../../models/event");
 const Response = require("../../models/response");
 
+const asyncMiddleware = require("../../middlewares/async");
+
+const { isValidEvent } = require("../../utils/validators");
 const { RequestError } = require("../../utils/errors");
 
 // Get (GET) an event + responses
@@ -22,12 +24,14 @@ router.get("/event/:id/results", asyncMiddleware(async (req, res, next) => {
   if (id === undefined)
     throw new RequestError("Event ID invalid");
 
-
   let event = await Event.findOne({ _id: id }).exec();
 
   // Verify there was an Event found
   if (!event)
     throw new RequestError("No event found", 404);
+
+  if (!isValidEvent(event))
+    throw new RequestError("Event not valid");
 
   // Grab only the necessary properties
   event = {

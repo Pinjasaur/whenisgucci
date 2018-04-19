@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const asyncMiddleware = require("../../middlewares/async");
-
 const Hashids = require("hashids");
 const hashids = new Hashids(
   process.env.HASHIDS_EVENT_SALT,
@@ -16,11 +14,13 @@ const hashids2 = new Hashids(
 const Event = require("../../models/event");
 const Creator = require("../../models/creator");
 
-const { RequestError } = require("../../utils/errors");
+const asyncMiddleware = require("../../middlewares/async");
 
+const { RequestError } = require("../../utils/errors");
+const { isValidEvent } = require("../../utils/validators");
 const { sendVerification,
         sendCreated,
-        sendInvites } = require("../../utils/mailer");
+        sendInvites }  = require("../../utils/mailer");
 
 // Get (GET) an event + responses
 router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
@@ -58,9 +58,18 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
   creator.authenticated = true;
   await creator.save();
 
-  creator.events.forEach(async (e) => {
+  creator.events.forEach(async (eventID) => {
 
-    const event = await Event.findOne({ _id: e }).exec();
+    const event = await Event.findOne({ _id: eventID }).exec();
+
+    // Verify there was an Event found
+    if (!event)
+      return res
+        .redirect("/?utm_source=emailauth&auth=0");
+
+    if (!isValidEvent(event))
+      return res
+        .redirect("/?utm_source=emailauth&auth=0");
 
     // Send confirmation email to creator
     sendCreated(creator, event);
