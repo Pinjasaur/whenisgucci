@@ -65,11 +65,10 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
     // Verify there was an Event found
     if (!event)
       return res
-        .redirect("/?utm_source=emailauth&auth=0");
+        .redirect("/?utm_source=emailauth&auth=2");
 
-    if (!isValidEvent(event))
-      return res
-        .redirect("/?utm_source=emailauth&auth=0");
+    event.verified = true;
+    await event.save();
 
     // Send confirmation email to creator
     sendCreated(creator, event);
