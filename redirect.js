@@ -6,11 +6,6 @@ const cookieParser = require("cookie-parser");
 const mongoose     = require("mongoose");
 const dotenv       = require("dotenv");
 const Hashids      = require("hashids");
-const hashids      = new Hashids(
-  process.env.HASHIDS_EVENT_SALT,
-  process.env.HASHIDS_EVENT_LENGTH,
-  process.env.HASHIDS_EVENT_ALPHABET
-);
 
 // Stdlib modules
 const path = require("path");
@@ -42,6 +37,11 @@ const Event           = require("./models/event");
 
 // Variables
 const app = express();
+const hashids = new Hashids(
+  process.env.HASHIDS_EVENT_SALT,
+  process.env.HASHIDS_EVENT_LENGTH,
+  process.env.HASHIDS_EVENT_ALPHABET
+);
 
 // Disable X-Powered-By header in production
 if (isProduction)
