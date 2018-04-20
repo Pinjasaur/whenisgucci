@@ -6,11 +6,6 @@ const cookieParser = require("cookie-parser");
 const mongoose     = require("mongoose");
 const dotenv       = require("dotenv");
 const Hashids      = require("hashids");
-const hashids      = new Hashids(
-  process.env.HASHIDS_EVENT_SALT,
-  process.env.HASHIDS_EVENT_LENGTH,
-  process.env.HASHIDS_EVENT_ALPHABET
-);
 
 // Stdlib modules
 const path = require("path");
@@ -24,7 +19,7 @@ const isProduction = (process.env.NODE_ENV === "production") ? true : false;
 // Override env for production
 if (isProduction) {
   const env = dotenv.parse(fs.readFileSync(".env-prod"));
-  for (var key in env) {
+  for (let key in env) {
     process.env[key] = env[key];
   }
 }
@@ -42,6 +37,11 @@ const Event           = require("./models/event");
 
 // Variables
 const app = express();
+const hashids = new Hashids(
+  process.env.HASHIDS_EVENT_SALT,
+  process.env.HASHIDS_EVENT_LENGTH,
+  process.env.HASHIDS_EVENT_ALPHABET
+);
 
 // Disable X-Powered-By header in production
 if (isProduction)
