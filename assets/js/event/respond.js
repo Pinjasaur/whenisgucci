@@ -2,7 +2,6 @@ $(function() { // document ready
   var event = __GLOBALS__.event;
 
   var masterEvents = [];
-  var id = 0;
 
   event.timesSelected.forEach( function(time){
     masterEvents.push({
@@ -11,7 +10,6 @@ $(function() { // document ready
       rendering: 'background',
       isMasterEvent: true
     });
-    id++;
   });
 
   var calendarConfig = {
@@ -42,14 +40,14 @@ $(function() { // document ready
       $('#calendar').fullCalendar("unselect");
     },
     selectOverlap: function(event) {
-      calendar.fullCalendar('unselect');
+      $('#calendar').fullCalendar('unselect');
       return ! event.block;
     },
     eventRender: function(event, element) {
       element.append( "<span class='unselect-event'></span>" );
       element.find(".unselect-event").click(function() {
-       $('#calendar').fullCalendar('removeEvents',event._id);
-     });
+        $('#calendar').fullCalendar('removeEvents',event._id);
+      });
     },
   };
 

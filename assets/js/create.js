@@ -36,7 +36,7 @@ $(function() { // document ready
       $('#calendar').fullCalendar("unselect");
     },
     selectOverlap: function(event) {
-      calendar.fullCalendar('unselect');
+      $('#calendar').fullCalendar('unselect');
       return ! event.block;
     },
     eventRender: function(event, element) {
@@ -59,13 +59,13 @@ $(function() { // document ready
   createModal();
 
   // when the date inputs change, update the calendar config and reconstruct it
-  calendarDateUpdate();
+  calendarDateUpdate(calendarConfig);
 
   $('#calendar').fullCalendar(calendarConfig);
 
   $('#modal-form').on("submit", createEvent);
 
-  $('#newEvent').on('click', window.location.reload);
+  $('#newEvent').on('click', function(){window.location.reload()});
 });
 
 function datePickerAnimate(){
@@ -80,12 +80,43 @@ function datePickerAnimate(){
 
 }
 
+function calendarDateUpdate(calendarConfig){
+  $('#from-datepicker').on('change', function func() {
+    var startDate = moment($('#from-datepicker').val());
+    var endDate = moment($('#to-datepicker').val());
+
+    $('#calendar').fullCalendar('destroy');
+    calendarConfig.visibleRange ={
+      start: startDate,
+      end: endDate.add(1, 'day')
+    };
+
+    $('#calendar').fullCalendar(calendarConfig);
+    $('#calendar').fullCalendar('render');
+  });
+
+  $('#to-datepicker').on('change', function func() {
+    var startDate = moment($('#from-datepicker').val());
+    var endDate = moment($('#to-datepicker').val());
+
+    $('#calendar').fullCalendar('destroy');
+    calendarConfig.visibleRange ={
+      start: startDate,
+      end: endDate.add(1, 'day')
+    };
+
+    $('#calendar').fullCalendar(calendarConfig);
+    $('#calendar').fullCalendar('render');
+    console.log(endDate);
+  });
+}
+
 function createModal(){
   $('#create-send-button').click( function func(){
     title = $('#event-title').val();
 
     if(!title.trim()){
-      $('#no-title-modal').addClass('is-active');;
+      alert("Please enter an event title!");
       return false;
     }
 
@@ -124,49 +155,15 @@ function createModal(){
   });
 }
 
-function calendarDateUpdate(){
-      $('#from-datepicker').on('change', function func() {
-      var startDate = moment($('#from-datepicker').val());
-      var endDate = moment($('#to-datepicker').val());
+function createEvent(_e){
 
-      $('#calendar').fullCalendar('destroy');
-      calendarConfig.visibleRange ={
-        start: startDate,
-        end: endDate.add(1, 'day')
-      };
-
-      calendar.fullCalendar(calendarConfig);
-      $('#calendar').fullCalendar('render');
-      });
-
-    $('#to-datepicker').on('change', function func() {
-      var startDate = moment($('#from-datepicker').val());
-      var endDate = moment($('#to-datepicker').val());
-
-      $('#calendar').fullCalendar('destroy');
-      calendarConfig.visibleRange ={
-        start: startDate,
-        end: endDate.add(1, 'day')
-      };
-
-      calendar.fullCalendar(calendarConfig);
-      $('#calendar').fullCalendar('render');
-      console.log(endDate);
-    });
-}
-
-function createEvent(e){
-
-  e.preventDefault();
+  _e.preventDefault();
 
   var startView = moment($('#from-datepicker').val());
   var endView = moment($('#to-datepicker').val());
   var validEvents = $('#calendar').fullCalendar('clientEvents', function(ev){
     return ev.start.isSameOrAfter(startView) && ev.end.isSameOrBefore(endView);
   });
-  var title;
-  var repEmails = [];
-  var creatorEmail;
 
   if (validEvents.length === 0) {
     alert("No Events Found");
@@ -181,9 +178,11 @@ function createEvent(e){
       };
   });
 
-  title = $('#event-title').val();
+  var title = $('#event-title').val();
 
-  repEmails = $("#invited-to-email").val().split(',');
+  var repEmails = $("#invited-to-email").val().split(',');
+
+  var creatorEmail = $("#creator-email").val();
 
   var data = {
     startDate: startView.toISOString(),
@@ -217,6 +216,7 @@ function createEvent(e){
     error: function(err){
       console.log(err.message);
     }
+  });
 
-  })
+  return false;
 }
