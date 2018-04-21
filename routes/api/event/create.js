@@ -22,6 +22,8 @@ const { sendVerification,
         sendCreated,
         sendInvites } = require("../../../utils/mailer");
 
+const { trimAndUnique } = require("../../../utils/index");
+
 // Create (POST) an event
 router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
 
@@ -32,10 +34,7 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
   };
 
   const email = req.body.createdBy;
-  const invitees = req.body.invitedTo
-    .map(i => i.trim()) // Trim whitespace
-    .filter(i => i !== "") // No empties
-    .filter((x, i, a) => a.indexOf(x) === i); // No duplicates
+  const invitees = trimAndUnique(req.body.invitedTo);
 
   let creator = null;
   // Check for Creator
