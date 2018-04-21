@@ -83,8 +83,12 @@ $(document ).ready(function() { // document ready
     }
 
     $('#create-send-button').click( function func(){
-      events = $('#calendar').fullCalendar('clientEvents');
       title = $('#event-title').val();
+      if(!title.trim()){
+        $('#no-title-modal').addClass('is-active');;
+        return -1;
+      }
+      events = $('#calendar').fullCalendar('clientEvents');
       var calendarView = $('#calendar').fullCalendar('getView');
       var startView = calendarView.start;
       var endView = calendarView.end;
@@ -122,6 +126,10 @@ $(document ).ready(function() { // document ready
 
 
       $('#create-send-modal').addClass('is-active');
+    });
+
+    $('#close-modal-no-title').click(function func(){
+      $('#no-title-modal').removeClass('is-active');
     });
 
     $('#close-modal').click(function func(){
