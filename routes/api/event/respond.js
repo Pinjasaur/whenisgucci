@@ -12,7 +12,10 @@ const Response = require("../../../models/response");
 
 const asyncMiddleware = require("../../../middlewares/async");
 
+const { isValidEvent } = require("../../../utils/validators");
 const { RequestError } = require("../../../utils/errors");
+
+const { RESPONDER_NAME_MAX } = require("../../../utils/constants");
 
 // Create (POST) an Event Response
 router.post("/api/event/respond", asyncMiddleware(async (req, res, next) => {
@@ -29,12 +32,15 @@ router.post("/api/event/respond", asyncMiddleware(async (req, res, next) => {
   if (!event)
     throw new RequestError("No Event found for specified ID");
 
+  if (!isValidEvent(event))
+    throw new RequestError("Event not valid");
+
   // Create the Response
   const response = await new Response({
     eventID,
     timesSelected: req.body.events,
     email: req.body.email,
-    name: req.body.name
+    name: req.body.name.slice(0, RESPONDER_NAME_MAX)
   }).save();
 
   const resp = {

@@ -16,14 +16,17 @@
   <body>
       <!-- Title section -->
       <section class="section">
-        <div class="container is-fluid">
-          <h1 class="title">
-            When Is Gucci
-          </h1>
-          <p class="subtitle">
-            Get your schedule on
-          </p>
-        </div>
+        <a href="/">
+          <div class="container is-fluid">
+
+            <h1 class="title">
+              When Is Gucci
+            </h1>
+            <p class="subtitle">
+              Get your schedule on
+            </p>
+          </div>
+        </a>
       </section>
       <nav class="navbar is-light">
         <div class="container">
@@ -53,13 +56,12 @@
           </header>
           <section class="modal-card-body">
             <div class="content">
-              <h1>Time Summary</h1>
               <h1>Enter Your Email</h1>
               <p>We'll need your email to know who responded!</p>
-              <input id="respond-email" type="email" required="true" maxlength="50">
+              <input class="input" id="respond-email" type="email" required="true"  maxlength="50">
               <h1>Enter Your Name</h1>
               <p>We will also need your name so the organizer may know who you are as well!</p>
-              <input id="respond-name" type="text" maxlength="30">
+              <input class="input" id="respond-name" type="text" maxlength="{{ CONSTANTS.RESPONDER_NAME_MAX }}">
             </div>
           </section>
           <footer class="modal-card-foot">
@@ -78,7 +80,7 @@
           </header>
           <section class="modal-card-body">
             <div class="content">
-              <p>You will receive a confirmation email to the supplied email address to let you know your response has been successfully sent! Please coordinate with your event organizer with anymore questions.</p>
+              <p>Your response has been successfully sent. Your event coordinator will have your response now, coordinate with them for any further questions!</p>
             </div>
           </section>
           <footer class="modal-card-foot">
@@ -104,6 +106,7 @@
         event: {{event|dump|safe}},
       };
     </script>
+    <script src="/js/global.js"></script>
     <script src="/js/event/respond.js"></script>
   </body>
 </html>

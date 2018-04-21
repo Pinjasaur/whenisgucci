@@ -1,10 +1,9 @@
 var codeInputStatus = false; // false being closed
-
+checkURL();
 $( ".codeButton" ).click(function() {
   if(codeInputStatus === true){
     $(".codeInput").animate({width: '0px' , padding: '0px'}, 1000)
     $("#inputCode").animate({padding: '0px'},1000);
-  //  $("#codeInput").animate({visibility: 'hidden'}, 2000)
     codeInputStatus = false;
   }// end if
   else{
@@ -17,6 +16,10 @@ $( ".codeButton" ).click(function() {
 
 $('#close-modal').click(function func(){
   $('#invalid-code-modal').removeClass('is-active');
+});
+
+$('#close-modal-id').click(function func(){
+  $('#invalid-id-modal').removeClass('is-active');
 });
 
 function submitEventCode(code){
@@ -32,17 +35,37 @@ function submitEventCode(code){
         if(res.status){
           url = "https://whenisgucci.com/event/" + code.value + "/respond?utm_source=eventcode";
           location.href = url;
-      }else{
-        alert("Invalid Code");
-      }
+        }
       },
       error: function(err){
         document.getElementById("inputCode").setAttribute("class", "input is-danger");
         $('#invalid-code-modal').addClass('is-active');
-        console.log(err.message);
       }
 
-    })
+    }) // end of ajax request
 
+  }// end if
+}// end of submitEventCode
+
+function checkURL(){
+  if(window.location.href.indexOf("invalid-code=1") > -1) {
+    // code not even close. Doesn't pass regular expression.
+    $('#id-header').html("Invalid Event Code");
+    $('#invalid-title').html("Your Event Code Is Not Valid!");
+    $('#invalid-msg').html("please check to make sure you have the correct event code")
+    $('#invalid-id-modal').addClass('is-active');
+  }else if(window.location.href.indexOf("invalid-code=2") > -1){
+    // code couldn't be decoded
+    $('#id-header').html("Invalid Event Code");
+    $('#invalid-title').html("Your Event Code Is Not Valid!");
+    $('#invalid-msg').html("please check to make sure you have the correct event code")
+    $('#invalid-id-modal').addClass('is-active');
+  }else if(window.location.href.indexOf("invalid-code=3") > -1){
+    // Event Not Found in DB.
+    $('#id-header').html("Event Does Not Exist");
+    $('#invalid-title').html("Your Event Does Not Exist!");
+    $('#invalid-msg').html("please check to make sure you have the correct event code")
+    $('#invalid-id-modal').addClass('is-active');
   }
+
 }

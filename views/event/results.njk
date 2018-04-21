@@ -12,18 +12,22 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
   </head>
   <body>
       <!-- Title section -->
       <section class="section">
-        <div class="container is-fluid">
-          <h1 class="title">
-            When Is Gucci
-          </h1>
-          <p class="subtitle">
-            Get your schedule on
-          </p>
-        </div>
+        <a href="/">
+          <div class="container is-fluid">
+
+            <h1 class="title">
+              When Is Gucci
+            </h1>
+            <p class="subtitle">
+              Get your schedule on
+            </p>
+          </div>
+        </a>
       </section>
       <nav class="navbar is-light">
         <div class="container">
@@ -53,7 +57,11 @@
           <section class="modal-card-body">
             <div class="content">
               <h3>Here is your event URL! Send it to all the peoples!</h3>
-              <input id="event-code" readonly="" value="gucci4.me/1234"></input>
+              <input class="input" id="event-code" readonly>
+              <button type="button" class="copy-btn button popup" data-clipboard-target="#event-code">
+                <span class="popup-text" id="copy-message">Copied!</span>
+                <i class="fas fa-copy" alt="Copy to clipboard"></i>
+              </button>
             </div>
           </section>
           <footer class="modal-card-foot">
@@ -80,6 +88,7 @@
         responses: {{responses|dump|safe}}
       };
     </script>
+    <script src="/js/global.js"></script>
     <script src="/js/event/results.js"></script>
   </body>
 </html>

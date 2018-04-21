@@ -1,5 +1,7 @@
 # whenisgucci
 
+[![Travis](https://img.shields.io/travis/Pinjasaur/whenisgucci.svg)](https://travis-ci.org/Pinjasaur/whenisgucci)
+
 Like whenisgood, but gucci.
 
 For CS3141 (Team Software Project) Spring 2018.

@@ -1,6 +1,6 @@
 {
   "name": "whenisgucci",
-  "version": "0.1.0",
+  "version": "1.0.0-beta.1",
   "description": "WhenIsGucci primary app.",
   "main": "app.js",
   "repository": "https://github.com/Pinjasaur/whenisgucci.git",
@@ -8,20 +8,25 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "hashids": "^1.1.4",
+    "hat": "^0.0.3",
+    "juice": "^4.2.3",
     "mongoose": "^5.0.8",
     "mongoose-plugin-autoinc": "^1.1.9",
     "nunjucks": "^3.1.2"
   },
   "devDependencies": {
     "browser-sync": "^2.23.6",
+    "chai": "^4.1.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-clean": "^0.4.0",
@@ -34,6 +39,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "mocha": "^5.1.1"
   }
 }

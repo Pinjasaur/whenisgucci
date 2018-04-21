@@ -16,6 +16,20 @@
   </head>
   <body>
     <section class="hero is-success is-fullheight">
+      <div class="hero-head">
+        <div class="container">
+          <article class="message is-danger" style="margin-top: 1rem">
+            <div class="message-body">
+              <p>
+                <strong>Note!</strong>
+                This app is released as a beta-level product.
+                Features may be added, removed, or altered without warning.
+                Stability cannot be guaranteed.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">
@@ -40,7 +54,31 @@
           </div>
         </div>
       </div>
+      <div class="hero-foot">
+        <div class="container has-text-centered">
+          <small>v{{ VERSION }}</small>
+        </div>
+      </div>
     </section>
+    <div class="modal" id="invalid-id-modal">
+      <form id="modal-form">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title" id="id-header"></p>
+          <button type="button" class="delete" id="close-modal-id" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="content">
+            <h3 id="invalid-title"></h3>
+            <p id="invalid-msg"></p>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+        </footer>
+      </div>
+      </form>
+    </div>
     <div class="modal" id="invalid-code-modal">
       <form id="modal-form">
       <div class="modal-background"></div>
@@ -49,13 +87,6 @@
           <p class="modal-card-title">Invalid Event Code!</p>
           <button type="button" class="delete" id="close-modal" aria-label="close"></button>
         </header>
-        <!--<section class="modal-card-body">
-          <div class="content">
-            <h3>Invalid Event Code</h3>
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-        </footer>-->
       </div>
       </form>
     </div>
