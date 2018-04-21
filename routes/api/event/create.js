@@ -58,7 +58,7 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
     endDate: req.body.endDate,
     invitedTo: invitees,
     timesSelected: req.body.events,
-    valid: creator.authenticated
+    verified: creator.authenticated
   }).save();
 
   // Update the Creator with the Event ID

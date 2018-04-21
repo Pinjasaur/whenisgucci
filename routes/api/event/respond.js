@@ -12,6 +12,7 @@ const Response = require("../../../models/response");
 
 const asyncMiddleware = require("../../../middlewares/async");
 
+const { isValidEvent } = require("../../../utils/validators");
 const { RequestError } = require("../../../utils/errors");
 
 // Create (POST) an Event Response
@@ -28,6 +29,9 @@ router.post("/api/event/respond", asyncMiddleware(async (req, res, next) => {
   // If no Event, error
   if (!event)
     throw new RequestError("No Event found for specified ID");
+
+  if (!isValidEvent(event))
+    throw new RequestError("Event not valid");
 
   // Create the Response
   const response = await new Response({

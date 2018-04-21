@@ -32,8 +32,9 @@ db.on("error", () => console.error("MongoDB connection error:"));
 db.on("open", () => console.log("MongoDB connected."));
 
 // User modules
-const asyncMiddleware = require("./middlewares/async");
-const Event           = require("./models/event");
+const asyncMiddleware  = require("./middlewares/async");
+const Event            = require("./models/event");
+const { isValidEvent } = require("./utils/validators");
 
 // Variables
 const app = express();
@@ -71,6 +72,9 @@ app.get("/:id", asyncMiddleware(async (req, res, next) => {
   // Redirect if Event not found
   if (!event)
     return res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=3");
+
+  if (!isValidEvent(event))
+    return res.redirect("https://whenisgucci.com/?utm_source=gucci4me&invalid-code=6");
 
   // Redirect to the Event
   return res.redirect(`https://whenisgucci.com/event/${req.params.id}/respond?utm_source=gucci4me`);

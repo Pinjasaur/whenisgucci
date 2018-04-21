@@ -57,7 +57,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(require("./routes/index"));
 app.use(require("./routes/event/results"));
 app.use(require("./routes/event/respond"));
-// app.use(require("./routes/test"));
 app.use(require("./routes/create"));
 
 // Routes (Auth)
@@ -67,7 +66,6 @@ app.use(require("./routes/auth/index"));
 app.use(require("./routes/api/event/create"));
 app.use(require("./routes/api/event/respond"));
 app.use(require("./routes/api/event/verify-code"));
-app.use(require("./routes/api/event/index"));
 
 // Handles 404s
 app.use((req, res, next) => {

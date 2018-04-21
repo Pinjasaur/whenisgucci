@@ -30,6 +30,10 @@ const eventSchema = new Schema({
   timesSelected: {
     type: [ { startDate: Date, endDate: Date } ],
     required: [true, 'Dates required.']
+  },
+  verified: {
+    type: Boolean,
+    default: false
   }
 });
 
