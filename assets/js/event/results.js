@@ -1,4 +1,6 @@
 $(function() { // document ready
+  new ClipboardJS('.copy-btn'); // needed for ClipboardJS
+
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
 
