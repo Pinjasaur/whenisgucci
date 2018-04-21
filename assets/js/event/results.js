@@ -1,6 +1,11 @@
 $(function() { // document ready
+  new ClipboardJS('.copy-btn'); // needed for ClipboardJS
+  $('.copy-btn').on('click', copyMessageToolTip);
+
+
   var event = __GLOBALS__.event;
   var responses = __GLOBALS__.responses;
+  $('#event-code').val('gucci4.me/' + event.id);
 
   navBurgerify();
   modalVisibility();
@@ -27,6 +32,7 @@ $(function() { // document ready
   };
 
   calendar.fullCalendar(calendarConfig);
+
 });
 
 function overLapTimes(inEvent, responses, inCalendar){
@@ -175,4 +181,12 @@ function navBurgerify(){
       });
     });
   }
+}
+
+function copyMessageToolTip(){
+  var $this = $(this);
+  $this.find('.popup-text').addClass("show");
+  setTimeout(function(){
+    $this.find('.popup-text').removeClass("show");
+  }, 2000);
 }

@@ -3,7 +3,8 @@ var title="";
 var freeStart = "";
 
 $(document ).ready(function() { // document ready
-  new ClipboardJS('.btn'); // needed for ClipboardJS
+  new ClipboardJS('.copy-btn'); // needed for ClipboardJS
+  $('.copy-btn').on('click', copyMessageToolTip);
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(6, 'days').format("YYYY-MM-DD"));
 
@@ -82,12 +83,15 @@ $(document ).ready(function() { // document ready
     }
 
     $('#create-send-button').click( function func(){
-      events = $('#calendar').fullCalendar('clientEvents');
       title = $('#event-title').val();
+      if(!title.trim()){
+        $('#no-title-modal').addClass('is-active');;
+        return -1;
+      }
+      events = $('#calendar').fullCalendar('clientEvents');
       var calendarView = $('#calendar').fullCalendar('getView');
       var startView = calendarView.start;
       var endView = calendarView.end;
-      freeStart = "";
 
       $(".title").text(title);
 
@@ -95,32 +99,23 @@ $(document ).ready(function() { // document ready
 
       $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
 
-      for(i = (events.length - 1); i >= 0; i--){
-        date1 = events[i].start._d;
-        console.log(date1);
-        mon = ("0"+(date1.getMonth()+1)).slice(-2);
-        day = ("0" + date1.getDate()).slice(-2);
-        year = date1.getFullYear();
-        hours = ("0" + (date1.getHours() + 4)).slice(-2);
-        min = ("0" + date1.getMinutes()).slice(-2);
-        date2 = events[i].end._d;
-        console.log(date2);
-        mon2 = ("0"+(date2.getMonth()+1)).slice(-2);
-        day2 = ("0" + date2.getDate()).slice(-2);
-        year2 = date2.getFullYear();
-        hours2 = ("0" + (date2.getHours() + 4)).slice(-2);
-        min2 = ("0" + date2.getMinutes()).slice(-2);
+      $(".freeTimeStart").empty();
 
-        freeStart =  "<li>" + mon +"/"+ day +"/"+ year + " "
-                     + hours + ":" + min + " to "
-                     + mon2 +"/"+ day2 +"/"+ year2 + " "
-                     + hours2 + ":" + min2 + "</li>" + freeStart ;
+      events.forEach(function(event) {
 
-      }
-      $(".freeTimeStart").html(freeStart);
+        var start = event.start.format("MM/DD/YYYY HH:mm");
+        var end = event.end.format("MM/DD/YYYY HH:mm");
 
+        var $el = $("<li>");
+        $el.text(start + " to " + end);
+        $(".freeTimeStart").append($el);
+      });
 
       $('#create-send-modal').addClass('is-active');
+    });
+
+    $('#close-modal-no-title').click(function func(){
+      $('#no-title-modal').removeClass('is-active');
     });
 
     $('#close-modal').click(function func(){
@@ -213,8 +208,6 @@ function createEvent(event){
     invitedTo: repEmails
   };
 
-  console.log(data);
-
   $.ajax({
     url:"/api/event/create",
     method: "POST",
@@ -247,11 +240,10 @@ $('#newEvent').click( function func(){
   window.location.reload(true);
 })
 
-function popUpFunc() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-}
-function popUpFunc2() {
-    var popup = document.getElementById("myPopup2");
-    popup.classList.toggle("show");
+function copyMessageToolTip(){
+  var $this = $(this);
+  $this.find('.popup-text').addClass("show");
+  setTimeout(function(){
+    $this.find('.popup-text').removeClass("show");
+  }, 2000);
 }
