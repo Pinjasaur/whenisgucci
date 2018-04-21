@@ -3,7 +3,8 @@ var title="";
 var freeStart = "";
 
 $(document ).ready(function() { // document ready
-  new ClipboardJS('.btn'); // needed for ClipboardJS
+  new ClipboardJS('.copy-btn'); // needed for ClipboardJS
+  $('.copy-btn').on('click', copyMessageToolTip);
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(6, 'days').format("YYYY-MM-DD"));
 
@@ -247,11 +248,10 @@ $('#newEvent').click( function func(){
   window.location.reload(true);
 })
 
-function popUpFunc() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-}
-function popUpFunc2() {
-    var popup = document.getElementById("myPopup2");
-    popup.classList.toggle("show");
+function copyMessageToolTip(){
+  var $this = $(this);
+  $this.find('.popup-text').addClass("show");
+  setTimeout(function(){
+    $this.find('.popup-text').removeClass("show");
+  }, 2000);
 }
