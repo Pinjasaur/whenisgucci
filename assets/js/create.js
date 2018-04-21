@@ -222,8 +222,6 @@ function createEvent(event){
     invitedTo: repEmails
   };
 
-  console.log(data);
-
   $.ajax({
     url:"/api/event/create",
     method: "POST",
