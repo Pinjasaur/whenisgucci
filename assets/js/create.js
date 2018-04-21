@@ -81,11 +81,13 @@ function datePickerAnimate(){
 function createModal(){
   $('#create-send-button').click( function func(){
     title = $('#event-title').val();
+
     if(!title.trim()){
       $('#no-title-modal').addClass('is-active');;
-      return -1;
+      return false;
     }
-    events = $('#calendar').fullCalendar('clientEvents');
+
+    var clientEvents = $('#calendar').fullCalendar('clientEvents');
     var calendarView = $('#calendar').fullCalendar('getView');
     var startView = calendarView.start;
     var endView = calendarView.end;
@@ -98,7 +100,7 @@ function createModal(){
 
     $(".freeTimeStart").empty();
 
-    events.forEach(function(event) {
+    clientEvents.forEach(function(event) {
 
       var start = event.start.format("MM/DD/YYYY HH:mm");
       var end = event.end.format("MM/DD/YYYY HH:mm");
@@ -151,20 +153,20 @@ function calendarDateUpdate(){
     });
 }
 
-function createEvent(event){
+function createEvent(e){
 
-  event.preventDefault();
+  e.preventDefault();
 
   var startView = moment($('#from-datepicker').val());
   var endView = moment($('#to-datepicker').val());
-  var validEvents = $('#calendar').fullCalendar('clientEvents', function(event){
-    return event.start.isSameOrAfter(startView) && event.end.isSameOrBefore(endView);
+  var validEvents = $('#calendar').fullCalendar('clientEvents', function(ev){
+    return ev.start.isSameOrAfter(startView) && ev.end.isSameOrBefore(endView);
   });
   var title;
   var repEmails = [];
   var creatorEmail;
 
-  if (events.length === 0) {
+  if (validEvents.length === 0) {
     alert("No Events Found");
     return false;
   }
@@ -178,14 +180,6 @@ function createEvent(event){
   });
 
   title = $('#event-title').val();
-  if(!title.trim()){
-    alert("Please Enter a Title");
-  }
-
-  creatorEmail = $("#creator-email").val();
-  if(!creatorEmail.trim()){
-    alert("Please Enter Your Email");
-  }
 
   repEmails = $("#invited-to-email").val().split(',');
 
