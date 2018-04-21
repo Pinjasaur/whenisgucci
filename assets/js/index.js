@@ -55,7 +55,7 @@ function checkURL(){
     $('#invalid-msg').html("please check to make sure you have the correct event code")
     $('#invalid-id-modal').addClass('is-active');
   }else if(window.location.href.indexOf("invalid-code=2") > -1){
-    // code couln't be decoded
+    // code couldn't be decoded
     $('#id-header').html("Invalid Event Code");
     $('#invalid-title').html("Your Event Code Is Not Valid!");
     $('#invalid-msg').html("please check to make sure you have the correct event code")
