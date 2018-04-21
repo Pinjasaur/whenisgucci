@@ -24,6 +24,9 @@ const { sendVerification,
 
 const { trimAndUnique } = require("../../../utils/index");
 
+const { TITLE_MAX,
+        INVITEES_MAX }  = require("../../../utils/constants");
+
 // Create (POST) an event
 router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
 
@@ -50,12 +53,12 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
 
   // Create the Event
   const event = await new Event({
-    title: req.body.title,
+    title: req.body.title.slice(0, TITLE_MAX),
     createdBy: creator.id,
     granularity: req.body.granularity || 30,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
-    invitedTo: invitees,
+    invitedTo: invitees.slice(0, INVITEES_MAX),
     timesSelected: req.body.events,
     verified: creator.authenticated
   }).save();
