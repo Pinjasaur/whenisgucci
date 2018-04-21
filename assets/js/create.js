@@ -1,10 +1,8 @@
-var events = [];
-var title="";
-var freeStart = "";
-
-$(document ).ready(function() { // document ready
+$(function() { // document ready
   new ClipboardJS('.copy-btn'); // needed for ClipboardJS
   $('.copy-btn').on('click', copyMessageToolTip);
+
+  // initialize the datepicker values to the current day to a week view
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(6, 'days').format("YYYY-MM-DD"));
 
@@ -49,84 +47,81 @@ $(document ).ready(function() { // document ready
     }
   };
 
-  // to create the hamburger when viewport is some size
-    // Get all "navbar-burger" elements
-    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  // makes sure the nav will burger and unfold on the proper size view
+  navBurgerify();
 
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
+  // makes the date picker/inputs come out and look all shnazzy
+  datePickerAnimate();
 
-      // Add a click event on each of them
-      $navbarBurgers.forEach(function ($el) {
-        $el.addEventListener('click', function () {
+  // this will create the "Create & Submit" modal and handle it's closings
+  // aka it's comings and goings
+  // this function is a weird, stalkery partner
+  createModal();
 
-          // Get the target from the "data-target" attribute
-          var target = $el.dataset.target;
-          var $target = document.getElementById(target);
+  // when the date inputs change, update the calendar config and reconstruct it
+  calendarDateUpdate();
 
-          // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-          $el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
+  $('#calendar').fullCalendar(calendarConfig);
 
-        });
-      });
+  $('#modal-form').on("submit", createEvent);
+});
+
+function datePickerAnimate(){
+
+  $("#from-date").on('click', function(){
+      $("#from-datepicker").toggleClass('nav-datepicker fadeInLeft');
+  });
+
+   $("#to-date").on('click', function(){
+      $("#to-datepicker").toggleClass('nav-datepicker fadeInLeft');
+  });
+
+}
+
+function createModal(){
+  $('#create-send-button').click( function func(){
+    title = $('#event-title').val();
+    if(!title.trim()){
+      $('#no-title-modal').addClass('is-active');;
+      return -1;
     }
+    events = $('#calendar').fullCalendar('clientEvents');
+    var calendarView = $('#calendar').fullCalendar('getView');
+    var startView = calendarView.start;
+    var endView = calendarView.end;
 
-    document.getElementById("from-date").onclick = function func(){
-      document.getElementById("from-datepicker").classList.toggle('nav-datepicker');
-      document.getElementById("from-datepicker").classList.toggle('fadeInLeft');
-    }
+    $(".title").text(title);
 
-    document.getElementById("to-date").onclick = function func(){
-      document.getElementById("to-datepicker").classList.toggle('nav-datepicker');
-      document.getElementById("to-datepicker").classList.toggle('fadeInLeft');
-    }
+    $(".startDate").text(startView.format("MM/DD/YYYY"));
 
-    $('#create-send-button').click( function func(){
-      title = $('#event-title').val();
-      if(!title.trim()){
-        $('#no-title-modal').addClass('is-active');;
-        return -1;
-      }
-      events = $('#calendar').fullCalendar('clientEvents');
-      var calendarView = $('#calendar').fullCalendar('getView');
-      var startView = calendarView.start;
-      var endView = calendarView.end;
+    $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
 
-      $(".title").text(title);
+    $(".freeTimeStart").empty();
 
-      $(".startDate").text(startView.format("MM/DD/YYYY"));
+    events.forEach(function(event) {
 
-      $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
+      var start = event.start.format("MM/DD/YYYY HH:mm");
+      var end = event.end.format("MM/DD/YYYY HH:mm");
 
-      $(".freeTimeStart").empty();
-
-      events.forEach(function(event) {
-
-        var start = event.start.format("MM/DD/YYYY HH:mm");
-        var end = event.end.format("MM/DD/YYYY HH:mm");
-
-        var $el = $("<li>");
-        $el.text(start + " to " + end);
-        $(".freeTimeStart").append($el);
-      });
-
-      $('#create-send-modal').addClass('is-active');
+      var $el = $("<li>");
+      $el.text(start + " to " + end);
+      $(".freeTimeStart").append($el);
     });
 
-    $('#close-modal-no-title').click(function func(){
-      $('#no-title-modal').removeClass('is-active');
-    });
+    $('#create-send-modal').addClass('is-active');
+  });
 
-    $('#close-modal').click(function func(){
-      $('#create-send-modal').removeClass('is-active');
-    });
+  $('#close-modal').click(function func(){
+    $('#create-send-modal').removeClass('is-active');
+  });
 
-    $('#cancel-modal').click(function func(){
-      $('#create-send-modal').removeClass('is-active');
-    });
+  $('#cancel-modal').click(function func(){
+    $('#create-send-modal').removeClass('is-active');
+  });
+}
 
-    $('#from-datepicker').on('change', function func() {
+function calendarDateUpdate(){
+      $('#from-datepicker').on('change', function func() {
       var startDate = moment($('#from-datepicker').val());
       var endDate = moment($('#to-datepicker').val());
 
@@ -154,12 +149,7 @@ $(document ).ready(function() { // document ready
       $('#calendar').fullCalendar('render');
       console.log(endDate);
     });
-
-    var calendar = $('#calendar');
-    calendar.fullCalendar(calendarConfig);
-
-    $('#modal-form').on("submit", createEvent);
-  });
+}
 
 function createEvent(event){
 

@@ -1,24 +1,18 @@
 $(function() { // document ready
   var event = __GLOBALS__.event;
 
-  console.log(event);
-
   var masterEvents = [];
   var id = 0;
 
   event.timesSelected.forEach( function(time){
-    var ev = {
+    masterEvents.push({
       start: time.start,
       end: time.end,
       rendering: 'background',
       isMasterEvent: true
-    }
-    masterEvents.push(ev);
+    });
     id++;
   });
-
-    console.log(masterEvents);
-
 
   var calendarConfig = {
     header: {
@@ -62,10 +56,7 @@ $(function() { // document ready
   navBurgerify();
   modalVisibility();
 
-  var calendar = $('#calendar');
-
-
-  calendar.fullCalendar(calendarConfig);
+  $('#calendar').fullCalendar(calendarConfig);
 
   $('#respond-form').on("submit", createResponse);
 });
@@ -104,13 +95,10 @@ function createResponse(){
 
   respondName = $("#respond-name").val();
 
-  console.log('pre prune: ', responseEvents);
-
   responseEvents = responseEvents.filter( function(element){
     return !element.isMasterEvent;
   });
 
-  console.log(responseEvents);
 
   var data = {
     id: __GLOBALS__.event.id,
@@ -118,8 +106,6 @@ function createResponse(){
     email: respondEmail,
     name: respondName
   };
-
-  console.log("This is in the ajax: ", data);
 
   $.ajax({
     url:"/api/event/respond",
@@ -159,29 +145,4 @@ function modalVisibility(){
   $('#cancel-success-modal').click(function func(){
     $('#response-success-modal').removeClass('is-active');
   });
-}
-
-function navBurgerify(){
-  // to create the hamburger when viewport is some size
-  // Get all "navbar-burger" elements
-  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-
-    // Add a click event on each of them
-    $navbarBurgers.forEach(function ($el) {
-      $el.addEventListener('click', function () {
-
-        // Get the target from the "data-target" attribute
-        var target = $el.dataset.target;
-        var $target = document.getElementById(target);
-
-        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-        $el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
-
-      });
-    });
-  }
 }
