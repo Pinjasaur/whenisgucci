@@ -84,7 +84,6 @@ html {
   /* Toggle this class when clicking on the popup container (hide and show the popup) */
   .show {
       visibility: visible;
-      -webkit-animation: fadeIn 2s linear forwards;
       animation: fadeIn 2s linear forwards;
       opacity: 0;
   }

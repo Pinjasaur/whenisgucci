@@ -184,5 +184,9 @@ function navBurgerify(){
 }
 
 function copyMessageToolTip(){
-  $(this).find('.popup-text').toggleClass("show");
+  var $this = $(this);
+  $this.find('.popup-text').addClass("show");
+  setTimeout(function(){
+    $this.find('.popup-text').removeClass("show");
+  }, 2000);
 }
