@@ -65,35 +65,33 @@ function createResponse(){
   event.preventDefault();
 
   var responseEvents = [];
-  var events = $('#calendar').fullCalendar('clientEvents');
+  var clientEvents = $('#calendar').fullCalendar('clientEvents');
   var view = $('#calendar').fullCalendar('getView');
-  var respondEmail;
-  var respondName;
 
-  if (events.length === 0) {
+  if (clientEvents.length === 0) {
     alert("No Response Found");
     return false;
   }
 
-  for (i = 0; i < events.length; i++) {
-    if(events[i].start._d > view.start._d){
-      if(events[i].end._d <= view.end._d){
+  for (i = 0; i < clientEvents.length; i++) {
+    if(clientEvents[i].start._d > view.start._d){
+      if(clientEvents[i].end._d <= view.end._d){
         responseEvents.push(
           {
-            startDate: events[i].start.toISOString(),
-            endDate: events[i].end.toISOString(),
-            isMasterEvent: events[i].isMasterEvent
+            startDate: clientEvents[i].start.toISOString(),
+            endDate: clientEvents[i].end.toISOString(),
+            isMasterEvent: clientEvents[i].isMasterEvent
           });
       }// end if
     }// end if
   }// end for
 
-  respondEmail = $("#respond-email").val();
+  var respondEmail = $("#respond-email").val();
   if(!respondEmail.trim()){
     alert("Please Enter Your Email");
   }
 
-  respondName = $("#respond-name").val();
+  var respondName = $("#respond-name").val();
 
   responseEvents = responseEvents.filter( function(element){
     return !element.isMasterEvent;
