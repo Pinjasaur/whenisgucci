@@ -55,10 +55,10 @@
             <div class="content">
               <h1>Enter Your Email</h1>
               <p>We'll need your email to know who responded!</p>
-              <input class="input" id="respond-email" type="email" required="true" maxlength="50">
+              <input class="input" id="respond-email" type="email" required="true"  maxlength="50">
               <h1>Enter Your Name</h1>
               <p>We will also need your name so the organizer may know who you are as well!</p>
-              <input class="input" id="respond-name" type="text" maxlength="30">
+              <input class="input" id="respond-name" type="text" maxlength="{{ CONSTANTS.RESPONDER_NAME_MAX }}">
             </div>
           </section>
           <footer class="modal-card-foot">

@@ -16,6 +16,20 @@
   </head>
   <body>
     <section class="hero is-success is-fullheight">
+      <div class="hero-head">
+        <div class="container">
+          <article class="message is-danger" style="margin-top: 1rem">
+            <div class="message-body">
+              <p>
+                <strong>Note!</strong>
+                This app is released as a beta-level product.
+                Features may be added, removed, or altered without warning.
+                Stability cannot be guaranteed.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">
@@ -38,6 +52,11 @@
               <input class="input" id="inputCode" onkeydown="submitEventCode(this)" type="text">
             </div>
           </div>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <div class="container has-text-centered">
+          <small>v{{ VERSION }}</small>
         </div>
       </div>
     </section>

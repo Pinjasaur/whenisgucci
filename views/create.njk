@@ -48,22 +48,6 @@
                 To
               </a>
               <input type="date" class="animated nav-datepicker" id="to-datepicker">
-     <!--          <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                  View
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item">
-                    30 min
-                  </a>
-                  <a class="navbar-item">
-                    60 min
-                  </a>
-                  <a class="navbar-item">
-                    1 day
-                  </a>
-                </div>
-              </div> -->
             </div>
             <div class="navbar-end">
               <a class="navbar-item" id="create-send-button">
@@ -113,10 +97,10 @@
                 </div>
               <h1 style="margin-top:0px;">Enter Your Email</h1>
               <p>We'll need your email to create an event, make sure you can edit events, gather repsonses from your invitees, and validate event ownership</p>
-              <input class="input" id="creator-email" type="email" required="true"></input>
+              <input class="input" id="creator-email" type="email" required="true" maxlength="50">
               <h1>Enter Your Receiver's Email</h1>
               <p>These will be all the lovely people that you want to see what times work for! Keep in mind your guests will still have to respond before you can call your event good!</p>
-              <input class="input" id="invited-to-email" type="email" multiple="true"></input>
+              <input class="input" id="invited-to-email" type="email" multiple="true">
           </section>
           <footer class="modal-card-foot">
             <input type="submit" class="button is-success" value="Save changes">
@@ -214,15 +198,13 @@
             <div class="column">
               <label class="label">Enter:</label>
               <div class="control">
-                <input id="event-title" class="holo-input" type="text" placeholder="Event Name"></input>
+                <input id="event-title" class="holo-input" type="text" placeholder="Event Name" maxlength="{{ CONSTANTS.TITLE_MAX }}">
               </div>
-              <p class="help">This is the title of your event</p>
-              </div>
-              <div class="column"></div>
+              <p class="help">This is the title of your event (max {{ CONSTANTS.TITLE_MAX }} characters).</p>
             </div>
-        <div id="calendar"></div>
-        </section>
-        <div id="calendar"></div>
+            <div class="column"></div>
+          </div>
+          <div id="calendar"></div>
         </section>
       </div>
     </section>

@@ -34,11 +34,15 @@ db.on("open", () => console.log("MongoDB connected."));
 const app = express();
 
 // Configure Express to use Nunjucks for templating
-nunjucks.configure("views", {
+const env = nunjucks.configure("views", {
   autoescape: true,
   express: app,
   noCache: !isProduction
 });
+
+// Add globals for usage in templates
+env.addGlobal("CONSTANTS", require("./utils/constants"));
+env.addGlobal("VERSION",   require("./package.json").version);
 
 // Nunjucks uses .njk extensions
 app.set("view engine", "njk");
