@@ -64,6 +64,8 @@ $(function() { // document ready
   $('#calendar').fullCalendar(calendarConfig);
 
   $('#modal-form').on("submit", createEvent);
+
+  $('#newEvent').on('click', window.location.reload);
 });
 
 function datePickerAnimate(){
@@ -217,17 +219,4 @@ function createEvent(e){
     }
 
   })
-}
-
-$('#newEvent').click( function func(){
-  window.location = window.location.href;
-  window.location.reload(true);
-})
-
-function copyMessageToolTip(){
-  var $this = $(this);
-  $this.find('.popup-text').addClass("show");
-  setTimeout(function(){
-    $this.find('.popup-text').removeClass("show");
-  }, 2000);
 }
