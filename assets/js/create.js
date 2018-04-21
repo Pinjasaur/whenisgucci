@@ -160,7 +160,8 @@ function createEvent(_e){
   _e.preventDefault();
 
   var startView = moment($('#from-datepicker').val());
-  var endView = moment($('#to-datepicker').val());
+  var endView = moment($('#to-datepicker').val()).endOf('day');
+
   var validEvents = $('#calendar').fullCalendar('clientEvents', function(ev){
     return ev.start.isSameOrAfter(startView) && ev.end.isSameOrBefore(endView);
   });

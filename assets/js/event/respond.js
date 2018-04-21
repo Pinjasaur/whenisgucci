@@ -27,7 +27,7 @@ $(function() { // document ready
     eventLimit: true,
     visibleRange: {
      start: moment(event.startDate).format("YYYY-MM-DD"),
-     end: moment(event.endDate).format("YYYY-MM-DD")
+     end: moment(event.endDate).add(1, 'day').format("YYYY-MM-DD")
     },
     events: masterEvents,
     select: function (start, end, jsEvent, view) {
