@@ -182,3 +182,7 @@ function navBurgerify(){
     });
   }
 }
+
+function copyMessageToolTip(){
+  $(this).find('.popup-text').toggleClass("show");
+}
