@@ -35,6 +35,7 @@ router.get("/event/:id/results", asyncMiddleware(async (req, res, next) => {
 
   // Grab only the necessary properties
   event = {
+    id: hashids.encode(event.id),
     title: event.title,
     startDate: event.startDate,
     endDate: event.endDate,
