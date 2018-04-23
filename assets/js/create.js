@@ -125,7 +125,7 @@ function createModal(){
     var startView = calendarView.start;
     var endView = calendarView.end;
 
-    $(".title").text(title);
+    $(".js-event-title").text(title);
 
     $(".startDate").text(startView.format("MM/DD/YYYY"));
 
