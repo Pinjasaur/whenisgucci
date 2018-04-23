@@ -1,8 +1,10 @@
-$(function() { // document ready
+var events = [];
+var title="";
+var freeStart = "";
+
+$(document ).ready(function() { // document ready
   new ClipboardJS('.copy-btn'); // needed for ClipboardJS
   $('.copy-btn').on('click', copyMessageToolTip);
-
-  // initialize the datepicker values to the current day to a week view
   $('#from-datepicker').val(moment().format("YYYY-MM-DD"));
   $('#to-datepicker').val(moment().add(6, 'days').format("YYYY-MM-DD"));
 
@@ -36,7 +38,7 @@ $(function() { // document ready
       $('#calendar').fullCalendar("unselect");
     },
     selectOverlap: function(event) {
-      $('#calendar').fullCalendar('unselect');
+      calendar.fullCalendar('unselect');
       return ! event.block;
     },
     eventRender: function(event, element) {
@@ -47,126 +49,146 @@ $(function() { // document ready
     }
   };
 
-  // makes sure the nav will burger and unfold on the proper size view
-  navBurgerify();
+  // to create the hamburger when viewport is some size
+    // Get all "navbar-burger" elements
+    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-  // makes the date picker/inputs come out and look all shnazzy
-  datePickerAnimate();
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
 
-  // this will create the "Create & Submit" modal and handle it's closings
-  // aka it's comings and goings
-  // this function is a weird, stalkery partner
-  createModal();
+      // Add a click event on each of them
+      $navbarBurgers.forEach(function ($el) {
+        $el.addEventListener('click', function () {
 
-  // when the date inputs change, update the calendar config and reconstruct it
-  calendarDateUpdate(calendarConfig);
+          // Get the target from the "data-target" attribute
+          var target = $el.dataset.target;
+          var $target = document.getElementById(target);
 
-  $('#calendar').fullCalendar(calendarConfig);
+          // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+          $el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
 
-  $('#modal-form').on("submit", createEvent);
-
-  $('#newEvent').on('click', function(){window.location.reload()});
-});
-
-function datePickerAnimate(){
-
-  $("#from-date").on('click', function(){
-      $("#from-datepicker").toggleClass('nav-datepicker fadeInLeft');
-  });
-
-   $("#to-date").on('click', function(){
-      $("#to-datepicker").toggleClass('nav-datepicker fadeInLeft');
-  });
-
-}
-
-function calendarDateUpdate(calendarConfig){
-  $('#from-datepicker').on('change', function func() {
-    var startDate = moment($('#from-datepicker').val());
-    var endDate = moment($('#to-datepicker').val());
-
-    $('#calendar').fullCalendar('destroy');
-    calendarConfig.visibleRange ={
-      start: startDate,
-      end: endDate.add(1, 'day')
-    };
-
-    $('#calendar').fullCalendar(calendarConfig);
-    $('#calendar').fullCalendar('render');
-  });
-
-  $('#to-datepicker').on('change', function func() {
-    var startDate = moment($('#from-datepicker').val());
-    var endDate = moment($('#to-datepicker').val());
-
-    $('#calendar').fullCalendar('destroy');
-    calendarConfig.visibleRange ={
-      start: startDate,
-      end: endDate.add(1, 'day')
-    };
-
-    $('#calendar').fullCalendar(calendarConfig);
-    $('#calendar').fullCalendar('render');
-    console.log(endDate);
-  });
-}
-
-function createModal(){
-  $('#create-send-button').click( function func(){
-    title = $('#event-title').val();
-
-    if(!title.trim()){
-      alert("Please enter an event title!");
-      return false;
+        });
+      });
     }
 
-    var clientEvents = $('#calendar').fullCalendar('clientEvents');
-    var calendarView = $('#calendar').fullCalendar('getView');
-    var startView = calendarView.start;
-    var endView = calendarView.end;
+    document.getElementById("from-date").onclick = function func(){
+      document.getElementById("from-datepicker").classList.toggle('nav-datepicker');
+      document.getElementById("from-datepicker").classList.toggle('fadeInLeft');
+    }
 
-    $(".title").text(title);
+    document.getElementById("to-date").onclick = function func(){
+      document.getElementById("to-datepicker").classList.toggle('nav-datepicker');
+      document.getElementById("to-datepicker").classList.toggle('fadeInLeft');
+    }
 
-    $(".startDate").text(startView.format("MM/DD/YYYY"));
+    $('#create-send-button').click( function func(){
+      title = $('#event-title').val();
+      if(!title.trim()){
+        $('#no-title-modal').addClass('is-active');;
+        return -1;
+      }
+      events = $('#calendar').fullCalendar('clientEvents');
+      var calendarView = $('#calendar').fullCalendar('getView');
+      var startView = calendarView.start;
+      var endView = calendarView.end;
+      freeStart = "";
 
-    $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
+      $("#event-title-modal").text(title);
 
-    $(".freeTimeStart").empty();
+      $(".startDate").text(startView.format("MM/DD/YYYY"));
 
-    clientEvents.forEach(function(event) {
+      $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
 
-      var start = event.start.format("MM/DD/YYYY HH:mm");
-      var end = event.end.format("MM/DD/YYYY HH:mm");
+      for(i = (events.length - 1); i >= 0; i--){
+        date1 = events[i].start._d;
+        console.log(date1);
+        mon = ("0"+(date1.getMonth()+1)).slice(-2);
+        day = ("0" + date1.getDate()).slice(-2);
+        year = date1.getFullYear();
+        hours = ("0" + (date1.getHours() + 4)).slice(-2);
+        min = ("0" + date1.getMinutes()).slice(-2);
+        date2 = events[i].end._d;
+        console.log(date2);
+        mon2 = ("0"+(date2.getMonth()+1)).slice(-2);
+        day2 = ("0" + date2.getDate()).slice(-2);
+        year2 = date2.getFullYear();
+        hours2 = ("0" + (date2.getHours() + 4)).slice(-2);
+        min2 = ("0" + date2.getMinutes()).slice(-2);
 
-      var $el = $("<li>");
-      $el.text(start + " to " + end);
-      $(".freeTimeStart").append($el);
+        freeStart =  "<li>" + mon +"/"+ day +"/"+ year + " "
+                     + hours + ":" + min + " to "
+                     + mon2 +"/"+ day2 +"/"+ year2 + " "
+                     + hours2 + ":" + min2 + "</li>" + freeStart ;
+
+      }
+      $(".freeTimeStart").html(freeStart);
+
+
+      $('#create-send-modal').addClass('is-active');
     });
 
-    $('#create-send-modal').addClass('is-active');
+    $('#close-modal-no-title').click(function func(){
+      $('#no-title-modal').removeClass('is-active');
+    });
+
+    $('#close-modal').click(function func(){
+      $('#create-send-modal').removeClass('is-active');
+    });
+
+    $('#cancel-modal').click(function func(){
+      $('#create-send-modal').removeClass('is-active');
+    });
+
+    $('#from-datepicker').on('change', function func() {
+      var startDate = moment($('#from-datepicker').val());
+      var endDate = moment($('#to-datepicker').val());
+
+      $('#calendar').fullCalendar('destroy');
+      calendarConfig.visibleRange ={
+        start: startDate,
+        end: endDate.add(1, 'day')
+      };
+
+      calendar.fullCalendar(calendarConfig);
+      $('#calendar').fullCalendar('render');
+      });
+
+    $('#to-datepicker').on('change', function func() {
+      var startDate = moment($('#from-datepicker').val());
+      var endDate = moment($('#to-datepicker').val());
+
+      $('#calendar').fullCalendar('destroy');
+      calendarConfig.visibleRange ={
+        start: startDate,
+        end: endDate.add(1, 'day')
+      };
+
+      calendar.fullCalendar(calendarConfig);
+      $('#calendar').fullCalendar('render');
+      console.log(endDate);
+    });
+
+    var calendar = $('#calendar');
+    calendar.fullCalendar(calendarConfig);
+
+    $('#modal-form').on("submit", createEvent);
   });
 
-  $('#close-modal').click(function func(){
-    $('#create-send-modal').removeClass('is-active');
-  });
+function createEvent(event){
 
-  $('#cancel-modal').click(function func(){
-    $('#create-send-modal').removeClass('is-active');
-  });
-}
-
-function createEvent(_e){
-
-  _e.preventDefault();
+  event.preventDefault();
 
   var startView = moment($('#from-datepicker').val());
-  var endView = moment($('#to-datepicker').val()).endOf('day');
-
-  var validEvents = $('#calendar').fullCalendar('clientEvents', function(ev){
-    return ev.start.isSameOrAfter(startView) && ev.end.isSameOrBefore(endView);
+  var endView = moment($('#to-datepicker').val());
+  var validEvents = $('#calendar').fullCalendar('clientEvents', function(event){
+    return event.start.isSameOrAfter(startView) && event.end.isSameOrBefore(endView);
   });
+  var title;
+  var repEmails = [];
+  var creatorEmail;
 
-  if (validEvents.length === 0) {
+  if (events.length === 0) {
     alert("No Events Found");
     return false;
   }
@@ -179,11 +201,17 @@ function createEvent(_e){
       };
   });
 
-  var title = $('#event-title').val();
+  title = $('#event-title').val();
+  if(!title.trim()){
+    alert("Please Enter a Title");
+  }
 
-  var repEmails = $("#invited-to-email").val().split(',');
+  creatorEmail = $("#creator-email").val();
+  if(!creatorEmail.trim()){
+    alert("Please Enter Your Email");
+  }
 
-  var creatorEmail = $("#creator-email").val();
+  repEmails = $("#invited-to-email").val().split(',');
 
   var data = {
     startDate: startView.toISOString(),
@@ -193,6 +221,8 @@ function createEvent(_e){
     createdBy: creatorEmail,
     invitedTo: repEmails
   };
+
+  console.log(data);
 
   $.ajax({
     url:"/api/event/create",
@@ -217,7 +247,19 @@ function createEvent(_e){
     error: function(err){
       console.log(err.message);
     }
-  });
 
-  return false;
+  })
+}
+
+$('#newEvent').click( function func(){
+  window.location = window.location.href;
+  window.location.reload(true);
+})
+
+function copyMessageToolTip(){
+  var $this = $(this);
+  $this.find('.popup-text').addClass("show");
+  setTimeout(function(){
+    $this.find('.popup-text').removeClass("show");
+  }, 2000);
 }
