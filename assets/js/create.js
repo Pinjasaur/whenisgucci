@@ -107,7 +107,6 @@ function calendarDateUpdate(calendarConfig){
 
     $('#calendar').fullCalendar(calendarConfig);
     $('#calendar').fullCalendar('render');
-    console.log(endDate);
   });
 }
 
@@ -132,7 +131,7 @@ function createModal(){
     $(".endDate").text(endView.subtract(1, 'day').format("MM/DD/YYYY"));
 
     $(".freeTimeStart").empty();
-    console.log(clientEvents);
+
     clientEvents.forEach(function(event) {
 
       var start = event.start.format("MM/DD/YYYY HH:mm");
@@ -210,6 +209,11 @@ function createEvent(_e){
 }
 
 function getInfo(res){
+
+  if (res.result.creator.authenticated) {
+    $('#auth-user').hide();
+  }
+
   //Emails
   var toEmails = "";
   var invitedToLength = (res.result.event.invitedTo).length;
