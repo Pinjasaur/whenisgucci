@@ -121,6 +121,19 @@
           </header>
           <section class="modal-card-body">
             <div class="content">
+              <article class="message is-danger" id="auth-user">
+                <div class="message-header">
+                  <p>Your Event Is Created but NOT Live</p>
+                </div>
+                <div class="message-body">
+                  Until you are an authenticated user:
+                  <ul>
+                    <li> Users will not be able to respond </li>
+                    <li> You will not be able to view results</li>
+                  </ul>
+                  <strong>To authenticate</strong> check you email and click on the validation link!
+                </div>
+              </article>
               <div class="columns">
                 <div class="column is-narrow columnSave" style="padding-right:0px;">
                   <h4 style="margin-bottom:0px">View Event Results: </h4>
@@ -146,7 +159,7 @@
                 </div>
                 <div class="column">
                   <h4>Your Email: </h4>
-                  <p id="creator"></p>
+                  <p id="creator-success"></p>
                 </div>
               </div>
               <div class="columns">
@@ -156,7 +169,7 @@
               </div>
               <div class="columns">
                 <div class="column">
-                  <textarea class="textarea sentTo" type="text" readonly></textarea>
+                  <textarea class="textarea sentTo-success" type="text" readonly></textarea>
                 </div>
               </div>
               <h1 style="margin-top:0px;">Event Created Summary</h1>
@@ -165,7 +178,7 @@
                     <h4>Event Title:</h4>
                   </div>
                   <div class="column is-narrow" >
-                    <h5 class="js-event-title title"></h5>
+                    <h5 class="js-event-title-success title"></h5>
                   </div>
                   <div class="column"></div>
                 </div>
@@ -173,11 +186,11 @@
                   <div class="column is-narrow">
                     <h4>View Start Date:</h4>
                   </div>
-                  <div class="column is-narrow startDate"></div>
+                  <div class="column is-narrow startDate-success"></div>
                   <div class="column is-narrow">
                     <h4>View End Date:</h4>
                   </div>
-                  <div class="column is-narrow endDate"></div>
+                  <div class="column is-narrow endDate-success"></div>
                 </div>
                 <div class="columns">
                   <div class="column is-narrow" style="height:40px;">
@@ -185,7 +198,7 @@
                   </div>
                 </div>
                 <div class="columns">
-                  <div class="column is-narrow"><ol class="freeTimeStart"></ol></div>
+                  <div class="column is-narrow"><ol class="timesSelected"></ol></div>
                 </div>
             </div>
           </section>

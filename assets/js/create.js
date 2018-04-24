@@ -107,7 +107,6 @@ function calendarDateUpdate(calendarConfig){
 
     $('#calendar').fullCalendar(calendarConfig);
     $('#calendar').fullCalendar('render');
-    console.log(endDate);
   });
 }
 
@@ -200,24 +199,66 @@ function createEvent(_e){
     contentType: "application/json",
     data: JSON.stringify(data),
     success: function(res){
-      console.log(res);
-      var toEmails = $("#invited-to-email").val()
-      var sendLink = "gucci4.me/" + res.result.event.id;
-      var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/results";
-      document.getElementById("eventLink").setAttribute("href","https://www." + eventLink);
-      document.getElementById("sendLink").setAttribute("href","https://www." + sendLink);
-      $("#eventCode").html(res.result.event.id);
-      $("#creator").html(creatorEmail);
-      $(".sentTo").html(toEmails);
-      $("#sendLink").html(sendLink);
-      $("#eventLink").html(eventLink);
-      $('#create-send-modal').removeClass('is-active');
-      $('#save-success-modal').addClass('is-active');
+      getInfo(res);
     },
     error: function(err){
       console.log(err.message);
     }
   });
-
   return false;
+}
+
+function getInfo(res){
+
+  if (res.result.creator.authenticated) {
+    $('#auth-user').hide();
+  }
+
+  //Emails
+  var toEmails = "";
+  var invitedToLength = (res.result.event.invitedTo).length;
+
+  for (i = 0; i < invitedToLength - 1; i++) {
+    toEmails = toEmails + res.result.event.invitedTo[i] + ", ";
+  }
+  toEmails = toEmails + res.result.event.invitedTo[invitedToLength-1];
+
+  var creatorEmail = res.result.creator.email;
+
+  //Links
+  var sendLink = "gucci4.me/" + res.result.event.id;
+  var eventLink = "whenisgucci.com/" +"event/" + res.result.event.id + "/results";
+  document.getElementById("eventLink").setAttribute("href","https://www." + eventLink);
+  document.getElementById("sendLink").setAttribute("href","https://www." + sendLink);
+  var code = res.result.event.id;
+  //Dates
+  res.result.event.timesSelected.forEach(function(timesSelected) {
+    var start = moment(timesSelected.start).format("MM/DD/YYYY HH:mm");
+    var end = moment(timesSelected.end).format("MM/DD/YYYY HH:mm");
+
+    var $el = $("<li>");
+    $el.text(start + " to " + end);
+    $(".timesSelected").append($el);
+  });
+  var endDate = moment(res.result.event.endDate).format("MM/DD/YYYY");
+  var startDate = moment(res.result.event.startDate).format("MM/DD/YYYY");
+
+  //Title
+  var eTitle = res.result.event.title;
+
+  //Insert into elements
+  $("#eventCode").html(code);
+  $(".js-event-title-success").html(eTitle);
+  $(".startDate-success").html(startDate);
+  $(".endDate-success").html(endDate);
+  $("#creator-success").html(creatorEmail);
+  $(".sentTo-success").html(toEmails);
+  $("#sendLink").html(sendLink);
+  $("#eventLink").html(eventLink);
+
+  //Close create send modal, open save success modal
+  $('#create-send-modal').removeClass('is-active');
+  $('#save-success-modal').addClass('is-active');
+
+  return true;
 }
