@@ -73,13 +73,21 @@ gulp.task("build:img", () => {
   .pipe(gulp.dest("public/img"));
 });
 
+// Copy humans.txt
+gulp.task("build:humans.txt", function() {
+  return gulp
+  .src("assets/humans.txt")
+  .pipe(plugins.updateHumanstxtDate())
+  .pipe(gulp.dest("public"));
+});
+
 // Wrapper task to watch images, build, and reload
 gulp.task("watch:img", ["build:img"], () => {
   server.reload();
 });
 
 // Build
-gulp.task("build", ["build:sass", "build:js", "build:img"]);
+gulp.task("build", ["build:sass", "build:js", "build:img", "build:humans.txt"]);
 
 // Spin up server
 gulp.task("server", ["nodemon", "build"], done => {
