@@ -58,7 +58,9 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
   creator.authenticated = true;
   await creator.save();
 
-  creator.events.forEach(async (eventID) => {
+  // NOTE! Cannot use forEach w/ async/await (to get expected results)
+  // See: https://stackoverflow.com/questions/37576685/using-async-await-with-a-foreach-loop
+  for (let eventID of creator.events) {
 
     const event = await Event.findOne({ _id: eventID }).exec();
 
@@ -76,7 +78,7 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
     // Send invite emails to any invitees
     if (event.invitedTo.length > 0)
       sendInvites(event);
-  });
+  }
 
   return res
     .redirect(`/event/${hashids.encode(creator.events[0])}/results?utm_source=emailauth&auth=1`);
