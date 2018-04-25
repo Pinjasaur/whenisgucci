@@ -1,0 +1,27 @@
+# humanstxt.org
+# The humans responsible & technology colophon
+
+# Team
+
+    Sr. Full-Stack Code Monkey : Pail Esch-Laurent
+    Code Monkey : Kwakr Arneson
+    Jr. Code Monkey : Emery Leopold
+    Resident Senior: Gurr Lord
+
+# Thanks
+
+    Stack Overflow
+    Taco Bell
+    Caffeine
+    Team Software Project
+
+# Site
+
+    Last update: 0000/00/00
+    Standards : HTML5, CSS3
+    Components :
+      - Front-end : SCSS (with Bulma), Nunjucks, FullCalendar, jQuery & Friends
+      - Back-end : Node.js, Express, MongoDB (using Mongoose)
+      - Server : NGINX, Let's Encrypt, PM2
+    Tools : Yarn, Gulp
+    Software : Atom, Sublime Text, VS Code

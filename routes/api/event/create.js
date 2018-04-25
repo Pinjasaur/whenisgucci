@@ -70,7 +70,21 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
   // Respond with the event hashed ID
   resp.result = {
     event: {
-      id: hashids.encode(event.id)
+      id: hashids.encode(event.id),
+      title: event.title,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      invitedTo: event.invitedTo,
+      timesSelected: event.timesSelected.map(t => {
+        return {
+          start: t.startDate,
+          end: t.endDate
+        }
+      })
+    },
+    creator: {
+      email: creator.email,
+      authenticated: creator.authenticated
     }
   };
 

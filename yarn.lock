@@ -2521,7 +2521,15 @@ gulp-uglify@^3.0.0:
     uglify-js "^3.0.5"
     vinyl-sourcemaps-apply "^0.2.0"
 
-gulp-util@^3.0, gulp-util@^3.0.0, gulp-util@^3.0.1, gulp-util@^3.0.8:
+gulp-update-humanstxt-date@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/gulp-update-humanstxt-date/-/gulp-update-humanstxt-date-1.0.2.tgz#2081226f27b2609336413dd06c9cff89214a41a9"
+  dependencies:
+    gulp-util "^3.0.7"
+    moment "^2.17.1"
+    through2 "^2.0.1"
+
+gulp-util@^3.0, gulp-util@^3.0.0, gulp-util@^3.0.1, gulp-util@^3.0.7, gulp-util@^3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
   dependencies:
@@ -3956,6 +3964,10 @@ mocha@^5.1.1:
     minimatch "3.0.4"
     mkdirp "0.5.1"
     supports-color "4.4.0"
+
+moment@^2.17.1:
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
 mongodb-core@3.0.3:
   version "3.0.3"
