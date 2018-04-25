@@ -1,8 +1,10 @@
-# whenisgucci
+<h1 align="center">
+  <img width="320" src=".github/logo.png" alt="WhenIsGucci">
+</h1>
 
 [![Travis](https://img.shields.io/travis/Pinjasaur/whenisgucci.svg)](https://travis-ci.org/Pinjasaur/whenisgucci)
 
-Like whenisgood, but gucci.
+Like [WhenIsGood][whenisgood], but _gucci_.
 
 For CS3141 (Team Software Project) Spring 2018.
 
@@ -52,3 +54,4 @@ There are several `gulp` tasks that can be useful when developing:
 [nodejs]: https://nodejs.org/en/
 [editorconfig]: http://editorconfig.org/#download
 [yarn]: https://yarnpkg.com/en/docs/install
+[whenisgood]: http://whenisgood.net/
