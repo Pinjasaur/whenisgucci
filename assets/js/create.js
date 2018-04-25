@@ -217,12 +217,7 @@ function getInfo(res){
   //Emails
   var toEmails = "";
   var invitedToLength = (res.result.event.invitedTo).length;
-
-  for (i = 0; i < invitedToLength - 1; i++) {
-    toEmails = toEmails + res.result.event.invitedTo[i] + ", ";
-  }
-  toEmails = toEmails + res.result.event.invitedTo[invitedToLength-1];
-
+  toEmails = res.result.event.invitedTo.join(", ");
   var creatorEmail = res.result.creator.email;
 
   //Links
