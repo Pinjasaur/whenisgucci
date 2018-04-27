@@ -1,14 +1,12 @@
 {
   "name": "whenisgucci",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "WhenIsGucci primary app.",
-  "main": "app.js",
-  "repository": "https://github.com/Pinjasaur/whenisgucci.git",
+  "repository": "Pinjasaur/whenisgucci",
   "author": "CS3141 Bytes Please Team",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node app.js",
     "test": "mocha"
   },
   "dependencies": {
