@@ -81,13 +81,20 @@ gulp.task("build:humans.txt", function() {
   .pipe(gulp.dest("public"));
 });
 
+// Copy humans.txt
+gulp.task("build:favicons", function () {
+  return gulp
+  .src("assets/favicons/**")
+  .pipe(gulp.dest("public"));
+});
+
 // Wrapper task to watch images, build, and reload
 gulp.task("watch:img", ["build:img"], () => {
   server.reload();
 });
 
 // Build
-gulp.task("build", ["build:sass", "build:js", "build:img", "build:humans.txt"]);
+gulp.task("build", ["build:sass", "build:js", "build:img", "build:humans.txt", "build:favicons"]);
 
 // Spin up server
 gulp.task("server", ["nodemon", "build"], done => {
