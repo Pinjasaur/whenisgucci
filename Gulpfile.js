@@ -36,7 +36,7 @@ const gulp    = require("gulp"),
         sass: {
           outputStyle: (production) ? "compressed" : "expanded"
         }
-};
+      };
 
 // Build the Sass
 gulp.task("build:sass", () => {
@@ -81,7 +81,7 @@ gulp.task("build:humans.txt", function() {
   .pipe(gulp.dest("public"));
 });
 
-// Copy humans.txt
+// Copy favicons
 gulp.task("build:favicons", function () {
   return gulp
   .src("assets/favicons/**")
