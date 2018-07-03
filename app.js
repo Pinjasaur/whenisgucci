@@ -80,6 +80,9 @@ app.use((req, res, next) => {
 
 // Handles Errors
 app.use((err, req, res, next) => {
+
+  console.error(err);
+
   res
     .status(err.status || 500)
     .send({

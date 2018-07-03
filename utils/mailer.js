@@ -17,7 +17,7 @@ const creatorHashids = new Hashids(
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
-function sendVerification(creator) {
+function sendVerification(creator, event) {
 
   sendgrid.send({
     to: creator.email,
@@ -29,7 +29,8 @@ function sendVerification(creator) {
       ),
       {
         authToken: creator.token,
-        authHash: creatorHashids.encode(creator.id)
+        authHash: creatorHashids.encode(creator.id),
+        eventID: eventHashids.encode(event.id)
       }
     )
   });

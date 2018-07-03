@@ -80,8 +80,11 @@ router.get("/auth/:id", asyncMiddleware(async (req, res, next) => {
       sendInvites(event);
   }
 
+  // Redirect to passed-in event or first event created if not present
+  const event = req.query.event || hashids.encode(creator.events[0]);
+
   return res
-    .redirect(`/event/${hashids.encode(creator.events[0])}/results?utm_source=emailauth&auth=1`);
+    .redirect(`/event/${event}/results?utm_source=emailauth&auth=1`);
 }));
 
 module.exports = router;
