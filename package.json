@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "mocha"
+    "test": "mocha tests --recursive"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
