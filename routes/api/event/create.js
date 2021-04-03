@@ -96,7 +96,7 @@ router.post("/api/event/create", asyncMiddleware(async (req, res, next) => {
   if (!creator.authenticated) {
 
     // Send verification email if required
-    sendVerification(creator);
+    sendVerification(creator, event);
 
   // If they have, send transactional emails confirming event
   } else {
