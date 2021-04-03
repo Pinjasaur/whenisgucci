@@ -25,7 +25,10 @@ if (isProduction) {
 }
 
 // Setup MongoDB connection
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+// mLab (RIP)
+// mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+// Atlas
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on("error", () => console.error("MongoDB connection error:"));
